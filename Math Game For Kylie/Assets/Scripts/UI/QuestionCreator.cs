@@ -28,20 +28,22 @@ public class QuestionCreator : MonoBehaviour
     public GameManager gameManager;
     private bool newQuestion;
     private string path;
-    private Dictionary<int, Flashcard> setSaved = new Dictionary<int, Flashcard>();
+    private bool studiedAllBool = false;
+    public GameObject studiedAll;
+    public GameObject correctAnswerText;
     private void Awake()
     {
+        studiedAll.SetActive(false);
         path = Application.persistentDataPath + "/currentSave.hecc";
         if (File.Exists(path))
         {
             questionGameobject.SetActive(true);
             newQuestion = true;
             NoSetEnabled.SetActive(false);
-            NoSetEnabled.SetActive(false);
             StreamReader reader = new StreamReader(path);
             loadableString = reader.ReadLine();
             reader.Close();
-            set = new FlashcardSet();
+            setInfo = loadableString.Split(char.Parse("{"));
             Decoder();
         }
         else
@@ -52,26 +54,35 @@ public class QuestionCreator : MonoBehaviour
     }
     public void NewQuestion()
     {
+        correctAnswerText.SetActive(false);
+        if (studiedAllBool)
+        {
+            studiedAll.SetActive(true);
+            studiedAllBool = false;
+        }
+        else
+        {
+            studiedAll.SetActive(false);
+        }
         if (!newQuestion)
         {
             return;
         }
-        if (setSaved.Count <= 0)
-        {
-            Debug.Log("empy");
-            setSaved = set.flashcards;
-        }
-        Debug.Log(set.flashcards.Count);
         answerInput.text = "";
         checkAnswerButton.SetActive(true);
         correctAnswerGameobject.SetActive(false);
         wrongAnswerGameobject.SetActive(false);
-        List<int> keys = setSaved.Keys.ToList();
-        int key = keys[Random.Range(0, setSaved.Count)];
-        flashcard = setSaved[key];
-        setSaved.Remove(key);
+        List<int> keys = set.flashcards.Keys.ToList();
+        int key = keys[Random.Range(0, set.flashcards.Count)];
+        flashcard = set.flashcards[key];
+        set.flashcards.Remove(key);
         questionText.text = flashcard.question;
         moneyEarnedText.text = "Worth: $" + flashcard.moneyGiven.ToString();
+        if (set.flashcards.Count <= 0)
+        {
+            studiedAllBool = true;
+            Decoder();
+        }
     }
     public void CheckAnswer()
     {
@@ -87,9 +98,16 @@ public class QuestionCreator : MonoBehaviour
             gameManager.UpdateMoney(-flashcard.moneyGiven, true);
         }
     }
+    public void CheckRightAnswer()
+    {
+        correctAnswerText.SetActive(true);
+        answerText.text = flashcard.answer;
+    }
     private void Decoder()
     {
-        setInfo = loadableString.Split(char.Parse("{"));
+        setDecodeIndex = 0;
+        currentCardNumber = 0;
+        set = new FlashcardSet();
         foreach (string currentInfo in setInfo)
         {
             if (setDecodeIndex == 0)
@@ -128,6 +146,7 @@ public class QuestionCreator : MonoBehaviour
                 if (currentCardNumber == set.amOfCards)
                 {
                     setDecodeIndex = 0;
+                    currentCardNumber = 0;
                     break;
                 }
                 else
