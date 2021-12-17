@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b98d25477d9da4e8f43817f335aebb, type: 3}
+  m_Name: Dart
+  m_EditorClassIdentifier: 
+  towerImage: {fileID: 21300000, guid: 97bdd1b1789e8e04e83b8464784d2b76, type: 3}
+  baseTowerSellPrice: 2
+  path100Images:
+  - {fileID: 0}
+  - {fileID: 21300000, guid: 602a2106c7f662649ae961054456c853, type: 3}
+  - {fileID: 21300000, guid: 8bedf9aa10499114a94163283d8c8c70, type: 3}
+  - {fileID: 21300000, guid: e969ee71696d72b4f94165e7e36ad968, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  path100Models: []
+  path100Cost: 000000000000000020030000840300001027000000000000
+  path100SellPrices: 00000000c8000000e8030000000000000000000000000000
+  path100Name:
+  - 
+  - Bruh it works
+  - OMG IT WORKS TOO
+  - bruh all of it works lets gooo
+  - 
+  - 
+  path010Images: []
+  path010Models: []
+  path010Cost: 
+  path010SellPrices: 
+  path010Name: []
+  path001Images: []
+  path001Models: []
+  path001Cost: 
+  path001SellPrices: 
+  path001Name: []
