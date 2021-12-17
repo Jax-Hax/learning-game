@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using TMPro;
-using System;
 using System.Linq;
 
 public class QuestionCreator : MonoBehaviour
@@ -29,12 +28,9 @@ public class QuestionCreator : MonoBehaviour
     public GameManager gameManager;
     private bool newQuestion;
     private string path;
-    private List<int> keys;
-    private bool isAtEndOfShuffle;
-    private Dictionary<int, Flashcard> setSaved;
+    private Dictionary<int, Flashcard> setSaved = new Dictionary<int, Flashcard>();
     private void Awake()
     {
-        isAtEndOfShuffle = true;
         path = Application.persistentDataPath + "/currentSave.hecc";
         if (File.Exists(path))
         {
@@ -54,46 +50,28 @@ public class QuestionCreator : MonoBehaviour
             NoSetEnabled.SetActive(true);
         }
     }
-    public IEnumerable<TKey> RandomValues<TKey, TValue>(IDictionary<TKey, TValue> dict)
-    {
-        System.Random rand = new System.Random();
-        List<TKey> keys = Enumerable.ToList(dict.Keys);
-        int size = dict.Count;
-        while (true)
-        {
-            yield return keys[rand.Next(size)];
-        }
-    }
     public void NewQuestion()
     {
-        if (newQuestion)
+        if (!newQuestion)
         {
-            if (isAtEndOfShuffle)
-            {
-                setSaved = set.flashcards;
-                isAtEndOfShuffle = false;
-            }
-            answerInput.text = "";
-            checkAnswerButton.SetActive(true);
-            correctAnswerGameobject.SetActive(false);
-            wrongAnswerGameobject.SetActive(false);
-            foreach (int key in RandomValues(set.flashcards).Take(1))
-            {
-                flashcard = set.flashcards[key];
-                set.flashcards.Remove(key);
-            }
-            if(set.flashcards.Count <= 0)
-            {
-                Debug.Log("done");
-                set.flashcards = setSaved;
-                foreach (KeyValuePair<int, Flashcard> bruh in set.flashcards)
-                {
-                    Debug.Log(bruh.Value.question);
-                }
-            }
-            questionText.text = flashcard.question;
-            moneyEarnedText.text = "Worth: $" + flashcard.moneyGiven.ToString();
+            return;
         }
+        if (setSaved.Count <= 0)
+        {
+            Debug.Log("empy");
+            setSaved = set.flashcards;
+        }
+        Debug.Log(set.flashcards.Count);
+        answerInput.text = "";
+        checkAnswerButton.SetActive(true);
+        correctAnswerGameobject.SetActive(false);
+        wrongAnswerGameobject.SetActive(false);
+        List<int> keys = setSaved.Keys.ToList();
+        int key = keys[Random.Range(0, setSaved.Count)];
+        flashcard = setSaved[key];
+        setSaved.Remove(key);
+        questionText.text = flashcard.question;
+        moneyEarnedText.text = "Worth: $" + flashcard.moneyGiven.ToString();
     }
     public void CheckAnswer()
     {
