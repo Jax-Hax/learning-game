@@ -273,6 +273,7 @@ public class CreateFlashcards : MonoBehaviour
         flashcardSet = new FlashcardSet();
         subject.text = topic;
         flashcardSet.subject = topic;
+        title.text = "";
         currentNumber = 1;
         CreateNewCard();
     }
