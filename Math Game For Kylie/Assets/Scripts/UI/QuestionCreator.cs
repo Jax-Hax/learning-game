@@ -31,6 +31,7 @@ public class QuestionCreator : MonoBehaviour
     private string path;
     private bool studiedAllBool = false;
     public GameObject studiedAll;
+    private string flashcardAnswer;
     private void Awake()
     {
         studiedAll.SetActive(false);
@@ -75,6 +76,7 @@ public class QuestionCreator : MonoBehaviour
         flashcard = set.flashcards[key];
         set.flashcards.Remove(key);
         questionText.text = flashcard.question;
+        flashcardAnswer = flashcard.answer;
         moneyEarnedText.text = "Worth: $" + flashcard.moneyGiven.ToString();
         if (set.flashcards.Count <= 0)
         {
@@ -85,10 +87,10 @@ public class QuestionCreator : MonoBehaviour
     public void CheckAnswer()
     {
         checkAnswerButton.SetActive(false);
-        if (answerInput.text == flashcard.answer)
+        if (answerInput.text == flashcardAnswer)
         {
             answerGameobject.SetActive(true);
-            answerText.text = flashcard.answer;
+            answerText.text = flashcardAnswer;
             gameManager.UpdateMoney(flashcard.moneyGiven, false);
             isAnswerRightText.text = "Correct!";
             isAnswerRightText.color = new Color(0.1223f, 1f, 0f);
@@ -98,9 +100,8 @@ public class QuestionCreator : MonoBehaviour
         }
         else
         {
-            Debug.Log(flashcard.answer);
             answerGameobject.SetActive(true);
-            answerText.text = flashcard.answer;
+            answerText.text = flashcardAnswer;
             gameManager.UpdateMoney(-flashcard.moneyGiven, true);
             isAnswerRightText.text = "Incorrect!";
             isAnswerRightText.color = new Color(1f, 0.179f, 0f);
