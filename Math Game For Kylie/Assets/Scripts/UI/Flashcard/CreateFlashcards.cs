@@ -195,6 +195,7 @@ public class CreateFlashcards : MonoBehaviour
                     lobbyCard.title = lobbyTitle;
                     lobbyCard.amOfCards = currentInfo;
                     lobbyCard.loadableString = loadableString;
+                    lobbyCard.pathToDelete = Application.persistentDataPath + "/setSave" + lobbyTitle + ".scree";
                     lobbyCard.UpdateCard();
                     setInfoIndex = 0;
                     break;

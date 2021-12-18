@@ -16,6 +16,7 @@ public class LobbyCard : MonoBehaviour
     public GameObject isItEnabled;
     public GameObject notenabled;
     private string path;
+    public string pathToDelete;
     private void Start()
     {
         path = Application.persistentDataPath + "/currentSave.hecc";
@@ -66,5 +67,12 @@ public class LobbyCard : MonoBehaviour
     {
         createFlashcards.EnableACard();
         File.Delete(path);
+    }
+    public void DeleteSet()
+    {
+        createFlashcards.enabledCards.Remove(isItEnabled);
+        createFlashcards.disabledCards.Remove(notenabled);
+        File.Delete(pathToDelete);
+        Destroy(gameObject);
     }
 }
