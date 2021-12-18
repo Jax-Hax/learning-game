@@ -18,19 +18,19 @@ public class QuestionCreator : MonoBehaviour
     private Flashcard flashcard;
     private int currentCardNumber = 1;
     public GameObject questionGameobject;
-    public GameObject correctAnswerGameobject;
-    public GameObject wrongAnswerGameobject;
+    public GameObject answerGameobject;
     public GameObject checkAnswerButton;
     public TextMeshProUGUI questionText;
     public TextMeshProUGUI answerText;
     public TextMeshProUGUI moneyEarnedText;
     public TMP_InputField answerInput;
+    public TextMeshProUGUI moneyEarnedFromQuestionText;
+    public TextMeshProUGUI isAnswerRightText;
     public GameManager gameManager;
     private bool newQuestion;
     private string path;
     private bool studiedAllBool = false;
     public GameObject studiedAll;
-    public GameObject correctAnswerText;
     private void Awake()
     {
         studiedAll.SetActive(false);
@@ -54,7 +54,6 @@ public class QuestionCreator : MonoBehaviour
     }
     public void NewQuestion()
     {
-        correctAnswerText.SetActive(false);
         if (studiedAllBool)
         {
             studiedAll.SetActive(true);
@@ -70,8 +69,7 @@ public class QuestionCreator : MonoBehaviour
         }
         answerInput.text = "";
         checkAnswerButton.SetActive(true);
-        correctAnswerGameobject.SetActive(false);
-        wrongAnswerGameobject.SetActive(false);
+        answerGameobject.SetActive(false);
         List<int> keys = set.flashcards.Keys.ToList();
         int key = keys[Random.Range(0, set.flashcards.Count)];
         flashcard = set.flashcards[key];
@@ -89,19 +87,26 @@ public class QuestionCreator : MonoBehaviour
         checkAnswerButton.SetActive(false);
         if (answerInput.text == flashcard.answer)
         {
-            correctAnswerGameobject.SetActive(true);
+            answerGameobject.SetActive(true);
+            answerText.text = flashcard.answer;
             gameManager.UpdateMoney(flashcard.moneyGiven, false);
+            isAnswerRightText.text = "Correct!";
+            isAnswerRightText.color = new Color(0.1223f, 1f, 0f);
+            moneyEarnedFromQuestionText.text = "+" + flashcard.moneyGiven.ToString();
+            moneyEarnedFromQuestionText.color = new Color(0.1223f, 1f, 0f);
+
         }
         else
         {
-            wrongAnswerGameobject.SetActive(true);
+            Debug.Log(flashcard.answer);
+            answerGameobject.SetActive(true);
+            answerText.text = flashcard.answer;
             gameManager.UpdateMoney(-flashcard.moneyGiven, true);
+            isAnswerRightText.text = "Incorrect!";
+            isAnswerRightText.color = new Color(1f, 0.179f, 0f);
+            moneyEarnedFromQuestionText.text =  "-" + flashcard.moneyGiven.ToString();
+            moneyEarnedFromQuestionText.color = new Color(1f, 0.179f, 0f);
         }
-    }
-    public void CheckRightAnswer()
-    {
-        correctAnswerText.SetActive(true);
-        answerText.text = flashcard.answer;
     }
     private void Decoder()
     {
