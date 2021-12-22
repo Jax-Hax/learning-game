@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     public Transform[] mapPositions;
     private int moneyAddedOrTaken;
     private bool isAdding;
+    public TextMeshProUGUI healthText;
     private void Awake()
     {
         SetStartMoneyFromDifficulty();
@@ -80,8 +81,10 @@ public class GameManager : MonoBehaviour
         if (difficulty == "DefaultEasy")
         {
             moneyInt = 1000000; //TODO: Change money back
+            health = 100;
         }
         money.text = moneyInt.ToString();
+        healthText.text = health.ToString();
     }
 
     public void IsShopClicked()
@@ -108,6 +111,15 @@ public class GameManager : MonoBehaviour
             isShopShowing = true;
         }
     }
+    public void UpdateHealth(int healthTaken)
+    {
+        health += healthTaken;
+        healthText.text = health.ToString();
+        if(health <= 0)
+        {
+            LoseGame();
+        }
+    }
     public void IsMoneyClicked()
     {
         shopTriangle.transform.rotation = new Quaternion(0, 0, -180, 0);
@@ -131,6 +143,10 @@ public class GameManager : MonoBehaviour
             isShopShowing = false;
             isQuestionsShowing = true;
         }
+    }
+    public void LoseGame()
+    {
+        Debug.Log("u lost lmao");
     }
     public void UpdateMoney(int addedMoney, bool isNegative)
     {
@@ -176,6 +192,14 @@ public class GameManager : MonoBehaviour
     }
     public void WinLevel()
     {
+        StartCoroutine("CheckIfWinning");
+    }
+    public IEnumerator CheckIfWinning()
+    {
+        while (enemies.Count > 0)
+        {
+            yield return null;
+        }
         Debug.Log("You won!");
     }
     private void Unactivate()

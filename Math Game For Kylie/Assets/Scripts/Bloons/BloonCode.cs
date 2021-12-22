@@ -32,7 +32,7 @@ public class BloonCode : MonoBehaviour
         }
         if(wayPointIndex == waypoints.Length)
         {
-            gameManager.health -= damageBloonDoesToLives;
+            gameManager.UpdateHealth(-damageBloonDoesToLives);
             gameManager.enemies.Remove(gameObject);
             Destroy(gameObject);
         }

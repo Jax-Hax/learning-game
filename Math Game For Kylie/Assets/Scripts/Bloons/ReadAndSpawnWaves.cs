@@ -58,6 +58,7 @@ public class ReadAndSpawnWaves : MonoBehaviour
                 }
             }
         }
+        gameManager.WinLevel();
     }
     private void ParseFile()
     {
