@@ -32,6 +32,7 @@ public class QuestionCreator : MonoBehaviour
     private bool studiedAllBool = false;
     public GameObject studiedAll;
     private string flashcardAnswer;
+    private int flashcardMoney;
     private void Awake()
     {
         studiedAll.SetActive(false);
@@ -77,7 +78,8 @@ public class QuestionCreator : MonoBehaviour
         set.flashcards.Remove(key);
         questionText.text = flashcard.question;
         flashcardAnswer = flashcard.answer;
-        moneyEarnedText.text = "Worth: $" + flashcard.moneyGiven.ToString();
+        flashcardMoney = flashcard.moneyGiven;
+        moneyEarnedText.text = "Worth: $" + flashcardMoney.ToString();
         if (set.flashcards.Count <= 0)
         {
             studiedAllBool = true;
@@ -91,10 +93,10 @@ public class QuestionCreator : MonoBehaviour
         {
             answerGameobject.SetActive(true);
             answerText.text = flashcardAnswer;
-            gameManager.UpdateMoney(flashcard.moneyGiven, false);
+            gameManager.UpdateMoney(flashcardMoney, false);
             isAnswerRightText.text = "Correct!";
             isAnswerRightText.color = new Color(0.1223f, 1f, 0f);
-            moneyEarnedFromQuestionText.text = "+" + flashcard.moneyGiven.ToString();
+            moneyEarnedFromQuestionText.text = "+" + flashcardMoney.ToString();
             moneyEarnedFromQuestionText.color = new Color(0.1223f, 1f, 0f);
 
         }
@@ -102,10 +104,10 @@ public class QuestionCreator : MonoBehaviour
         {
             answerGameobject.SetActive(true);
             answerText.text = flashcardAnswer;
-            gameManager.UpdateMoney(-flashcard.moneyGiven, true);
+            gameManager.UpdateMoney(-flashcardMoney, true);
             isAnswerRightText.text = "Incorrect!";
             isAnswerRightText.color = new Color(1f, 0.179f, 0f);
-            moneyEarnedFromQuestionText.text =  "-" + flashcard.moneyGiven.ToString();
+            moneyEarnedFromQuestionText.text =  "-" + flashcardMoney.ToString();
             moneyEarnedFromQuestionText.color = new Color(1f, 0.179f, 0f);
         }
     }
