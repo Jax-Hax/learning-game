@@ -30,7 +30,6 @@ public class PlaceMonke : MonoBehaviour, IPointerUpHandler, IDragHandler, IPoint
     public float checkRadius;
     public LayerMask whatIsGround;
     private bool isGrounded;
-    public GameObject shootingMonke;
     public Transform monkePlacementParent;
     private void Start()
     {
@@ -74,7 +73,7 @@ public class PlaceMonke : MonoBehaviour, IPointerUpHandler, IDragHandler, IPoint
         {
             gameManager.UpdateMoney(-monke.cost, true);
             range.SetActive(false);
-            Instantiate(shootingMonke, transform.position, Quaternion.identity, monkePlacementParent);
+            Instantiate(monke.monkePrefab, transform.position, Quaternion.identity, monkePlacementParent);
             transform.SetParent(monkeReplacement.transform);
             rectTransform.anchoredPosition = Vector3.zero;
             transform.SetSiblingIndex(0);

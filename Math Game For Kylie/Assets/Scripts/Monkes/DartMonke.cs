@@ -27,6 +27,7 @@ public class DartMonke : MonoBehaviour
 	private int upgradePath = 1;
 	private int upgradeLevel = 2;
 	public TowerUpgradeScriptableObject dartObject;
+	public Transform modelToRotate;
 
 	// Use this for initialization
 	void Start()
@@ -90,7 +91,7 @@ public class DartMonke : MonoBehaviour
 
 	void LockOnTarget()
 	{
-		transform.up = target.position - transform.position;
+		modelToRotate.up = target.position - modelToRotate.position;
 	}
 	void Shoot()
 	{

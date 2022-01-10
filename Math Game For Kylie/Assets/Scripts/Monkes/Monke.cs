@@ -4,8 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Monke", menuName = "Monke")]
 public class Monke : ScriptableObject
 {
-    public GameObject moveableMonke;
-    public GameObject shootingMonke;
+    public GameObject monkePrefab;
     public int cost;
     public Sprite monkePicture;
     public string monkeName;

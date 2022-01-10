@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64373b685ffc174eb040d8cd87bcb5e, type: 3}
   m_Name: Dart Monke
   m_EditorClassIdentifier: 
-  moveableMonke: {fileID: 6557181995228530539, guid: c001e326a1060384ca4b1fc1cea135d7, type: 3}
-  shootingMonke: {fileID: 8047437272294827268, guid: 43622c9ed09789a4084c14a536fc5c34, type: 3}
+  monkePrefab: {fileID: 8047437272294827268, guid: 43622c9ed09789a4084c14a536fc5c34, type: 3}
   cost: 250
   monkePicture: {fileID: 21300000, guid: 7cb1762c746523e489e459b486b023b1, type: 3}
   monkeName: Dart Monke
