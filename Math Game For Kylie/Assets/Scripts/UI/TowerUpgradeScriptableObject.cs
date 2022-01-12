@@ -6,7 +6,6 @@ public class TowerUpgradeScriptableObject : ScriptableObject
 {
     [Header("General")]
     public Sprite towerImage;
-    public int baseTowerSellPrice;
     [Header("Path 100")]
     public Sprite[] path100Images;
     public GameObject[] path100Models;

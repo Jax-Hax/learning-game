@@ -11,6 +11,8 @@ TagManager:
   - ProjectileInstantiatePos
   - UpgradeMenu
   - CreateFlashcards
+  - red
+  - blue
   layers:
   - Default
   - TransparentFX

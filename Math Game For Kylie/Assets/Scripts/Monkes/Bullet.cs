@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
 	public int pierce = 1;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Bloon"))
+        if (collision.gameObject.CompareTag("red") || collision.gameObject.CompareTag("blue"))
         {
             collision.gameObject.GetComponent<BloonCode>().RemoveHealth(damage);
 			pierce--;

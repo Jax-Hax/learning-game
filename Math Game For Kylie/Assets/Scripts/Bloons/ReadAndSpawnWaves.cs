@@ -18,7 +18,6 @@ public class ReadAndSpawnWaves : MonoBehaviour
     private Round round;
     private Wave wave;
     private string[] allPartsOfWave;
-    public GameObject[] bloons;
     private int howManyTimesToRepeat;
     public TextMeshProUGUI roundText;
     private GameManager gameManager;
@@ -50,7 +49,7 @@ public class ReadAndSpawnWaves : MonoBehaviour
                 {
                     for (int i = 0; i < wave.howManyBloons; i++)
                     {
-                        GameObject bloon = Instantiate(bloons[wave.bloonType], whereToSpawnThem);
+                        GameObject bloon = ObjectPooler.SharedInstance.GetPooledObject(wave.bloonType);
                         gameManager.enemies.Add(bloon);
                         yield return new WaitForSeconds(wave.timeBetweenBloons);
                     }

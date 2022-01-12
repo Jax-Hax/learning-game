@@ -25,7 +25,7 @@ public class DartMonke : MonoBehaviour
 	private GameObject upgradeMenu;
 	private Upgrades upgradeScript;
 	private int upgradePath = 1;
-	private int upgradeLevel = 2;
+	private int upgradeLevel = 0;
 	public TowerUpgradeScriptableObject dartObject;
 	public Transform modelToRotate;
 
@@ -91,7 +91,7 @@ public class DartMonke : MonoBehaviour
 
 	void LockOnTarget()
 	{
-		modelToRotate.up = target.position - modelToRotate.position;
+		Vector3 direction = target.position - transform.position;
 	}
 	void Shoot()
 	{

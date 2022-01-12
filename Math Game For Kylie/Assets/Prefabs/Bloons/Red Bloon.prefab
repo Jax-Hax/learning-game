@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -766729654931892106}
   m_Layer: 5
   m_Name: Red Bloon
-  m_TagString: Bloon
+  m_TagString: red
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 8.4542, y: 0}
-  m_SizeDelta: {x: 57, y: 57.01}
+  m_SizeDelta: {x: 57, y: 57}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5695918002174570464
 CanvasRenderer:
@@ -90,12 +90,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
-  speed: 9
+  speed: 6
+  wayPointIndex: 0
   damageBloonDoesToLives: 1
   bloons:
   - {fileID: 5695918002174570015}
   - {fileID: 5695918002174570015, guid: 020a381ed14a0f040a40a9413a3abefa, type: 3}
+  whereToSpawn: {fileID: 0}
   redEnemy: {fileID: 21300000, guid: 602a2106c7f662649ae961054456c853, type: 3}
+  isNew: 0
 --- !u!61 &-766729654931892106
 BoxCollider2D:
   m_ObjectHideFlags: 0

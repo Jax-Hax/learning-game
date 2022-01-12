@@ -951,42 +951,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 175148076}
     m_Modifications:
-    - target: {fileID: 5926998661856165266, guid: 43622c9ed09789a4084c14a536fc5c34, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 4376.8955
-      objectReference: {fileID: 0}
-    - target: {fileID: 5926998661856165266, guid: 43622c9ed09789a4084c14a536fc5c34, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3464.538
-      objectReference: {fileID: 0}
-    - target: {fileID: 5926998661856165266, guid: 43622c9ed09789a4084c14a536fc5c34, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 4376.8955
-      objectReference: {fileID: 0}
-    - target: {fileID: 5926998661856165266, guid: 43622c9ed09789a4084c14a536fc5c34, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.07845911
-      objectReference: {fileID: 0}
-    - target: {fileID: 5926998661856165266, guid: 43622c9ed09789a4084c14a536fc5c34, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.99691737
-      objectReference: {fileID: 0}
-    - target: {fileID: 5926998661856165266, guid: 43622c9ed09789a4084c14a536fc5c34, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5926998661856165266, guid: 43622c9ed09789a4084c14a536fc5c34, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5926998661856165266, guid: 43622c9ed09789a4084c14a536fc5c34, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -171
-      objectReference: {fileID: 0}
-    - target: {fileID: 5926998661856165266, guid: 43622c9ed09789a4084c14a536fc5c34, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8047437272294827268, guid: 43622c9ed09789a4084c14a536fc5c34, type: 3}
       propertyPath: m_Name
       value: ShootableDart
@@ -2053,7 +2017,8 @@ MonoBehaviour:
   changeToPath3: {fileID: 509384517}
   upgradeMain: {fileID: 1046779534}
   gameManager: {fileID: 483598185}
-  maxLevelMenu: {fileID: 0}
+  levelZeroDisplay: {fileID: 0}
+  maxLevelDisplay: {fileID: 0}
 --- !u!1 &287417865
 GameObject:
   m_ObjectHideFlags: 0
@@ -3103,7 +3068,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2577743767739874170, guid: 366b1fd5927d4f04d9d2deb15e570609, type: 3}
   m_PrefabInstance: {fileID: 2577743769136983086}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2577743769136983087}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af19ac10d851bb94494482056bbeeb6b, type: 3}
@@ -6059,9 +6024,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textFile: {fileID: 4900000, guid: 9b4f1debe9842584b860b4e13392c754, type: 3}
-  bloons:
-  - {fileID: 5695918002174570015, guid: 8c3b35059682a3c4a9ab5d7a8b325e8e, type: 3}
-  - {fileID: 5695918002174570015, guid: 020a381ed14a0f040a40a9413a3abefa, type: 3}
   roundText: {fileID: 822306369}
 --- !u!1 &1018704174
 GameObject:
@@ -12015,3 +11977,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 366b1fd5927d4f04d9d2deb15e570609, type: 3}
+--- !u!1 &2577743769136983087 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2577743767739874172, guid: 366b1fd5927d4f04d9d2deb15e570609, type: 3}
+  m_PrefabInstance: {fileID: 2577743769136983086}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2577743769136983088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2577743769136983087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef83516ea2e66554a8bf132476114988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects:
+  - {fileID: 0}
+  itemsToPool:
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: 8c3b35059682a3c4a9ab5d7a8b325e8e, type: 3}
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: 020a381ed14a0f040a40a9413a3abefa, type: 3}

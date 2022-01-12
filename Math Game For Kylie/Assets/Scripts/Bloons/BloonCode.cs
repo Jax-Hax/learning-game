@@ -10,13 +10,19 @@ public class BloonCode : MonoBehaviour
     public float speed;
     private float redEnemySpeed = 90;
     private float blueEnemySpeed;
-    private int wayPointIndex = 0;
+    public int wayPointIndex = 0;
     public int damageBloonDoesToLives;
     [SerializeField]
     private GameObject[] bloons;
+    public Transform whereToSpawn;
     [SerializeField]
     private Sprite redEnemy;
     private Image image;
+    public bool isNew;
+    private void OnEnable()
+    {
+        Invoke("CheckIfNew", 0.1f);
+    }
     private void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
@@ -34,7 +40,7 @@ public class BloonCode : MonoBehaviour
         {
             gameManager.UpdateHealth(-damageBloonDoesToLives);
             gameManager.enemies.Remove(gameObject);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
     public void RemoveHealth(int healthRemoved)
@@ -43,12 +49,23 @@ public class BloonCode : MonoBehaviour
         if (health <= 0)
         {
             gameManager.enemies.Remove(gameObject);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
         else if(health == 1)
         {
             image.sprite = redEnemy;
             speed = redEnemySpeed;
+            GameObject bloon = ObjectPooler.SharedInstance.GetPooledObject(0);
+            bloon.GetComponent<BloonCode>().wayPointIndex = wayPointIndex;
+            bloon.transform.position = gameObject.transform.position;
+        }
+    }
+    private void CheckIfNew()
+    {
+        if (isNew)
+        {
+            transform.position = whereToSpawn.position;
+            wayPointIndex = 0;
         }
     }
 }

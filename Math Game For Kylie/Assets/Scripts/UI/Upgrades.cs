@@ -35,7 +35,9 @@ public class Upgrades : MonoBehaviour
     private int upgradeLevel;
     private int upgradePath;
     private string scriptableObjectName;
-    public GameObject maxLevelMenu;
+    //public GameObject maxLevelMenu;
+    public GameObject levelZeroDisplay;
+    public GameObject maxLevelDisplay;
     public void OpenMenu(string towerName, int currentUpgradeLevel, int currentUpgradePath, string targetingType, TowerUpgradeScriptableObject scriptableObject)
     {
         upgradeMain.SetActive(true);
@@ -56,35 +58,48 @@ public class Upgrades : MonoBehaviour
         }
         if (upgradePath == 1)
         {
-            currentSellPrice = currentTower.path100SellPrices[upgradeLevel - 2];
-            currentUpgradeText.text = currentTower.path100Name[upgradeLevel - 2];
-            nextUpgradeText.text = currentTower.path100Name[upgradeLevel - 1];
-            costOfNextUpgradeInt = currentTower.path100Cost[upgradeLevel - 1];
+            if(upgradeLevel == 0)
+            {
+                levelZeroDisplay.SetActive(true);
+            }
+            else if(upgradeLevel >= 6)
+            {
+                maxLevelDisplay.SetActive(true);
+            }
+            else
+            {
+                levelZeroDisplay.SetActive(false);
+                maxLevelDisplay.SetActive(false);
+            }
+            currentSellPrice = currentTower.path100SellPrices[upgradeLevel];
+            currentUpgradeText.text = currentTower.path100Name[upgradeLevel];
+            nextUpgradeText.text = currentTower.path100Name[upgradeLevel];
+            costOfNextUpgradeInt = currentTower.path100Cost[upgradeLevel];
             costOfNextUpgrade.text = "$" + costOfNextUpgradeInt.ToString();
             sellCost.text = "$" + currentSellPrice.ToString();
-            nextUpgradeImage.sprite = currentTower.path100Images[upgradeLevel];
-            currentUpgradeImage.sprite = currentTower.path100Images[upgradeLevel - 1];
+            nextUpgradeImage.sprite = currentTower.path100Images[upgradeLevel + 1];
+            currentUpgradeImage.sprite = currentTower.path100Images[upgradeLevel];
         }
         else if (upgradePath == 2)
         {
-            currentSellPrice = currentTower.path010SellPrices[upgradeLevel - 2];
-            currentUpgradeText.text = currentTower.path010Name[upgradeLevel - 2];
-            nextUpgradeText.text = currentTower.path100Name[upgradeLevel - 1];
-            costOfNextUpgradeInt = currentTower.path010Cost[upgradeLevel - 1];
+            currentSellPrice = currentTower.path010SellPrices[upgradeLevel];
+            currentUpgradeText.text = currentTower.path010Name[upgradeLevel];
+            nextUpgradeText.text = currentTower.path100Name[upgradeLevel];
+            costOfNextUpgradeInt = currentTower.path010Cost[upgradeLevel];
             costOfNextUpgrade.text = "$" + costOfNextUpgradeInt.ToString();
             sellCost.text = "$" + currentSellPrice.ToString();
-            nextUpgradeImage.sprite = currentTower.path010Images[upgradeLevel];
-            currentUpgradeImage.sprite = currentTower.path010Images[upgradeLevel - 1];
+            nextUpgradeImage.sprite = currentTower.path010Images[upgradeLevel + 1];
+            currentUpgradeImage.sprite = currentTower.path010Images[upgradeLevel];
         }
         else if (upgradePath == 2)
         {
-            currentSellPrice = currentTower.path001SellPrices[upgradeLevel - 2];
-            currentUpgradeText.text = currentTower.path001Name[upgradeLevel - 2];
-            nextUpgradeText.text = currentTower.path100Name[upgradeLevel - 1];
-            costOfNextUpgradeInt = currentTower.path001Cost[upgradeLevel - 1];
+            currentSellPrice = currentTower.path001SellPrices[upgradeLevel];
+            currentUpgradeText.text = currentTower.path001Name[upgradeLevel];
+            nextUpgradeText.text = currentTower.path100Name[upgradeLevel + 1];
+            costOfNextUpgradeInt = currentTower.path001Cost[upgradeLevel];
             costOfNextUpgrade.text = "$" + costOfNextUpgradeInt.ToString();
-            nextUpgradeImage.sprite = currentTower.path001Images[upgradeLevel];
-            currentUpgradeImage.sprite = currentTower.path001Images[upgradeLevel - 1];
+            nextUpgradeImage.sprite = currentTower.path001Images[upgradeLevel + 1];
+            currentUpgradeImage.sprite = currentTower.path001Images[upgradeLevel];
             sellCost.text = "$" + currentSellPrice.ToString();
         }
     }
@@ -99,10 +114,6 @@ public class Upgrades : MonoBehaviour
                 upgradeLevel++;
                 Debug.Log(upgradeLevel);
                 UpdateValues();
-            }
-            if(upgradeLevel >= 6)
-            {
-                Debug.Log("e");
             }
         }
     }
