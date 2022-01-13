@@ -91,13 +91,20 @@ public class DartMonke : MonoBehaviour
 
 	void LockOnTarget()
 	{
-		Vector3 direction = target.position - transform.position;
+		if(target != null)
+        {
+			Vector3 modelDirection = new Vector3(modelToRotate.position.x, modelToRotate.position.y, 0);
+			Vector3 direction = target.position - modelDirection;
+			modelToRotate.up = direction;
+		}
 	}
 	void Shoot()
 	{
+		/*
 		GameObject bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation, instantiatePos);
 		Rigidbody2D bullet = bulletGO.GetComponent<Rigidbody2D>();
 		bullet.AddForce(firePoint.up * speed, ForceMode2D.Impulse);
+		*/
 	}
 
 	void OnDrawGizmosSelected()

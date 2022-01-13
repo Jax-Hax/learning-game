@@ -50,6 +50,9 @@ public class ReadAndSpawnWaves : MonoBehaviour
                     for (int i = 0; i < wave.howManyBloons; i++)
                     {
                         GameObject bloon = ObjectPooler.SharedInstance.GetPooledObject(wave.bloonType);
+                        bloon.SetActive(true);
+                        bloon.transform.position = whereToSpawnThem.position;
+                        bloon.GetComponent<BloonCode>().wayPointIndex = 0;
                         gameManager.enemies.Add(bloon);
                         yield return new WaitForSeconds(wave.timeBetweenBloons);
                     }

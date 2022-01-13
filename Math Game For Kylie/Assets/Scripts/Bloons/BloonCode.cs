@@ -18,11 +18,6 @@ public class BloonCode : MonoBehaviour
     [SerializeField]
     private Sprite redEnemy;
     private Image image;
-    public bool isNew;
-    private void OnEnable()
-    {
-        Invoke("CheckIfNew", 0.1f);
-    }
     private void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
@@ -40,11 +35,13 @@ public class BloonCode : MonoBehaviour
         {
             gameManager.UpdateHealth(-damageBloonDoesToLives);
             gameManager.enemies.Remove(gameObject);
+            Debug.Log("issue");
             gameObject.SetActive(false);
         }
     }
     public void RemoveHealth(int healthRemoved)
     {
+        Debug.Log("e");
         health -= healthRemoved;
         if (health <= 0)
         {
@@ -56,16 +53,9 @@ public class BloonCode : MonoBehaviour
             image.sprite = redEnemy;
             speed = redEnemySpeed;
             GameObject bloon = ObjectPooler.SharedInstance.GetPooledObject(0);
+            bloon.SetActive(true);
             bloon.GetComponent<BloonCode>().wayPointIndex = wayPointIndex;
             bloon.transform.position = gameObject.transform.position;
-        }
-    }
-    private void CheckIfNew()
-    {
-        if (isNew)
-        {
-            transform.position = whereToSpawn.position;
-            wayPointIndex = 0;
         }
     }
 }
