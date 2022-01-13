@@ -15,6 +15,7 @@ public class ObjectPooler : MonoBehaviour
     public List<GameObject> pooledObjects;
     public List<ObjectPoolItem> itemsToPool;
     private string objectTag;
+    public Transform instantiatedParent;
     void Awake()
     {
         SharedInstance = this;
@@ -26,7 +27,7 @@ public class ObjectPooler : MonoBehaviour
         {
             for (int i = 0; i < item.amountToPool; i++)
             {
-                GameObject obj = Instantiate(item.objectToPool);
+                GameObject obj = Instantiate(item.objectToPool, instantiatedParent);
                 obj.SetActive(false);
                 pooledObjects.Add(obj);
             }

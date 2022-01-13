@@ -42,10 +42,11 @@ public class GameManager : MonoBehaviour
     public GameObject showableMoney;
     private string difficulty;
     [System.NonSerialized]
-    public Transform[] mapPositions;
+    public Vector3[] mapPositions;
     private int moneyAddedOrTaken;
     private bool isAdding;
     public TextMeshProUGUI healthText;
+    public List<Vector3> mapWaypoints = new List<Vector3>();
     private void Awake()
     {
         SetStartMoneyFromDifficulty();
@@ -71,7 +72,11 @@ public class GameManager : MonoBehaviour
         prefab = Instantiate(maps[mapName]);
         prefab.transform.SetParent(canvas, false);
         prefab.transform.SetSiblingIndex(0);
-        mapPositions = prefab.GetComponent<MapCode>().positions;
+        foreach (Transform pos in prefab.GetComponent<MapCode>().positions)
+        {
+            mapWaypoints.Add(new Vector3(pos.position.x, pos.position.y, 0));
+        }
+        mapPositions = mapWaypoints.ToArray();
     }
 
     private void SetStartMoneyFromDifficulty()

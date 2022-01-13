@@ -6,7 +6,7 @@ public class BloonCode : MonoBehaviour
 {
     public int health;
     private GameManager gameManager;
-    Transform[] waypoints;
+    Vector3[] waypoints;
     public float speed;
     private float redEnemySpeed = 90;
     private float blueEnemySpeed;
@@ -26,8 +26,8 @@ public class BloonCode : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        transform.position = Vector3.MoveTowards(transform.position, waypoints[wayPointIndex].position, speed * Time.deltaTime);
-        if(transform.position == waypoints[wayPointIndex].position)
+        transform.position = Vector3.MoveTowards(transform.position, waypoints[wayPointIndex], speed * Time.deltaTime);
+        if(transform.position == waypoints[wayPointIndex])
         {
             wayPointIndex++;
         }

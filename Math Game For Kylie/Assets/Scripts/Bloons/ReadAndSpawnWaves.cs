@@ -30,6 +30,7 @@ public class ReadAndSpawnWaves : MonoBehaviour
         }
         ParseFile();
         whereToSpawnThem = GameObject.FindGameObjectWithTag("SpawnPos").transform;
+        whereToSpawnThem.position = new Vector3(whereToSpawnThem.position.x, whereToSpawnThem.position.y, 0);
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
     }
     public void StartGame()

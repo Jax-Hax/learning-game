@@ -95,7 +95,8 @@ public class DartMonke : MonoBehaviour
         {
 			Vector3 modelDirection = new Vector3(modelToRotate.position.x, modelToRotate.position.y, 0);
 			Vector3 direction = target.position - modelDirection;
-			modelToRotate.up = direction;
+			modelToRotate.up = -direction;
+			modelToRotate.rotation = new Quaternion(0, -171, modelToRotate.rotation.z, modelToRotate.rotation.w);
 		}
 	}
 	void Shoot()
