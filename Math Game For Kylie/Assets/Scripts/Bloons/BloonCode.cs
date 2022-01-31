@@ -8,7 +8,7 @@ public class BloonCode : MonoBehaviour
     private GameManager gameManager;
     Vector3[] waypoints;
     public float speed;
-    private float redEnemySpeed = 90;
+    private float redEnemySpeed = 6;
     private float blueEnemySpeed;
     public int wayPointIndex = 0;
     public int damageBloonDoesToLives;
@@ -35,13 +35,11 @@ public class BloonCode : MonoBehaviour
         {
             gameManager.UpdateHealth(-damageBloonDoesToLives);
             gameManager.enemies.Remove(gameObject);
-            Debug.Log("issue");
             gameObject.SetActive(false);
         }
     }
     public void RemoveHealth(int healthRemoved)
     {
-        Debug.Log("e");
         health -= healthRemoved;
         if (health <= 0)
         {

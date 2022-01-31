@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Dart Monke
   m_EditorClassIdentifier: 
   monkePrefab: {fileID: 8047437272294827268, guid: 43622c9ed09789a4084c14a536fc5c34, type: 3}
-  cost: 250
-  monkePicture: {fileID: 21300000, guid: 7cb1762c746523e489e459b486b023b1, type: 3}
-  monkeName: Dart Monke
+  cost: 500
+  monkePicture: {fileID: 21300000, guid: 52a46962c3d79a84fb592073ad0dca41, type: 3}
+  monkeName: Penguin

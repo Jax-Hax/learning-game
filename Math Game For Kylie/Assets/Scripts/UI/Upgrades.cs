@@ -8,8 +8,8 @@ public class Upgrades : MonoBehaviour
 {
     private TowerUpgradeScriptableObject currentTower;
     private string currentPopCount;
-    [System.NonSerialized]
-    public DartMonke dart;
+    [HideInInspector]
+    public Penguin penguin;
     [Header("UI")]
     public TextMeshProUGUI currentTowerName;
     public Image towerImage;
@@ -108,11 +108,10 @@ public class Upgrades : MonoBehaviour
         if(gameManager.moneyInt >= costOfNextUpgradeInt)
         {
             gameManager.UpdateMoney(-costOfNextUpgradeInt, true);
-            if(scriptableObjectName == "dart")
+            if(scriptableObjectName == "penguin")
             {
-                dart.Upgrade();
+                penguin.Upgrade();
                 upgradeLevel++;
-                Debug.Log(upgradeLevel);
                 UpdateValues();
             }
         }
