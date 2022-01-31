@@ -91,7 +91,6 @@ public class Penguin : MonoBehaviour
 	}
 	void Shoot()
 	{
-		Debug.Log("shoot");
 		anim.Play("Shoot");
 	}
 	public void Upgrade()
