@@ -95,7 +95,7 @@ public class Upgrades : MonoBehaviour
         {
             currentSellPrice = currentTower.path001SellPrices[upgradeLevel];
             currentUpgradeText.text = currentTower.path001Name[upgradeLevel];
-            nextUpgradeText.text = currentTower.path100Name[upgradeLevel + 1];
+            nextUpgradeText.text = currentTower.path100Name[upgradeLevel];
             costOfNextUpgradeInt = currentTower.path001Cost[upgradeLevel];
             costOfNextUpgrade.text = "$" + costOfNextUpgradeInt.ToString();
             nextUpgradeImage.sprite = currentTower.path001Images[upgradeLevel + 1];

@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!95 &303630575
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3600925835377228234}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d72cc2861c43ce9499b05ecdc902f6c6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8047437272294827268
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,8 +138,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6394487763066390880, guid: 43622c9ed09789a4084c14a536fc5c34, type: 3}
-        m_TargetAssemblyTypeName: DartMonke, Assembly-CSharp
+      - m_Target: {fileID: 2080564300}
+        m_TargetAssemblyTypeName: Penguin, Assembly-CSharp
         m_MethodName: OpenUpgradeMenu
         m_Mode: 1
         m_Arguments:
@@ -177,7 +196,7 @@ MonoBehaviour:
   targeting: close
   fireRate: 0.5
   penguinObject: {fileID: 11400000, guid: ce7327c953f304a459dcc549ea8aab07, type: 2}
-  anim: {fileID: 0}
+  anim: {fileID: 303630575}
 --- !u!1001 &4411389264628188315
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -247,6 +266,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b50b273b51e0c644199c9de63608892f, type: 3}
+--- !u!1 &3600925835377228234 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b50b273b51e0c644199c9de63608892f, type: 3}
+  m_PrefabInstance: {fileID: 4411389264628188315}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4229687455007105904 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b50b273b51e0c644199c9de63608892f, type: 3}

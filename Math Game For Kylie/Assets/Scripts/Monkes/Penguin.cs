@@ -91,6 +91,7 @@ public class Penguin : MonoBehaviour
 	}
 	void Shoot()
 	{
+		target.GetComponent<BloonCode>().RemoveHealth(1);
 		anim.Play("Shoot");
 	}
 	public void Upgrade()

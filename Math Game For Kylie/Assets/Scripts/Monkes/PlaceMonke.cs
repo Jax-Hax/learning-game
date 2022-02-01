@@ -73,7 +73,8 @@ public class PlaceMonke : MonoBehaviour, IPointerUpHandler, IDragHandler, IPoint
         {
             gameManager.UpdateMoney(-monke.cost, true);
             range.SetActive(false);
-            Instantiate(monke.monkePrefab, transform.position, Quaternion.identity, monkePlacementParent);
+            Vector3 placement = new Vector3(transform.position.x, transform.position.y, 0);
+            Instantiate(monke.monkePrefab, placement, Quaternion.identity, monkePlacementParent);
             transform.SetParent(monkeReplacement.transform);
             rectTransform.anchoredPosition = Vector3.zero;
             transform.SetSiblingIndex(0);
