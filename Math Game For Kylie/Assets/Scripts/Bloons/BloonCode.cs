@@ -5,11 +5,12 @@ using UnityEngine.UI;
 public class BloonCode : MonoBehaviour
 {
     public int health;
+    public int bloonType;
     private GameManager gameManager;
     Vector3[] waypoints;
     public float speed;
     private float redEnemySpeed = 6;
-    private float blueEnemySpeed;
+    private float blueEnemySpeed = 10;
     public int wayPointIndex = 0;
     public int damageBloonDoesToLives;
     [SerializeField]
@@ -17,12 +18,31 @@ public class BloonCode : MonoBehaviour
     public Transform whereToSpawn;
     [SerializeField]
     private Sprite redEnemy;
+    [SerializeField]
+    private Sprite blueEnemy;
     private Image image;
+    private void OnEnable()
+    {
+        if(bloonType == 0)
+        {
+            health = 1;
+        }
+        else if(bloonType == 1)
+        {
+            health = 2;
+            damageBloonDoesToLives = 2;
+            image.sprite = blueEnemy;
+            speed = blueEnemySpeed;
+        }
+    }
+    private void Awake()
+    {
+        image = GetComponent<Image>();
+    }
     private void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         waypoints = gameManager.mapPositions;
-        image = GetComponent<Image>();
     }
     private void FixedUpdate()
     {
@@ -50,6 +70,7 @@ public class BloonCode : MonoBehaviour
         {
             image.sprite = redEnemy;
             speed = redEnemySpeed;
+            damageBloonDoesToLives = 1;
             GameObject bloon = ObjectPooler.SharedInstance.GetPooledObject(0);
             bloon.SetActive(true);
             bloon.GetComponent<BloonCode>().wayPointIndex = wayPointIndex;

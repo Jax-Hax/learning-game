@@ -37,10 +37,13 @@ public class Upgrades : MonoBehaviour
     private string scriptableObjectName;
     //public GameObject maxLevelMenu;
     public GameObject levelZeroDisplay;
+    public GameObject currentUpgradeDisplay;
+    public GameObject nextUpgradeDisplay;
     public GameObject maxLevelDisplay;
     public void OpenMenu(string towerName, int currentUpgradeLevel, int currentUpgradePath, string targetingType, TowerUpgradeScriptableObject scriptableObject)
     {
         upgradeMain.SetActive(true);
+        gameManager.IsUpgradesTurnedOn();
         currentTowerName.text = towerName;
         scriptableObjectName = towerName;
         currentTower = scriptableObject;
@@ -61,24 +64,40 @@ public class Upgrades : MonoBehaviour
             if(upgradeLevel == 0)
             {
                 levelZeroDisplay.SetActive(true);
+                currentUpgradeDisplay.SetActive(false);
+                maxLevelDisplay.SetActive(false);
+                nextUpgradeDisplay.SetActive(true);
+                currentSellPrice = currentTower.path100SellPrices[upgradeLevel];
+                nextUpgradeText.text = currentTower.path100Name[upgradeLevel];
+                costOfNextUpgradeInt = currentTower.path100Cost[upgradeLevel];
+                costOfNextUpgrade.text = "$" + costOfNextUpgradeInt.ToString();
+                nextUpgradeImage.sprite = currentTower.path100Images[upgradeLevel];
             }
             else if(upgradeLevel >= 6)
             {
+                Debug.Log("e");// ADD A THING THAT SAYS UR OUT OF MONEY and also add the paths and also add a description button to give a description
+                currentUpgradeImage.sprite = currentTower.path100Images[upgradeLevel - 1];
+                currentUpgradeText.text = currentTower.path100Name[upgradeLevel - 1];
                 maxLevelDisplay.SetActive(true);
+                nextUpgradeDisplay.SetActive(false);
+                levelZeroDisplay.SetActive(false);
+                currentUpgradeDisplay.SetActive(true);
             }
             else
             {
+                currentUpgradeImage.sprite = currentTower.path100Images[upgradeLevel - 1];
+                currentUpgradeText.text = currentTower.path100Name[upgradeLevel - 1];
                 levelZeroDisplay.SetActive(false);
                 maxLevelDisplay.SetActive(false);
+                currentUpgradeDisplay.SetActive(true);
+                nextUpgradeDisplay.SetActive(true);
+                currentSellPrice = currentTower.path100SellPrices[upgradeLevel];
+                nextUpgradeText.text = currentTower.path100Name[upgradeLevel];
+                costOfNextUpgradeInt = currentTower.path100Cost[upgradeLevel];
+                costOfNextUpgrade.text = "$" + costOfNextUpgradeInt.ToString();
+                nextUpgradeImage.sprite = currentTower.path100Images[upgradeLevel];
             }
-            currentSellPrice = currentTower.path100SellPrices[upgradeLevel];
-            currentUpgradeText.text = currentTower.path100Name[upgradeLevel];
-            nextUpgradeText.text = currentTower.path100Name[upgradeLevel];
-            costOfNextUpgradeInt = currentTower.path100Cost[upgradeLevel];
-            costOfNextUpgrade.text = "$" + costOfNextUpgradeInt.ToString();
             sellCost.text = "$" + currentSellPrice.ToString();
-            nextUpgradeImage.sprite = currentTower.path100Images[upgradeLevel + 1];
-            currentUpgradeImage.sprite = currentTower.path100Images[upgradeLevel];
         }
         else if (upgradePath == 2)
         {
@@ -105,15 +124,15 @@ public class Upgrades : MonoBehaviour
     }
     public void Upgrade()
     {
-        if(gameManager.moneyInt >= costOfNextUpgradeInt)
+        if(gameManager.moneyInt >= costOfNextUpgradeInt && upgradeLevel != 6)
         {
             gameManager.UpdateMoney(-costOfNextUpgradeInt, true);
             if(scriptableObjectName == "penguin")
             {
                 penguin.Upgrade();
-                upgradeLevel++;
-                UpdateValues();
             }
+            upgradeLevel++;
+            UpdateValues();
         }
     }
     public void OpenChangePath()

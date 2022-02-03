@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public Vector3 posForShopArrowWhileShopOpen;
     public Vector3 posForShopArrowWhileQuestionsOpen;
     public Vector3 posForShopArrowWhileNoneAreOpen;
+    public Vector3 posForShopArrowWhileUpgradesAreOpen;
 
     public GameObject questions;
     public GameObject questionsArrow;
@@ -24,12 +25,19 @@ public class GameManager : MonoBehaviour
     public Vector3 posForQuestionsArrowWhileShopOpen;
     public Vector3 posForQuestionsArrowWhileQuestionsOpen;
     public Vector3 posForQuestionsArrowWhileNoneAreOpen;
+    public Vector3 posForQuestionsArrowWhileUpgradesAreOpen;
+    public GameObject upgradesTriangle;
+    public Vector3 posForUpgradesArrowWhileShopOpen;
+    public Vector3 posForUpgradesArrowWhileQuestionsOpen;
+    public Vector3 posForUpgradesArrowWhileNoneAreOpen;
+    public Vector3 posForUpgradesArrowWhileUpgradesAreOpen;
 
     public RectTransform roundsTextPos;
     public Vector3 posForRoundsWhileNoneAreOpen;
     public Vector3 posForRoundsWhileShop;
     public Vector3 posForRoundsWhileQuestions;
-
+    public Vector3 posForRoundsWhileUpgrades;
+    public GameObject upgradeArrow;
     private bool isShopShowing;
     private bool isQuestionsShowing;
     public TextMeshProUGUI money;
@@ -47,12 +55,14 @@ public class GameManager : MonoBehaviour
     private bool isAdding;
     public TextMeshProUGUI healthText;
     public List<Vector3> mapWaypoints = new List<Vector3>();
+    public GameObject upgrades;
     private void Awake()
     {
         SetStartMoneyFromDifficulty();
         SetMap();
         PutArrowsInCorrectPlace();
         moneyAddedOrTaken = 0;
+        upgradeArrow.SetActive(false);
     }
 
     private void PutArrowsInCorrectPlace()
@@ -85,7 +95,7 @@ public class GameManager : MonoBehaviour
         showableMoney.SetActive(false);
         if (difficulty == "DefaultEasy")
         {
-            moneyInt = 1000000; //TODO: Change money back
+            moneyInt = 100000000; //TODO: Change money back
             health = 100;
         }
         money.text = moneyInt.ToString();
@@ -94,12 +104,16 @@ public class GameManager : MonoBehaviour
 
     public void IsShopClicked()
     {
+        questions.SetActive(false);
+        upgrades.SetActive(false);
         questionsTriangle.transform.rotation = new Quaternion(0, 0, -180, 0);
+        upgradesTriangle.transform.rotation = new Quaternion(0, 0, -180, 0);
         if (isShopShowing)
         {
             shopTriangle.transform.rotation = new Quaternion(0, 0, -180, 0);
             shopArrow.GetComponent<RectTransform>().anchoredPosition = posForShopArrowWhileNoneAreOpen;
             questionsArrow.GetComponent<RectTransform>().anchoredPosition = posForQuestionsArrowWhileNoneAreOpen;
+            upgradeArrow.GetComponent<RectTransform>().anchoredPosition = posForUpgradesArrowWhileNoneAreOpen;
             roundsTextPos.anchoredPosition = posForRoundsWhileNoneAreOpen;
             shop.SetActive(false);
             isShopShowing = false;
@@ -109,11 +123,48 @@ public class GameManager : MonoBehaviour
             shopTriangle.transform.rotation = Quaternion.identity;
             shopArrow.GetComponent<RectTransform>().anchoredPosition = posForShopArrowWhileShopOpen;
             questionsArrow.GetComponent<RectTransform>().anchoredPosition = posForQuestionsArrowWhileShopOpen;
+            upgradeArrow.GetComponent<RectTransform>().anchoredPosition = posForUpgradesArrowWhileShopOpen;
             roundsTextPos.anchoredPosition = posForRoundsWhileShop;
             shop.SetActive(true);
             questions.SetActive(false);
             isQuestionsShowing = false;
             isShopShowing = true;
+        }
+    }
+    public void IsUpgradesTurnedOn()
+    {
+        upgrades.SetActive(true);
+        upgradeArrow.SetActive(true);
+        shopTriangle.transform.rotation = new Quaternion(0, 0, -180, 0);
+        upgradesTriangle.transform.rotation = Quaternion.identity;
+        questionsTriangle.transform.rotation = new Quaternion(0, 0, -180, 0);
+        shopArrow.GetComponent<RectTransform>().anchoredPosition = posForShopArrowWhileUpgradesAreOpen;
+        questionsArrow.GetComponent<RectTransform>().anchoredPosition = posForQuestionsArrowWhileUpgradesAreOpen;
+        upgradeArrow.GetComponent<RectTransform>().anchoredPosition = posForUpgradesArrowWhileUpgradesAreOpen;
+        roundsTextPos.anchoredPosition = posForRoundsWhileUpgrades;
+        shop.SetActive(false);
+        questions.SetActive(false);
+        isQuestionsShowing = false;
+        isShopShowing = false;
+    }
+    public void IsUpgradesTurnedOff()
+    {
+        if(!upgrades.activeSelf)
+        {
+            IsUpgradesTurnedOn();
+        }
+        else
+        {
+            upgrades.SetActive(false);
+            upgradesTriangle.transform.rotation = new Quaternion(0, 0, -180, 0);
+            shopArrow.GetComponent<RectTransform>().anchoredPosition = posForShopArrowWhileNoneAreOpen;
+            questionsArrow.GetComponent<RectTransform>().anchoredPosition = posForQuestionsArrowWhileNoneAreOpen;
+            upgradeArrow.GetComponent<RectTransform>().anchoredPosition = posForUpgradesArrowWhileNoneAreOpen;
+            roundsTextPos.anchoredPosition = posForRoundsWhileNoneAreOpen;
+            shop.SetActive(false);
+            questions.SetActive(false);
+            isQuestionsShowing = false;
+            isShopShowing = false;
         }
     }
     public void UpdateHealth(int healthTaken)
@@ -127,21 +178,26 @@ public class GameManager : MonoBehaviour
     }
     public void IsMoneyClicked()
     {
+        upgrades.SetActive(false);
+        upgradesTriangle.transform.rotation = new Quaternion(0, 0, -180, 0);
         shopTriangle.transform.rotation = new Quaternion(0, 0, -180, 0);
         if (isQuestionsShowing)
         {
             questionsTriangle.transform.rotation = new Quaternion(0, 0, -180, 0);
             questionsArrow.GetComponent<RectTransform>().anchoredPosition = posForQuestionsArrowWhileNoneAreOpen;
             shopArrow.GetComponent<RectTransform>().anchoredPosition = posForShopArrowWhileNoneAreOpen;
+            upgradeArrow.GetComponent<RectTransform>().anchoredPosition = posForUpgradesArrowWhileNoneAreOpen;
             roundsTextPos.anchoredPosition = posForRoundsWhileNoneAreOpen;
             questions.SetActive(false);
             isQuestionsShowing = false;
+            isShopShowing = false;
         }
         else
         {
             questionsTriangle.transform.rotation = Quaternion.identity;
             shopArrow.GetComponent<RectTransform>().anchoredPosition = posForShopArrowWhileQuestionsOpen;
             questionsArrow.GetComponent<RectTransform>().anchoredPosition = posForQuestionsArrowWhileQuestionsOpen;
+            upgradeArrow.GetComponent<RectTransform>().anchoredPosition = posForUpgradesArrowWhileQuestionsOpen;
             roundsTextPos.anchoredPosition = posForRoundsWhileQuestions;
             questions.SetActive(true);
             shop.SetActive(false);
@@ -214,11 +270,14 @@ public class GameManager : MonoBehaviour
     }
     public void IsShopClickedTrueOrFalse(bool isTrue)
     {
+        upgrades.SetActive(false);
+        upgradeArrow.transform.rotation = new Quaternion(0, 0, -180, 0);
         if (!isTrue)
         {
             shopTriangle.transform.rotation = new Quaternion(0, 0, -180, 0);
             shopArrow.GetComponent<RectTransform>().anchoredPosition = posForShopArrowWhileNoneAreOpen;
             questionsArrow.GetComponent<RectTransform>().anchoredPosition = posForQuestionsArrowWhileNoneAreOpen;
+            upgradeArrow.GetComponent<RectTransform>().anchoredPosition = posForUpgradesArrowWhileNoneAreOpen;
             roundsTextPos.anchoredPosition = posForRoundsWhileNoneAreOpen;
             shop.SetActive(false);
             isShopShowing = false;
@@ -228,6 +287,7 @@ public class GameManager : MonoBehaviour
             shopTriangle.transform.rotation = Quaternion.identity;
             shopArrow.GetComponent<RectTransform>().anchoredPosition = posForShopArrowWhileShopOpen;
             questionsArrow.GetComponent<RectTransform>().anchoredPosition = posForQuestionsArrowWhileShopOpen;
+            upgradeArrow.GetComponent<RectTransform>().anchoredPosition = posForUpgradesArrowWhileShopOpen;
             roundsTextPos.anchoredPosition = posForRoundsWhileShop;
             shop.SetActive(true);
             questions.SetActive(false);

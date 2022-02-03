@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
+  bloonType: 0
   speed: 6
   wayPointIndex: 0
   damageBloonDoesToLives: 1
@@ -97,8 +98,8 @@ MonoBehaviour:
   - {fileID: 5695918002174570015}
   - {fileID: 5695918002174570015, guid: 020a381ed14a0f040a40a9413a3abefa, type: 3}
   whereToSpawn: {fileID: 0}
-  redEnemy: {fileID: 21300000, guid: 602a2106c7f662649ae961054456c853, type: 3}
-  isNew: 0
+  redEnemy: {fileID: 21300000, guid: a895a83d59c80014184a387e87a74145, type: 3}
+  blueEnemy: {fileID: 21300000, guid: d5d34a3f61c2f2c418bcc9733d51a551, type: 3}
 --- !u!61 &-766729654931892106
 BoxCollider2D:
   m_ObjectHideFlags: 0
