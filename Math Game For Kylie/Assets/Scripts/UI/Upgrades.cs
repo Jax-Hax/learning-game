@@ -28,6 +28,9 @@ public class Upgrades : MonoBehaviour
     public GameObject changeToPath1;
     public GameObject changeToPath2;
     public GameObject changeToPath3;
+    public TextMeshProUGUI changeToPath1Text;
+    public TextMeshProUGUI changeToPath2Text;
+    public TextMeshProUGUI changeToPath3Text;
     public GameObject upgradeMain;
     public GameManager gameManager;
     private int currentSellPrice;
@@ -35,11 +38,13 @@ public class Upgrades : MonoBehaviour
     private int upgradeLevel;
     private int upgradePath;
     private string scriptableObjectName;
-    //public GameObject maxLevelMenu;
     public GameObject levelZeroDisplay;
     public GameObject currentUpgradeDisplay;
     public GameObject nextUpgradeDisplay;
     public GameObject maxLevelDisplay;
+    private int costForPath1;
+    private int costForPath2;
+    private int costForPath3;
     public void OpenMenu(string towerName, int currentUpgradeLevel, int currentUpgradePath, string targetingType, TowerUpgradeScriptableObject scriptableObject)
     {
         upgradeMain.SetActive(true);
@@ -110,7 +115,7 @@ public class Upgrades : MonoBehaviour
             nextUpgradeImage.sprite = currentTower.path010Images[upgradeLevel + 1];
             currentUpgradeImage.sprite = currentTower.path010Images[upgradeLevel];
         }
-        else if (upgradePath == 2)
+        else if (upgradePath == 3)
         {
             currentSellPrice = currentTower.path001SellPrices[upgradeLevel];
             currentUpgradeText.text = currentTower.path001Name[upgradeLevel];
@@ -120,6 +125,10 @@ public class Upgrades : MonoBehaviour
             nextUpgradeImage.sprite = currentTower.path001Images[upgradeLevel + 1];
             currentUpgradeImage.sprite = currentTower.path001Images[upgradeLevel];
             sellCost.text = "$" + currentSellPrice.ToString();
+        }
+        else if(upgradePath == 4)
+        {
+            changePathMain.SetActive(true);
         }
     }
     public void Upgrade()
@@ -137,6 +146,33 @@ public class Upgrades : MonoBehaviour
     }
     public void OpenChangePath()
     {
-
+        CalculateCostToChangePaths();
+        if(upgradePath == 1)
+        {
+            changeToPath1.SetActive(false);
+        }
+        else if (upgradePath == 2)
+        {
+            changeToPath2.SetActive(false);
+        }
+        else if (upgradePath == 3)
+        {
+            changeToPath3.SetActive(false);
+        }
+    }
+    public void CloseChangePath()
+    {
+        changeToPath1.SetActive(true);
+        changeToPath2.SetActive(true);
+        changeToPath3.SetActive(true);
+    }
+    public void CalculateCostToChangePaths()
+    {
+        for (int i = 0; i < upgradeLevel; i++)
+        {
+            costForPath1 += currentTower.path100Cost[i];
+        }
+        changeToPath1Text.text = costForPath1.ToString();
+        Debug.Log(costForPath1);
     }
 }

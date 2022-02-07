@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI healthText;
     public List<Vector3> mapWaypoints = new List<Vector3>();
     public GameObject upgrades;
+    public GameObject choosePath;
     private void Awake()
     {
         SetStartMoneyFromDifficulty();
@@ -156,6 +157,7 @@ public class GameManager : MonoBehaviour
         else
         {
             upgrades.SetActive(false);
+            choosePath.SetActive(false);
             upgradesTriangle.transform.rotation = new Quaternion(0, 0, -180, 0);
             shopArrow.GetComponent<RectTransform>().anchoredPosition = posForShopArrowWhileNoneAreOpen;
             questionsArrow.GetComponent<RectTransform>().anchoredPosition = posForQuestionsArrowWhileNoneAreOpen;
