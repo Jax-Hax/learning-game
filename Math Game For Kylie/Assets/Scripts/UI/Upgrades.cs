@@ -45,6 +45,11 @@ public class Upgrades : MonoBehaviour
     private int costForPath1;
     private int costForPath2;
     private int costForPath3;
+    private int costToTakeOff;
+    public GameObject firstChoice;
+    public GameObject titleForChoosePath;
+    public GameObject titleForChooseAnotherPath;
+    public GameObject XButton;
     public void OpenMenu(string towerName, int currentUpgradeLevel, int currentUpgradePath, string targetingType, TowerUpgradeScriptableObject scriptableObject)
     {
         upgradeMain.SetActive(true);
@@ -60,6 +65,12 @@ public class Upgrades : MonoBehaviour
     }
     private void UpdateValues()
     {
+        changePathMain.SetActive(false);
+        firstChoice.SetActive(false);
+        titleForChoosePath.SetActive(false);
+        upgradeMain.SetActive(true);
+        XButton.SetActive(true);
+        titleForChooseAnotherPath.SetActive(true);
         for (int i = 0; i < upgradeLevel; i++)
         {
             upgradeLevels[i].sprite = isUpgraded;
@@ -80,7 +91,7 @@ public class Upgrades : MonoBehaviour
             }
             else if(upgradeLevel >= 6)
             {
-                Debug.Log("e");// ADD A THING THAT SAYS UR OUT OF MONEY and also add the paths and also add a description button to give a description
+                Debug.Log("e");// ADD A THING THAT SAYS UR OUT OF MONEY and also add the paths and also add a description button to give a description and also add a base cost to get an upgrade path
                 currentUpgradeImage.sprite = currentTower.path100Images[upgradeLevel - 1];
                 currentUpgradeText.text = currentTower.path100Name[upgradeLevel - 1];
                 maxLevelDisplay.SetActive(true);
@@ -129,6 +140,15 @@ public class Upgrades : MonoBehaviour
         else if(upgradePath == 4)
         {
             changePathMain.SetActive(true);
+            firstChoice.SetActive(true);
+            titleForChoosePath.SetActive(true);
+            upgradeMain.SetActive(false);
+            XButton.SetActive(false);
+            titleForChooseAnotherPath.SetActive(false);
+            changeToPath1Text.text = "Path 1: $" + currentTower.costToUpgradeToPath1.ToString();
+            changeToPath2Text.text = "Path 2: $" + currentTower.costToUpgradeToPath2.ToString();
+            changeToPath3Text.text = "Path 3: $" + currentTower.costToUpgradeToPath3.ToString();
+
         }
     }
     public void Upgrade()
@@ -165,6 +185,12 @@ public class Upgrades : MonoBehaviour
         changeToPath1.SetActive(true);
         changeToPath2.SetActive(true);
         changeToPath3.SetActive(true);
+        changePathMain.SetActive(false);
+        firstChoice.SetActive(false);
+        titleForChoosePath.SetActive(false);
+        upgradeMain.SetActive(true);
+        XButton.SetActive(true);
+        titleForChooseAnotherPath.SetActive(true);
     }
     public void CalculateCostToChangePaths()
     {
@@ -172,7 +198,128 @@ public class Upgrades : MonoBehaviour
         {
             costForPath1 += currentTower.path100Cost[i];
         }
-        changeToPath1Text.text = costForPath1.ToString();
-        Debug.Log(costForPath1);
+        for (int i = 0; i < upgradeLevel; i++)
+        {
+            costForPath2 += currentTower.path010Cost[i];
+        }
+        for (int i = 0; i < upgradeLevel; i++)
+        {
+            costForPath3 += currentTower.path001Cost[i];
+        }
+        if(upgradePath == 1)
+        {
+            costToTakeOff = costForPath1;
+        }
+        else if (upgradePath == 2)
+        {
+            costToTakeOff = costForPath2;
+        }
+        else if (upgradePath == 3)
+        {
+            costToTakeOff = costForPath3;
+        }
+        costForPath1 -= Mathf.FloorToInt(costToTakeOff * 1.2f);
+        costForPath2 -= Mathf.FloorToInt(costToTakeOff * 1.2f);
+        costForPath3 -= Mathf.FloorToInt(costToTakeOff * 1.2f);
+        if (Mathf.Sign(costForPath1) == -1)
+        {
+            costForPath1 = 0;
+        }
+        if (Mathf.Sign(costForPath2) == -1)
+        {
+            costForPath2 = 0;
+        }
+        if (Mathf.Sign(costForPath3) == -1)
+        {
+            costForPath3 = 0;
+        }
+        changeToPath3Text.text = "Path 3: $" + costForPath3.ToString();
+        changeToPath2Text.text = "Path 2: $" + costForPath2.ToString();
+        changeToPath1Text.text = "Path 1: $" + costForPath1.ToString();
+    }
+    public void ChangeToPath(int path)
+    {
+        if(upgradePath == 4)
+        {
+            if (path == 1)
+            {
+                if (gameManager.moneyInt >= currentTower.costToUpgradeToPath1)
+                {
+                    gameManager.UpdateMoney(-currentTower.costToUpgradeToPath1, true);
+                    upgradePath = 1;
+                    if(scriptableObjectName == "penguin")
+                    {
+                        penguin.upgradePath = 1;
+                    }
+                }
+            }
+            else if (path == 2)
+            {
+                if (gameManager.moneyInt >= currentTower.costToUpgradeToPath2)
+                {
+                    gameManager.UpdateMoney(-currentTower.costToUpgradeToPath2, true);
+                    upgradePath = 2;
+                    if (scriptableObjectName == "penguin")
+                    {
+                        penguin.upgradePath = 2;
+                    }
+                }
+            }
+            else if (path == 3)
+            {
+                if (gameManager.moneyInt >= currentTower.costToUpgradeToPath3)
+                {
+                    gameManager.UpdateMoney(-currentTower.costToUpgradeToPath3, true);
+                    upgradePath = 3;
+                    if (scriptableObjectName == "penguin")
+                    {
+                        penguin.upgradePath = 3;
+                    }
+                }
+            }
+            CloseChangePath();
+            UpdateValues();
+        }
+        else
+        {
+            if (path == 1)
+            {
+                if (gameManager.moneyInt >= costForPath1)
+                {
+                    gameManager.UpdateMoney(-costForPath1, true);
+                    upgradePath = 1;
+                    if (scriptableObjectName == "penguin")
+                    {
+                        penguin.upgradePath = 1;
+                    }
+                }
+            }
+            else if (path == 2)
+            {
+                if (gameManager.moneyInt >= costForPath2)
+                {
+                    gameManager.UpdateMoney(-costForPath2, true);
+                    upgradePath = 2;
+                    if (scriptableObjectName == "penguin")
+                    {
+                        penguin.upgradePath = 2;
+                    }
+                }
+            }
+            else if (path == 3)
+            {
+                if (gameManager.moneyInt >= costForPath3)
+                {
+                    gameManager.UpdateMoney(-costForPath3, true);
+                    upgradePath = 3;
+                    if (scriptableObjectName == "penguin")
+                    {
+                        penguin.upgradePath = 3;
+                    }
+                }
+            }
+            CloseChangePath();
+            UpdateValues();
+        }
     }
 }

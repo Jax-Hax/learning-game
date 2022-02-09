@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DartMonke : MonoBehaviour
 {
-	private Transform target;
+	/*private Transform target;
 	private BloonCode enemyScript;
 
 	[Header("General")]
@@ -108,5 +108,5 @@ public class DartMonke : MonoBehaviour
     {
 		//upgradeScript.dart = this;
 		//upgradeScript.OpenMenu("dart", upgradeLevel, upgradePath, "First", dartObject);
-    }
+    }*/
 }

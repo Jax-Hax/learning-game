@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Penguin
   m_EditorClassIdentifier: 
   towerImage: {fileID: 21300000, guid: 52a46962c3d79a84fb592073ad0dca41, type: 3}
+  costToUpgradeToPath1: 100
+  costToUpgradeToPath2: 200
+  costToUpgradeToPath3: 300
   path100Images:
   - {fileID: 21300000, guid: a426693d585ee7341985cdd5c25b0aca, type: 3}
   - {fileID: 21300000, guid: 602a2106c7f662649ae961054456c853, type: 3}
@@ -30,10 +33,10 @@ MonoBehaviour:
   - Ultra Child
   - Perma-child
   path010Images: []
-  path010Cost: 
-  path010SellPrices: 
+  path010Cost: 1027000010270000102700001027000010270000
+  path010SellPrices: 00000000
   path010Name: []
   path001Images: []
-  path001Cost: 
+  path001Cost: 380100007b0000008400000041010000
   path001SellPrices: 
   path001Name: []

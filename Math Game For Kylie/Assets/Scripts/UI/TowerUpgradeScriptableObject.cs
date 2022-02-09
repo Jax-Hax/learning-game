@@ -6,6 +6,9 @@ public class TowerUpgradeScriptableObject : ScriptableObject
 {
     [Header("General")]
     public Sprite towerImage;
+    public int costToUpgradeToPath1;
+    public int costToUpgradeToPath2;
+    public int costToUpgradeToPath3;
     [Header("Path 100")]
     public Sprite[] path100Images;
     public int[] path100Cost;

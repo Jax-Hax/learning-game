@@ -18,8 +18,8 @@ public class Penguin : MonoBehaviour
 	private GameManager gameManager;
 	private GameObject upgradeMenu;
 	private Upgrades upgradeScript;
-	private int upgradePath = 1;
-	private int upgradeLevel = 0;
+	public int upgradePath = 4;
+	public int upgradeLevel = 0;
 	public TowerUpgradeScriptableObject penguinObject;
 	public Animator anim;
 

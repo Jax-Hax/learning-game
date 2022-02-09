@@ -157,7 +157,6 @@ public class GameManager : MonoBehaviour
         else
         {
             upgrades.SetActive(false);
-            choosePath.SetActive(false);
             upgradesTriangle.transform.rotation = new Quaternion(0, 0, -180, 0);
             shopArrow.GetComponent<RectTransform>().anchoredPosition = posForShopArrowWhileNoneAreOpen;
             questionsArrow.GetComponent<RectTransform>().anchoredPosition = posForQuestionsArrowWhileNoneAreOpen;
@@ -273,7 +272,7 @@ public class GameManager : MonoBehaviour
     public void IsShopClickedTrueOrFalse(bool isTrue)
     {
         upgrades.SetActive(false);
-        upgradeArrow.transform.rotation = new Quaternion(0, 0, -180, 0);
+        upgradesTriangle.transform.rotation = new Quaternion(0, 0, -180, 0);
         if (!isTrue)
         {
             shopTriangle.transform.rotation = new Quaternion(0, 0, -180, 0);
