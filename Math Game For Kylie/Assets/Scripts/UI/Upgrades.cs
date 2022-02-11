@@ -50,7 +50,7 @@ public class Upgrades : MonoBehaviour
     public GameObject titleForChoosePath;
     public GameObject titleForChooseAnotherPath;
     public GameObject XButton;
-    public void OpenMenu(string towerName, int currentUpgradeLevel, int currentUpgradePath, string targetingType, TowerUpgradeScriptableObject scriptableObject)
+    public void OpenMenu(string towerName, int currentUpgradeLevel, int currentUpgradePath, string targetingType, TowerUpgradeScriptableObject scriptableObject, int monkesPopCount)
     {
         upgradeMain.SetActive(true);
         gameManager.IsUpgradesTurnedOn();
@@ -61,6 +61,7 @@ public class Upgrades : MonoBehaviour
         targeting.text = targetingType;
         upgradePath = currentUpgradePath;
         upgradeLevel = currentUpgradeLevel;
+        popCount.text = monkesPopCount.ToString();
         UpdateValues();
     }
     private void UpdateValues()
@@ -91,7 +92,7 @@ public class Upgrades : MonoBehaviour
             }
             else if(upgradeLevel >= 6)
             {
-                Debug.Log("e");// ADD A THING THAT SAYS UR OUT OF MONEY and also add the paths and also add a description button to give a description and also add a base cost to get an upgrade path
+                Debug.Log("e");// ADD A THING THAT SAYS UR OUT OF MONEY and also add a description button to give a description, seperate upgrades from other stuff and make it switch sides based on where monke is ALL AFTER ITS OUT
                 currentUpgradeImage.sprite = currentTower.path100Images[upgradeLevel - 1];
                 currentUpgradeText.text = currentTower.path100Name[upgradeLevel - 1];
                 maxLevelDisplay.SetActive(true);
@@ -218,9 +219,9 @@ public class Upgrades : MonoBehaviour
         {
             costToTakeOff = costForPath3;
         }
-        costForPath1 -= Mathf.FloorToInt(costToTakeOff * 1.2f);
-        costForPath2 -= Mathf.FloorToInt(costToTakeOff * 1.2f);
-        costForPath3 -= Mathf.FloorToInt(costToTakeOff * 1.2f);
+        costForPath1 -= Mathf.FloorToInt(costToTakeOff * 1.2f) + currentTower.costToUpgradeToPath1;
+        costForPath2 -= Mathf.FloorToInt(costToTakeOff * 1.2f) + currentTower.costToUpgradeToPath2;
+        costForPath3 -= Mathf.FloorToInt(costToTakeOff * 1.2f) + currentTower.costToUpgradeToPath3;
         if (Mathf.Sign(costForPath1) == -1)
         {
             costForPath1 = 0;

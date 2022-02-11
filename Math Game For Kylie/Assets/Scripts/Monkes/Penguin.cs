@@ -18,6 +18,7 @@ public class Penguin : MonoBehaviour
 	private GameManager gameManager;
 	private GameObject upgradeMenu;
 	private Upgrades upgradeScript;
+	public int popCount;
 	public int upgradePath = 4;
 	public int upgradeLevel = 0;
 	public TowerUpgradeScriptableObject penguinObject;
@@ -94,6 +95,7 @@ public class Penguin : MonoBehaviour
 		if(target != null)
         {
 			target.GetComponent<BloonCode>().RemoveHealth(1);
+			popCount += 1;
 			anim.Play("Shoot");
 		}
 	}
@@ -104,6 +106,6 @@ public class Penguin : MonoBehaviour
 	public void OpenUpgradeMenu()
 	{
 		upgradeScript.penguin = this;
-		upgradeScript.OpenMenu("penguin", upgradeLevel, upgradePath, "First", penguinObject);
+		upgradeScript.OpenMenu("penguin", upgradeLevel, upgradePath, "First", penguinObject, popCount);
 	}
 }
