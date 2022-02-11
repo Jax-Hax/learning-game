@@ -17,14 +17,14 @@ MonoBehaviour:
   costToUpgradeToPath2: 200
   costToUpgradeToPath3: 300
   path100Images:
+  - {fileID: 21300000, guid: d0d5004093e9e7f489c5918af144139c, type: 3}
   - {fileID: 21300000, guid: a426693d585ee7341985cdd5c25b0aca, type: 3}
-  - {fileID: 21300000, guid: 602a2106c7f662649ae961054456c853, type: 3}
   - {fileID: 21300000, guid: 8bedf9aa10499114a94163283d8c8c70, type: 3}
   - {fileID: 21300000, guid: e969ee71696d72b4f94165e7e36ad968, type: 3}
   - {fileID: 21300000, guid: b4434ae90f1b0f041936bc24dc6dc504, type: 3}
   - {fileID: 21300000, guid: 0cb43672ab9fe19409a49c026a5a3e07, type: 3}
-  path100Cost: 64000000c80000002c01000090010000f401000058020000
-  path100SellPrices: 0000000064000000c80000002c01000090010000f401000058020000
+  path100Cost: 64000000fa00000058020000b80b0000d430000050c30000
+  path100SellPrices: 96000000c8000000130100003f0200001b0800008b1f0000b8880000
   path100Name:
   - Tall Penguin
   - Taller Penguin
@@ -32,11 +32,35 @@ MonoBehaviour:
   - Have Child
   - Ultra Child
   - Perma-child
-  path010Images: []
-  path010Cost: 1027000010270000102700001027000010270000
-  path010SellPrices: 00000000
-  path010Name: []
-  path001Images: []
-  path001Cost: 380100007b0000008400000041010000
-  path001SellPrices: 
-  path001Name: []
+  path010Images:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  path010Cost: fa000000f401000058020000d007000064190000204e0000
+  path010SellPrices: 96000000130100003f02000027060000b20c00006419000074400000
+  path010Name:
+  - Faster Pecking
+  - Even Faster Pecking
+  - Camo Penguin
+  - Freezing Penguin
+  - Ultra Peck
+  - Perma Peck
+  path001Images:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  path001Cost: fa000000e2040000d00700004c1d0000204e000060ea0000
+  path001SellPrices: 9600000013010000840300006c07000044160000543d000050c30000
+  path001Name:
+  - Sharp Peck
+  - Sharper Peck
+  - Stunning Peck
+  - Chomp
+  - Ultra Chomp
+  - Skipper

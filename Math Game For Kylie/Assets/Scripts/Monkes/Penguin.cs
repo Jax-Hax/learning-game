@@ -102,7 +102,67 @@ public class Penguin : MonoBehaviour
 	public void Upgrade()
 	{
 		upgradeLevel++;
-	}
+        switch (upgradePath)
+        {
+			case 1:
+                switch (upgradeLevel)
+                {
+					case 0:
+						break;
+					case 1:
+						break;
+					case 2:
+						break;
+					case 3:
+						break;
+					case 4:
+						break;
+					case 5:
+						break;
+					case 6:
+						break;
+				}
+                break;
+			case 2:
+				switch (upgradeLevel)
+				{
+					case 0:
+						break;
+					case 1:
+						break;
+					case 2:
+						break;
+					case 3:
+						break;
+					case 4:
+						break;
+					case 5:
+						break;
+					case 6:
+						break;
+				}
+				break;
+			case 3:
+				switch (upgradeLevel)
+				{
+					case 0:
+						break;
+					case 1:
+						break;
+					case 2:
+						break;
+					case 3:
+						break;
+					case 4:
+						break;
+					case 5:
+						break;
+					case 6:
+						break;
+				}
+				break;
+        }
+    }
 	public void OpenUpgradeMenu()
 	{
 		upgradeScript.penguin = this;

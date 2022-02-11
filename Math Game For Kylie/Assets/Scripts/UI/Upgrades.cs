@@ -92,9 +92,10 @@ public class Upgrades : MonoBehaviour
             }
             else if(upgradeLevel >= 6)
             {
-                Debug.Log("e");// ADD A THING THAT SAYS UR OUT OF MONEY and also add a description button to give a description, seperate upgrades from other stuff and make it switch sides based on where monke is ALL AFTER ITS OUT
+                // ADD A THING THAT SAYS UR OUT OF MONEY and also add a description button to give a description, seperate upgrades from other stuff and make it switch sides based on where monke is, multiplying cost based on difficulty ALL AFTER ITS OUT
                 currentUpgradeImage.sprite = currentTower.path100Images[upgradeLevel - 1];
                 currentUpgradeText.text = currentTower.path100Name[upgradeLevel - 1];
+                currentSellPrice = currentTower.path100SellPrices[upgradeLevel];
                 maxLevelDisplay.SetActive(true);
                 nextUpgradeDisplay.SetActive(false);
                 levelZeroDisplay.SetActive(false);
@@ -118,24 +119,84 @@ public class Upgrades : MonoBehaviour
         }
         else if (upgradePath == 2)
         {
-            currentSellPrice = currentTower.path010SellPrices[upgradeLevel];
-            currentUpgradeText.text = currentTower.path010Name[upgradeLevel];
-            nextUpgradeText.text = currentTower.path100Name[upgradeLevel];
-            costOfNextUpgradeInt = currentTower.path010Cost[upgradeLevel];
-            costOfNextUpgrade.text = "$" + costOfNextUpgradeInt.ToString();
+            if (upgradeLevel == 0)
+            {
+                levelZeroDisplay.SetActive(true);
+                currentUpgradeDisplay.SetActive(false);
+                maxLevelDisplay.SetActive(false);
+                nextUpgradeDisplay.SetActive(true);
+                currentSellPrice = currentTower.path010SellPrices[upgradeLevel];
+                nextUpgradeText.text = currentTower.path010Name[upgradeLevel];
+                costOfNextUpgradeInt = currentTower.path010Cost[upgradeLevel];
+                costOfNextUpgrade.text = "$" + costOfNextUpgradeInt.ToString();
+                nextUpgradeImage.sprite = currentTower.path010Images[upgradeLevel];
+            }
+            else if (upgradeLevel >= 6)
+            {
+                // ADD A THING THAT SAYS UR OUT OF MONEY and also add a description button to give a description, seperate upgrades from other stuff and make it switch sides based on where monke is, multiplying cost based on difficulty ALL AFTER ITS OUT
+                currentUpgradeImage.sprite = currentTower.path010Images[upgradeLevel - 1];
+                currentUpgradeText.text = currentTower.path010Name[upgradeLevel - 1];
+                currentSellPrice = currentTower.path010SellPrices[upgradeLevel];
+                maxLevelDisplay.SetActive(true);
+                nextUpgradeDisplay.SetActive(false);
+                levelZeroDisplay.SetActive(false);
+                currentUpgradeDisplay.SetActive(true);
+            }
+            else
+            {
+                currentUpgradeImage.sprite = currentTower.path010Images[upgradeLevel - 1];
+                currentUpgradeText.text = currentTower.path010Name[upgradeLevel - 1];
+                levelZeroDisplay.SetActive(false);
+                maxLevelDisplay.SetActive(false);
+                currentUpgradeDisplay.SetActive(true);
+                nextUpgradeDisplay.SetActive(true);
+                currentSellPrice = currentTower.path010SellPrices[upgradeLevel];
+                nextUpgradeText.text = currentTower.path010Name[upgradeLevel];
+                costOfNextUpgradeInt = currentTower.path010Cost[upgradeLevel];
+                costOfNextUpgrade.text = "$" + costOfNextUpgradeInt.ToString();
+                nextUpgradeImage.sprite = currentTower.path010Images[upgradeLevel];
+            }
             sellCost.text = "$" + currentSellPrice.ToString();
-            nextUpgradeImage.sprite = currentTower.path010Images[upgradeLevel + 1];
-            currentUpgradeImage.sprite = currentTower.path010Images[upgradeLevel];
         }
         else if (upgradePath == 3)
         {
-            currentSellPrice = currentTower.path001SellPrices[upgradeLevel];
-            currentUpgradeText.text = currentTower.path001Name[upgradeLevel];
-            nextUpgradeText.text = currentTower.path100Name[upgradeLevel];
-            costOfNextUpgradeInt = currentTower.path001Cost[upgradeLevel];
-            costOfNextUpgrade.text = "$" + costOfNextUpgradeInt.ToString();
-            nextUpgradeImage.sprite = currentTower.path001Images[upgradeLevel + 1];
-            currentUpgradeImage.sprite = currentTower.path001Images[upgradeLevel];
+            if (upgradeLevel == 0)
+            {
+                levelZeroDisplay.SetActive(true);
+                currentUpgradeDisplay.SetActive(false);
+                maxLevelDisplay.SetActive(false);
+                nextUpgradeDisplay.SetActive(true);
+                currentSellPrice = currentTower.path001SellPrices[upgradeLevel];
+                nextUpgradeText.text = currentTower.path001Name[upgradeLevel];
+                costOfNextUpgradeInt = currentTower.path001Cost[upgradeLevel];
+                costOfNextUpgrade.text = "$" + costOfNextUpgradeInt.ToString();
+                nextUpgradeImage.sprite = currentTower.path001Images[upgradeLevel];
+            }
+            else if (upgradeLevel >= 6)
+            {
+                // ADD A THING THAT SAYS UR OUT OF MONEY and also add a description button to give a description, seperate upgrades from other stuff and make it switch sides based on where monke is, multiplying cost based on difficulty ALL AFTER ITS OUT
+                currentUpgradeImage.sprite = currentTower.path001Images[upgradeLevel - 1];
+                currentUpgradeText.text = currentTower.path001Name[upgradeLevel - 1];
+                currentSellPrice = currentTower.path001SellPrices[upgradeLevel];
+                maxLevelDisplay.SetActive(true);
+                nextUpgradeDisplay.SetActive(false);
+                levelZeroDisplay.SetActive(false);
+                currentUpgradeDisplay.SetActive(true);
+            }
+            else
+            {
+                currentUpgradeImage.sprite = currentTower.path001Images[upgradeLevel - 1];
+                currentUpgradeText.text = currentTower.path001Name[upgradeLevel - 1];
+                levelZeroDisplay.SetActive(false);
+                maxLevelDisplay.SetActive(false);
+                currentUpgradeDisplay.SetActive(true);
+                nextUpgradeDisplay.SetActive(true);
+                currentSellPrice = currentTower.path001SellPrices[upgradeLevel];
+                nextUpgradeText.text = currentTower.path001Name[upgradeLevel];
+                costOfNextUpgradeInt = currentTower.path001Cost[upgradeLevel];
+                costOfNextUpgrade.text = "$" + costOfNextUpgradeInt.ToString();
+                nextUpgradeImage.sprite = currentTower.path001Images[upgradeLevel];
+            }
             sellCost.text = "$" + currentSellPrice.ToString();
         }
         else if(upgradePath == 4)
@@ -149,7 +210,6 @@ public class Upgrades : MonoBehaviour
             changeToPath1Text.text = "Path 1: $" + currentTower.costToUpgradeToPath1.ToString();
             changeToPath2Text.text = "Path 2: $" + currentTower.costToUpgradeToPath2.ToString();
             changeToPath3Text.text = "Path 3: $" + currentTower.costToUpgradeToPath3.ToString();
-
         }
     }
     public void Upgrade()
@@ -289,10 +349,6 @@ public class Upgrades : MonoBehaviour
                 {
                     gameManager.UpdateMoney(-costForPath1, true);
                     upgradePath = 1;
-                    if (scriptableObjectName == "penguin")
-                    {
-                        penguin.upgradePath = 1;
-                    }
                 }
             }
             else if (path == 2)
@@ -301,10 +357,6 @@ public class Upgrades : MonoBehaviour
                 {
                     gameManager.UpdateMoney(-costForPath2, true);
                     upgradePath = 2;
-                    if (scriptableObjectName == "penguin")
-                    {
-                        penguin.upgradePath = 2;
-                    }
                 }
             }
             else if (path == 3)
@@ -313,11 +365,11 @@ public class Upgrades : MonoBehaviour
                 {
                     gameManager.UpdateMoney(-costForPath3, true);
                     upgradePath = 3;
-                    if (scriptableObjectName == "penguin")
-                    {
-                        penguin.upgradePath = 3;
-                    }
                 }
+            }
+            if (scriptableObjectName == "penguin")
+            {
+                penguin.upgradePath = upgradePath;
             }
             CloseChangePath();
             UpdateValues();

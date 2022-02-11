@@ -71,10 +71,10 @@ public class BloonCode : MonoBehaviour
             image.sprite = redEnemy;
             speed = redEnemySpeed;
             damageBloonDoesToLives = 1;
-            GameObject bloon = ObjectPooler.SharedInstance.GetPooledObject(0);
+            /*GameObject bloon = ObjectPooler.SharedInstance.GetPooledObject(0);
             bloon.SetActive(true);
             bloon.GetComponent<BloonCode>().wayPointIndex = wayPointIndex;
-            bloon.transform.position = gameObject.transform.position;
+            bloon.transform.position = gameObject.transform.position;*/
         }
     }
 }
