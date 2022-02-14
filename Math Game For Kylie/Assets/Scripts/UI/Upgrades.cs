@@ -241,6 +241,36 @@ public class Upgrades : MonoBehaviour
             changeToPath3.SetActive(false);
         }
     }
+    public void CloseUpgrades()
+    {
+        if (scriptableObjectName == "penguin")
+        {
+            penguin.HideRange();
+        }
+    }
+    public void OpenUpgrades()
+    {
+        if (scriptableObjectName == "penguin")
+        {
+            penguin.ShowRange();
+        }
+    }
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            Debug.Log("wtf");
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+            {
+                Debug.Log("ayo");
+                if (scriptableObjectName == "penguin")
+                {
+                    penguin.CheckIfTouched(hit);
+                }
+            }
+        }
+    }
     public void CloseChangePath()
     {
         changeToPath1.SetActive(true);
@@ -284,15 +314,15 @@ public class Upgrades : MonoBehaviour
         costForPath3 -= Mathf.FloorToInt(costToTakeOff * 1.2f) + currentTower.costToUpgradeToPath3;
         if (Mathf.Sign(costForPath1) == -1)
         {
-            costForPath1 = 0;
+            costForPath1 = 1000;
         }
         if (Mathf.Sign(costForPath2) == -1)
         {
-            costForPath2 = 0;
+            costForPath2 = 1000;
         }
         if (Mathf.Sign(costForPath3) == -1)
         {
-            costForPath3 = 0;
+            costForPath3 = 1000;
         }
         changeToPath3Text.text = "Path 3: $" + costForPath3.ToString();
         changeToPath2Text.text = "Path 2: $" + costForPath2.ToString();

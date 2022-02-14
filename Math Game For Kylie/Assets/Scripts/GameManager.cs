@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
     public List<Vector3> mapWaypoints = new List<Vector3>();
     public GameObject upgrades;
     public GameObject choosePath;
+    public Upgrades upgradeMain;
     private void Awake()
     {
         SetStartMoneyFromDifficulty();
@@ -135,6 +136,7 @@ public class GameManager : MonoBehaviour
     public void IsUpgradesTurnedOn()
     {
         upgrades.SetActive(true);
+        upgradeMain.OpenUpgrades();
         upgradeArrow.SetActive(true);
         shopTriangle.transform.rotation = new Quaternion(0, 0, -180, 0);
         upgradesTriangle.transform.rotation = Quaternion.identity;
@@ -157,6 +159,7 @@ public class GameManager : MonoBehaviour
         else
         {
             upgrades.SetActive(false);
+            upgradeMain.CloseUpgrades();
             upgradesTriangle.transform.rotation = new Quaternion(0, 0, -180, 0);
             shopArrow.GetComponent<RectTransform>().anchoredPosition = posForShopArrowWhileNoneAreOpen;
             questionsArrow.GetComponent<RectTransform>().anchoredPosition = posForQuestionsArrowWhileNoneAreOpen;

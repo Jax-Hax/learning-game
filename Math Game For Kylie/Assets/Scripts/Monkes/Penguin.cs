@@ -23,10 +23,12 @@ public class Penguin : MonoBehaviour
 	public int upgradeLevel = 0;
 	public TowerUpgradeScriptableObject penguinObject;
 	public Animator anim;
+	public GameObject rangeObject;
 
 	// Use this for initialization
 	void Start()
 	{
+		rangeObject.SetActive(false);
 		gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
 		upgradeMenu = GameObject.FindGameObjectWithTag("UpgradeMenu");
 		upgradeScript = upgradeMenu.GetComponent<Upgrades>();
@@ -64,7 +66,14 @@ public class Penguin : MonoBehaviour
 			}
 		}
 	}
-
+	public void HideRange()
+    {
+		rangeObject.SetActive(false);
+	}
+	public void ShowRange()
+    {
+		rangeObject.SetActive(true);
+    }
 	// Update is called once per frame
 	void FixedUpdate()
 	{
@@ -90,7 +99,18 @@ public class Penguin : MonoBehaviour
 			transform.up = target.position - transform.position;
 		}
 	}
-	void Shoot()
+    private void OnMouseDown()
+    {
+		rangeObject.SetActive(true);
+    }
+    private void OnMouseUp()
+    {
+        if(gameManager.upgrades.activeSelf == false)
+        {
+			rangeObject.SetActive(false);
+        }
+    }
+    void Shoot()
 	{
 		if(target != null)
         {
@@ -107,8 +127,6 @@ public class Penguin : MonoBehaviour
 			case 1:
                 switch (upgradeLevel)
                 {
-					case 0:
-						break;
 					case 1:
 						break;
 					case 2:
@@ -126,8 +144,6 @@ public class Penguin : MonoBehaviour
 			case 2:
 				switch (upgradeLevel)
 				{
-					case 0:
-						break;
 					case 1:
 						break;
 					case 2:
@@ -145,8 +161,6 @@ public class Penguin : MonoBehaviour
 			case 3:
 				switch (upgradeLevel)
 				{
-					case 0:
-						break;
 					case 1:
 						break;
 					case 2:
@@ -163,9 +177,23 @@ public class Penguin : MonoBehaviour
 				break;
         }
     }
+	public void CheckIfTouched(RaycastHit hit)
+    {
+		if(hit.collider.gameObject == this)
+        {
+			rangeObject.SetActive(false);
+        }
+    }
 	public void OpenUpgradeMenu()
 	{
+		upgradeScript.CloseUpgrades();
 		upgradeScript.penguin = this;
+		rangeObject.SetActive(true);
 		upgradeScript.OpenMenu("penguin", upgradeLevel, upgradePath, "First", penguinObject, popCount);
+	}
+	void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(transform.position, range);
 	}
 }
