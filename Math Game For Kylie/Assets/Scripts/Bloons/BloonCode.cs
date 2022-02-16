@@ -4,37 +4,66 @@ using UnityEngine;
 using UnityEngine.UI;
 public class BloonCode : MonoBehaviour
 {
+    [HideInInspector]
     public int health;
     public int bloonType;
     private GameManager gameManager;
     Vector3[] waypoints;
+    [HideInInspector]
     public float speed;
-    private float redEnemySpeed = 6;
-    private float blueEnemySpeed = 10;
+    [HideInInspector]
     public int wayPointIndex = 0;
+    [HideInInspector]
     public int damageBloonDoesToLives;
     [SerializeField]
     private GameObject[] bloons;
+    [HideInInspector]
     public Transform whereToSpawn;
+    private Image image;
     [SerializeField]
     private Sprite redEnemy;
     [SerializeField]
     private Sprite blueEnemy;
-    private Image image;
-    private void OnEnable()
-    {
-        if(bloonType == 0)
-        {
-            health = 1;
-        }
-        else if(bloonType == 1)
-        {
-            health = 2;
-            damageBloonDoesToLives = 2;
-            image.sprite = blueEnemy;
-            speed = blueEnemySpeed;
-        }
-    }
+    [SerializeField]
+    private Sprite greenEnemy;
+    [SerializeField]
+    private Sprite yellowEnemy;
+    [SerializeField]
+    private Sprite pinkEnemy;
+    [SerializeField]
+    private Sprite blackEnemy;
+    [SerializeField]
+    private Sprite whiteEnemy;
+    [SerializeField]
+    private Sprite orangeEnemy;
+    [SerializeField]
+    private Sprite purpleEnemy;
+    [SerializeField]
+    private Sprite rainbowEnemy;
+    [SerializeField]
+    private Sprite ceramicEnemy;
+    private float redEnemySpeed = 6;
+    private float blueEnemySpeed = 8.4f;
+    private float greenEnemySpeed = 10.8f;
+    private float yellowEnemySpeed = 19.2f;
+    private float pinkEnemySpeed = 21;
+    private float whiteEnemySpeed = 12;
+    private float blackEnemySpeed = 10.8f;
+    private float orangeEnemySpeed = 11;
+    private float purpleEnemySpeed = 18;
+    private float rainbowEnemySpeed = 13.2f;
+    private float ceramicEnemySpeed = 15;
+    private int redEnemyHP = 1;
+    private int blueEnemyHP = 2;
+    private int greenEnemyHP = 3;
+    private int yellowEnemyHP = 4;
+    private int pinkEnemyHP = 5;
+    private int whiteEnemyHP = 11; //splits to 2 pink
+    private int blackEnemyHP = 11; //splits to 2 pink
+    private int orangeEnemyHP = 16; //splits to 3 pink
+    private int purpleEnemyHP = 28; //splits to 1 orange and one black
+    private int rainbowEnemyHP = 23; //splits to 1 black and one white
+    private int ceramicEnemyHP = 73; //50 hp then one rainbow
     private void Awake()
     {
         image = GetComponent<Image>();
@@ -75,6 +104,97 @@ public class BloonCode : MonoBehaviour
             bloon.SetActive(true);
             bloon.GetComponent<BloonCode>().wayPointIndex = wayPointIndex;
             bloon.transform.position = gameObject.transform.position;*/
+        }
+    }
+    private void OnEnable()
+    {
+        if (bloonType == 0)
+        {
+            //red
+            health = redEnemyHP;
+            damageBloonDoesToLives = redEnemyHP;
+            image.sprite = redEnemy;
+            speed = redEnemySpeed;
+        }
+        else if (bloonType == 1)
+        {
+            //blue
+            health = blueEnemyHP;
+            damageBloonDoesToLives = blueEnemyHP;
+            image.sprite = blueEnemy;
+            speed = blueEnemySpeed;
+        }
+        else if (bloonType == 2)
+        {
+            //green
+            health = greenEnemyHP;
+            damageBloonDoesToLives = greenEnemyHP;
+            image.sprite = greenEnemy;
+            speed = greenEnemySpeed;
+        }
+        else if (bloonType == 3)
+        {
+            //yellow
+            health = yellowEnemyHP;
+            damageBloonDoesToLives = yellowEnemyHP;
+            image.sprite = yellowEnemy;
+            speed = yellowEnemySpeed;
+        }
+        else if (bloonType == 4)
+        {
+            //pink
+            health = pinkEnemyHP;
+            damageBloonDoesToLives = pinkEnemyHP;
+            image.sprite = pinkEnemy;
+            speed = pinkEnemySpeed;
+        }
+        else if (bloonType == 5)
+        {
+            //black
+            health = blackEnemyHP;
+            damageBloonDoesToLives = blackEnemyHP;
+            image.sprite = blackEnemy;
+            speed = blackEnemySpeed;
+        }
+        else if (bloonType == 6)
+        {
+            //white
+            health = whiteEnemyHP;
+            damageBloonDoesToLives = whiteEnemyHP;
+            image.sprite = whiteEnemy;
+            speed = whiteEnemySpeed;
+        }
+        else if (bloonType == 7)
+        {
+            //orange
+            health = orangeEnemyHP;
+            damageBloonDoesToLives = orangeEnemyHP;
+            image.sprite = orangeEnemy;
+            speed = orangeEnemySpeed;
+        }
+        else if (bloonType == 8)
+        {
+            //purple
+            health = purpleEnemyHP;
+            damageBloonDoesToLives = purpleEnemyHP;
+            image.sprite = purpleEnemy;
+            speed = purpleEnemySpeed;
+        }
+        else if (bloonType == 9)
+        {
+            //rainbow
+            health = rainbowEnemyHP;
+            damageBloonDoesToLives = rainbowEnemyHP;
+            image.sprite = rainbowEnemy;
+            speed = rainbowEnemySpeed;
+        }
+        else if (bloonType == 10)
+        {
+            //ceramic
+            health = ceramicEnemyHP;
+            damageBloonDoesToLives = ceramicEnemyHP;
+            image.sprite = ceramicEnemy;
+            speed = ceramicEnemySpeed;
         }
     }
 }

@@ -13,6 +13,15 @@ TagManager:
   - CreateFlashcards
   - red
   - blue
+  - green
+  - yellow
+  - pink
+  - black
+  - white
+  - orange
+  - purple
+  - rainbow
+  - ceramic
   layers:
   - Default
   - TransparentFX

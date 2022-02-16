@@ -4263,7 +4263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: {fileID: 866570345}
-  seeAbleRange: {x: 2.75, y: 2.75, z: 1}
+  seeAbleRange: {x: 1.2, y: 1.2, z: 1}
   monke: {fileID: 11400000, guid: c5cbb57555df02142a725e2e35f6bb3f, type: 2}
   cost: {fileID: 1627919895}
   gameManager: {fileID: 483598185}
@@ -13760,4 +13760,22 @@ MonoBehaviour:
     objectToPool: {fileID: 5695918002174570015, guid: 8c3b35059682a3c4a9ab5d7a8b325e8e, type: 3}
   - amountToPool: 20
     objectToPool: {fileID: 5695918002174570015, guid: 020a381ed14a0f040a40a9413a3abefa, type: 3}
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: 5eb7aea6dd7c6524aba00161ce6eb745, type: 3}
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: c4bec4229a6fc1344ae76c2363879d30, type: 3}
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: 5f4a0b23ad185d2428955428018ee0f6, type: 3}
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: 4137f292d2b3ada4fbad2efce8a6885c, type: 3}
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: 23262ae0db3bc2d42986c3e4526b947d, type: 3}
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: 5876f5d660a142948b8ea47cef5d5d4c, type: 3}
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: f9e5cede2cf6ff64cb3b545e944aa5ab, type: 3}
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: 060838fb972a17f4db35172ff2c3fb2e, type: 3}
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: 876fdd50307402f428eba86ca5fd8849, type: 3}
   instantiatedParent: {fileID: 277595296}

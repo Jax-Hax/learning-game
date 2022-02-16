@@ -43,6 +43,43 @@ public class ObjectPooler : MonoBehaviour
         {
             objectTag = "blue";
         }
+        else if (tagNumber == 2)
+        {
+            objectTag = "green";
+        }
+        else if (tagNumber == 3)
+        {
+            objectTag = "yellow";
+        }
+        else if (tagNumber == 4)
+        {
+            objectTag = "pink";
+        }
+        else if (tagNumber == 5)
+        {
+            objectTag = "black";
+        }
+        else if (tagNumber == 6)
+        {
+            objectTag = "white";
+        }
+        else if (tagNumber == 7)
+        {
+            objectTag = "orange";
+        }
+        else if (tagNumber == 8)
+        {
+            objectTag = "purple";
+        }
+        else if (tagNumber == 9)
+        {
+            objectTag = "rainbow";
+        }
+        else if (tagNumber == 10)
+        {
+            objectTag = "ceramic";
+        }
+
         for (int i = 0; i < pooledObjects.Count; i++)
         {
             if (!pooledObjects[i].activeInHierarchy && pooledObjects[i].tag == objectTag)

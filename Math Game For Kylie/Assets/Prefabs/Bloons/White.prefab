@@ -1,0 +1,146 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5695918002174570015
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5695918002174570014}
+  - component: {fileID: 5695918002174570464}
+  - component: {fileID: 5695918002174570465}
+  - component: {fileID: 4887594857540634439}
+  - component: {fileID: -766729654931892106}
+  m_Layer: 5
+  m_Name: White
+  m_TagString: white
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5695918002174570014
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5695918002174570015}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 8.4542, y: 0}
+  m_SizeDelta: {x: 57, y: 57}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5695918002174570464
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5695918002174570015}
+  m_CullTransparentMesh: 1
+--- !u!114 &5695918002174570465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5695918002174570015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: a895a83d59c80014184a387e87a74145, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4887594857540634439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5695918002174570015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 301ac40d041cec14aa830d065dc59f43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  bloonType: 6
+  speed: 6
+  wayPointIndex: 0
+  damageBloonDoesToLives: 1
+  bloons:
+  - {fileID: 5695918002174570015, guid: 8c3b35059682a3c4a9ab5d7a8b325e8e, type: 3}
+  - {fileID: 5695918002174570015, guid: 020a381ed14a0f040a40a9413a3abefa, type: 3}
+  - {fileID: 5695918002174570015, guid: 5eb7aea6dd7c6524aba00161ce6eb745, type: 3}
+  - {fileID: 5695918002174570015, guid: c4bec4229a6fc1344ae76c2363879d30, type: 3}
+  - {fileID: 5695918002174570015, guid: 5f4a0b23ad185d2428955428018ee0f6, type: 3}
+  - {fileID: 5695918002174570015, guid: 4137f292d2b3ada4fbad2efce8a6885c, type: 3}
+  - {fileID: 5695918002174570015}
+  - {fileID: 5695918002174570015, guid: 5876f5d660a142948b8ea47cef5d5d4c, type: 3}
+  - {fileID: 5695918002174570015, guid: f9e5cede2cf6ff64cb3b545e944aa5ab, type: 3}
+  - {fileID: 5695918002174570015, guid: 060838fb972a17f4db35172ff2c3fb2e, type: 3}
+  - {fileID: 5695918002174570015, guid: 876fdd50307402f428eba86ca5fd8849, type: 3}
+  whereToSpawn: {fileID: 0}
+  redEnemy: {fileID: 21300000, guid: a895a83d59c80014184a387e87a74145, type: 3}
+  blueEnemy: {fileID: 21300000, guid: d5d34a3f61c2f2c418bcc9733d51a551, type: 3}
+  greenEnemy: {fileID: 21300000, guid: 64f9c738dab8fa842b3c9de86fb1c012, type: 3}
+  yellowEnemy: {fileID: 21300000, guid: 8a42564e1177d3441a5e2c0b7beebabc, type: 3}
+  pinkEnemy: {fileID: 21300000, guid: 799fdf299388f18458def92fccf0fd67, type: 3}
+  blackEnemy: {fileID: 21300000, guid: b4434ae90f1b0f041936bc24dc6dc504, type: 3}
+  whiteEnemy: {fileID: 21300000, guid: 45080b8f2a42ea349bd0f65e83274e94, type: 3}
+  orangeEnemy: {fileID: 21300000, guid: 96106b2a8a39a8140a4ccd220ec59cf2, type: 3}
+  purpleEnemy: {fileID: 21300000, guid: 9e408d2eabeff8641afdc0efc8e474fb, type: 3}
+  rainbowEnemy: {fileID: 21300000, guid: 079454c9d7f2def459d730c3393fd420, type: 3}
+  ceramicEnemy: {fileID: 21300000, guid: 0cb43672ab9fe19409a49c026a5a3e07, type: 3}
+--- !u!61 &-766729654931892106
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5695918002174570015}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.016418457, y: 0.32442474}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 57.37146, y: 56.072037}
+  m_EdgeRadius: 0

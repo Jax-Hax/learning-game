@@ -9,7 +9,7 @@ public class Penguin : MonoBehaviour
 
 	[Header("General")]
 
-	public float range = 15f;
+	public float range = 1.35f;
 	public string targeting = "close";
 
 	public float fireRate = 0.75f;
@@ -128,8 +128,12 @@ public class Penguin : MonoBehaviour
                 switch (upgradeLevel)
                 {
 					case 1:
+						rangeObject.transform.localScale = new Vector3(1.6f, 1.6f, 1f);
+						range = 1.78f;
 						break;
 					case 2:
+						rangeObject.transform.localScale = new Vector3(2.16f, 2.16f, 1f);
+						range = 2.45f;
 						break;
 					case 3:
 						break;
@@ -175,13 +179,6 @@ public class Penguin : MonoBehaviour
 						break;
 				}
 				break;
-        }
-    }
-	public void CheckIfTouched(RaycastHit hit)
-    {
-		if(hit.collider.gameObject == this)
-        {
-			rangeObject.SetActive(false);
         }
     }
 	public void OpenUpgradeMenu()

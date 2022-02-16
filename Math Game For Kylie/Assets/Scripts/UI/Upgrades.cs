@@ -174,7 +174,7 @@ public class Upgrades : MonoBehaviour
             }
             else if (upgradeLevel >= 6)
             {
-                // ADD A THING THAT SAYS UR OUT OF MONEY and also add a description button to give a description, seperate upgrades from other stuff and make it switch sides based on where monke is, multiplying cost based on difficulty ALL AFTER ITS OUT
+                // ADD A THING THAT SAYS UR OUT OF MONEY and also add a description button to give a description, seperate upgrades from other stuff and make it switch sides based on where monke is, multiplying cost based on difficulty ALL AFTER ITS OUT, ability to crosspatgh for money
                 currentUpgradeImage.sprite = currentTower.path001Images[upgradeLevel - 1];
                 currentUpgradeText.text = currentTower.path001Name[upgradeLevel - 1];
                 currentSellPrice = currentTower.path001SellPrices[upgradeLevel];
@@ -253,22 +253,6 @@ public class Upgrades : MonoBehaviour
         if (scriptableObjectName == "penguin")
         {
             penguin.ShowRange();
-        }
-    }
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit hit;
-            Debug.Log("wtf");
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
-            {
-                Debug.Log("ayo");
-                if (scriptableObjectName == "penguin")
-                {
-                    penguin.CheckIfTouched(hit);
-                }
-            }
         }
     }
     public void CloseChangePath()

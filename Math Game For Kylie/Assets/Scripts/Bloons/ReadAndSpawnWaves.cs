@@ -86,7 +86,7 @@ public class ReadAndSpawnWaves : MonoBehaviour
                 else
                 {
                     wave = new Wave();
-                    allPartsOfWave = currentWave.Split(char.Parse(","));
+                    allPartsOfWave = currentWave.Split(char.Parse("-"));
                     foreach (string currentPartOfWave in allPartsOfWave)
                     {
                         if (waveParseIndex == 0)
