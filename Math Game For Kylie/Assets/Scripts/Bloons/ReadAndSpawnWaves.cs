@@ -101,6 +101,11 @@ public class ReadAndSpawnWaves : MonoBehaviour
                         }
                         else if (waveParseIndex == 2)
                         {
+                            wave.isCamo = Convert.ToBoolean(currentPartOfWave);
+                            waveParseIndex++;
+                        }
+                        else if (waveParseIndex == 3)
+                        {
                             wave.howManyBloons = int.Parse(currentPartOfWave);
                             waveParseIndex = 0;
                             round.waves.Add(wave);
