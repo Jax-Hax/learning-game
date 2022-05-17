@@ -8,4 +8,5 @@ public class Wave
     public int bloonType;
     public float timeBetweenBloons;
     public int howManyBloons;
+    public bool isCamo;
 }
