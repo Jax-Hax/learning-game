@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 2080564300}
   m_Layer: 6
   m_Name: ShootableDart
-  m_TagString: Untagged
+  m_TagString: penguin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -277,6 +277,9 @@ MonoBehaviour:
   penguinObject: {fileID: 11400000, guid: ce7327c953f304a459dcc549ea8aab07, type: 2}
   anim: {fileID: 303630575}
   rangeObject: {fileID: 4114102586055542340}
+  mask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1001 &4411389264628188315
 PrefabInstance:
   m_ObjectHideFlags: 0

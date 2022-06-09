@@ -24,6 +24,11 @@ public class Penguin : MonoBehaviour
 	public TowerUpgradeScriptableObject penguinObject;
 	public Animator anim;
 	public GameObject rangeObject;
+	private int damage = 1;
+	private Collider[] hitColliders;
+	public LayerMask mask;
+	private bool isAbilityActive = false;
+	public GameObject penguinAbilityButton;
 
 	// Use this for initialization
 	void Start()
@@ -114,9 +119,11 @@ public class Penguin : MonoBehaviour
 	{
 		if(target != null)
         {
-			target.GetComponent<BloonCode>().RemoveHealth(1);
-			popCount += 1;
-			anim.Play("Shoot");
+			if(target.GetComponent<BloonCode>().RemoveHealth(damage) != 0)
+            {
+				popCount += damage;
+				anim.Play("Shoot");
+			}
 		}
 	}
 	public void Upgrade()
@@ -166,10 +173,13 @@ public class Penguin : MonoBehaviour
 				switch (upgradeLevel)
 				{
 					case 1:
+						damage += 1;
 						break;
 					case 2:
+						damage += 4;
 						break;
 					case 3:
+						Invoke("UpdateSurroundings", 2);
 						break;
 					case 4:
 						break;
@@ -193,4 +203,19 @@ public class Penguin : MonoBehaviour
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(transform.position, range);
 	}
+	void UpdateSurroundings()
+    {
+		hitColliders = Physics.OverlapSphere(transform.position, range, mask);
+		foreach(Collider col in hitColliders)
+        {
+            if (col.CompareTag("penguin"))
+            {
+				isAbilityActive = true;
+				penguinAbilityButton.SetActive(true);
+				return;
+            }
+        }
+		isAbilityActive = false;
+		penguinAbilityButton.SetActive(false);
+    }
 }

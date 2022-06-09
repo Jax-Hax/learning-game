@@ -87,7 +87,7 @@ public class BloonCode : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-    public void RemoveHealth(int healthRemoved)
+    public int RemoveHealth(int healthRemoved)
     {
         health -= healthRemoved;
         if (health <= 0)
@@ -99,12 +99,68 @@ public class BloonCode : MonoBehaviour
         {
             image.sprite = redEnemy;
             speed = redEnemySpeed;
-            damageBloonDoesToLives = 1;
-            /*GameObject bloon = ObjectPooler.SharedInstance.GetPooledObject(0);
+            damageBloonDoesToLives = redEnemyHP;
+        }
+        else if (health == 2)
+        {
+            image.sprite = blueEnemy;
+            speed = blueEnemySpeed;
+            damageBloonDoesToLives = blueEnemyHP;
+        }
+        else if (health == 3)
+        {
+            image.sprite = greenEnemy;
+            speed = greenEnemySpeed;
+            damageBloonDoesToLives = greenEnemyHP;
+        }
+        else if (health == 4)
+        {
+            image.sprite = yellowEnemy;
+            speed = yellowEnemySpeed;
+            damageBloonDoesToLives = yellowEnemyHP;
+        }
+        else if (health == 5)
+        {
+            image.sprite = pinkEnemy;
+            speed = pinkEnemySpeed;
+            damageBloonDoesToLives = pinkEnemyHP;
+        }
+        else if (health == 10)
+        {
+            image.sprite = pinkEnemy;
+            speed = pinkEnemySpeed;
+            damageBloonDoesToLives = pinkEnemyHP;
+            health = pinkEnemyHP;
+            GameObject bloon = ObjectPooler.SharedInstance.GetPooledObject(4);
             bloon.SetActive(true);
             bloon.GetComponent<BloonCode>().wayPointIndex = wayPointIndex;
-            bloon.transform.position = gameObject.transform.position;*/
+            bloon.GetComponent<BloonCode>().SlowDown();
+            bloon.transform.position = gameObject.transform.position;
         }
+        else if (health == 11)
+        {
+            image.sprite = whiteEnemy;
+            speed = whiteEnemySpeed;
+            damageBloonDoesToLives = whiteEnemyHP;
+            GameObject bloon = ObjectPooler.SharedInstance.GetPooledObject(5);
+            bloon.SetActive(true);
+            bloon.GetComponent<BloonCode>().wayPointIndex = wayPointIndex;
+            bloon.GetComponent<BloonCode>().SlowDown();
+            bloon.transform.position = gameObject.transform.position;
+        }
+        else if (health == 23)
+        {
+            image.sprite = rainbowEnemy;
+            speed = rainbowEnemySpeed;
+            damageBloonDoesToLives = rainbowEnemyHP;
+        }
+        else if (health == 73)
+        {
+            image.sprite = ceramicEnemy;
+            speed = ceramicEnemySpeed;
+            damageBloonDoesToLives = ceramicEnemyHP;
+        }
+        return health;
     }
     private void OnEnable()
     {
@@ -196,5 +252,14 @@ public class BloonCode : MonoBehaviour
             image.sprite = ceramicEnemy;
             speed = ceramicEnemySpeed;
         }
+    }
+    public void SlowDown()
+    {
+        speed /= 2;
+        Invoke("SpeedUp", 0.5f);
+    }
+    private void SpeedUp()
+    {
+        speed *= 2;
     }
 }
