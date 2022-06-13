@@ -9,10 +9,51 @@ public class WaveCreator : MonoBehaviour
     public GameObject Modebuilder;
     public GameObject RoundBuilder;
     public GameObject WaveBuilder;
+    private string saveableString;
+    private string loadableString;
+    private string[] setInfo;
+    public GameObject LobbyObject;
+    private GameObject LobbyObjectPri;
+    private ModeCard modeCard;
+    private int setInfoIndex = 0;
+    public Transform listPosForSet;
+    private WaveCreator waveCreate;
     private void Start()
     {
-        Debug.Log(Application.persistentDataPath);
-    }/*
+        LoadSetLobby();
+        waveCreate = gameObject.GetComponent<WaveCreator>();
+    }
+    public void DecodeSet(string loadedString)
+    {
+        SetViewer.SetActive(false);
+        Modebuilder.SetActive(true);
+        setInfo = loadedString.Split(char.Parse("{"));
+    }
+    public void CreateNewSet()
+    {
+        SetViewer.SetActive(false);
+        Modebuilder.SetActive(true);
+        setInfoIndex = 0;
+        foreach (string currentInfo in setInfo)
+        {
+            if (setInfoIndex == 0)
+            {
+                modeCard.title = currentInfo;
+                modeCard.pathToDelete = Application.persistentDataPath + "/modesave" + currentInfo + ".scree";
+                modeCard.loadableString = loadableString;
+                modeCard.listPosForSet = listPosForSet;
+                modeCard.waveCreator = waveCreate;
+                setInfoIndex++;
+            }
+            else if (setInfoIndex == 1)
+            {
+                modeCard.amOfRounds = currentInfo;
+                modeCard.UpdateCard();
+                setInfoIndex = 0;
+                break;
+            }
+        }
+    }
     public void LoadSetLobby()
     {
         SetViewer.SetActive(true);
@@ -20,9 +61,11 @@ public class WaveCreator : MonoBehaviour
         RoundBuilder.SetActive(false);
         WaveBuilder.SetActive(false);
         DirectoryInfo dir = new DirectoryInfo(Application.persistentDataPath);
-        FileInfo[] info = dir.GetFiles("*.scree");
+        FileInfo[] info = dir.GetFiles("*.roundset");
         foreach (FileInfo file in info)
         {
+            LobbyObjectPri = Instantiate(LobbyObject, listPosForSet);
+            modeCard = LobbyObjectPri.GetComponent<ModeCard>();
             StreamReader reader = file.OpenText();
             loadableString = reader.ReadLine();
             reader.Close();
@@ -31,50 +74,21 @@ public class WaveCreator : MonoBehaviour
             {
                 if (setInfoIndex == 0)
                 {
-                    lobbyTitle = currentInfo;
+                    modeCard.title = currentInfo;
+                    modeCard.pathToDelete = Application.persistentDataPath + "/modesave" + currentInfo + ".scree";
+                    modeCard.loadableString = loadableString;
+                    modeCard.listPosForSet = listPosForSet;
+                    modeCard.waveCreator = waveCreate;
                     setInfoIndex++;
                 }
                 else if (setInfoIndex == 1)
                 {
-                    if (currentInfo == "Math")
-                    {
-                        lobbyObject = Instantiate(lobbyGameobject, instantiatePosMath);
-                    }
-                    else if (currentInfo == "Science")
-                    {
-                        lobbyObject = Instantiate(lobbyGameobject, instantiatePosScience);
-                    }
-                    else if (currentInfo == "History")
-                    {
-                        lobbyObject = Instantiate(lobbyGameobject, instantiatePosSS);
-                    }
-                    else if (currentInfo == "English")
-                    {
-                        lobbyObject = Instantiate(lobbyGameobject, instantiatePosEnglish);
-                    }
-                    else if (currentInfo == "Language")
-                    {
-                        lobbyObject = Instantiate(lobbyGameobject, instantiatePosLanguage);
-                    }
-                    else if (currentInfo == "Other")
-                    {
-                        lobbyObject = Instantiate(lobbyGameobject, instantiatePosOther);
-                    }
-                    lobbyItemsToDelete.Add(lobbyObject);
-                    setInfoIndex++;
-                }
-                else if (setInfoIndex == 2)
-                {
-                    lobbyCard = lobbyObject.GetComponent<LobbyCard>();
-                    lobbyCard.title = lobbyTitle;
-                    lobbyCard.amOfCards = currentInfo;
-                    lobbyCard.loadableString = loadableString;
-                    lobbyCard.pathToDelete = Application.persistentDataPath + "/setSave" + lobbyTitle + ".scree";
-                    lobbyCard.UpdateCard();
+                    modeCard.amOfRounds = currentInfo;
+                    modeCard.UpdateCard();
                     setInfoIndex = 0;
                     break;
                 }
             }
         }
-    }*/
+    }
 }
