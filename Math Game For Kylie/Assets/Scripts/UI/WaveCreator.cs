@@ -38,6 +38,7 @@ public class WaveCreator : MonoBehaviour
     public Toggle toggleCamo;
     public TMP_InputField timeBtwBloonsTextWave;
     public TMP_InputField numOfBloons;
+    private List<RoundSave> setSave = new List<RoundSave>();
     private void Start()
     {
         LoadSetLobby();
