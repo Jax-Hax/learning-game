@@ -24,10 +24,21 @@ public class WaveCreator : MonoBehaviour
     public Transform listPosForSet;
     public Transform listPosForRound;
     private WaveCreator waveCreate;
+    public TMP_InputField titleText;
     private void Start()
     {
         LoadSetLobby();
         waveCreate = gameObject.GetComponent<WaveCreator>();
+    }
+    public void DecodeRound(string loadedString)
+    {
+        Modebuilder.SetActive(false);
+        RoundBuilder.SetActive(true);
+    }
+    public void CreateNewRound()
+    {
+        Modebuilder.SetActive(false);
+        RoundBuilder.SetActive(true);
     }
     public void DecodeSet(string loadedString)
     {
@@ -41,6 +52,7 @@ public class WaveCreator : MonoBehaviour
             roundCard = RoundObjectPri.GetComponent<RoundCard>();
             if (setInfoIndex == 0)
             {
+                titleText.text = currentInfo;
                 setInfoIndex++;
             }
             else if (setInfoIndex == 1)
@@ -55,18 +67,20 @@ public class WaveCreator : MonoBehaviour
                 {
                     if (setInfoIndex2 == 0)
                     {
+                        roundCard.timeBtwWaves = currentInfo2;
                         setInfoIndex2++;
                     }
                     else if (setInfoIndex2 == 1)
                     {
+                        roundCard.numToRepeat = currentInfo2;
+                        roundCard.roundNum = setInfoIndex - 1;
+                        roundCard.listPosForRound = listPosForRound;
+                        roundCard.UpdateCard();
                         setInfoIndex2 = 0;
                         break;
                     }
-                    else
-                    {
-
-                    }
                 }
+                setInfoIndex++;
             }
         }
     }
