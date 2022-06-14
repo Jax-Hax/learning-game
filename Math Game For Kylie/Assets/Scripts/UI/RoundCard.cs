@@ -11,14 +11,8 @@ public class RoundCard : MonoBehaviour
     public Transform listPosForRound;
     public int roundNum;
     public string roundFile;
-    private string currentSaveString;
     public string pathToDelete;
-    
-    public GameObject RoundObject;
-    private GameObject RoundObjectPri;
-    private ModeCard roundCard;
     public WaveCreator waveCreator;
-    private int newPathNum;
     public void UpdateCard()
     {
         roundsText.text = roundNum.ToString();
@@ -48,6 +42,6 @@ public class RoundCard : MonoBehaviour
     }
     public void LoadSet()
     {
-        waveCreator.DecodeRound(roundFile);
+        waveCreator.DecodeRound(roundFile, roundNum);
     }
 }
