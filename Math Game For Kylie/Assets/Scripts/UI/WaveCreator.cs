@@ -5,6 +5,7 @@ using System.IO;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 public class WaveCreator : MonoBehaviour
 {
     public GameObject SetViewer;
@@ -26,6 +27,8 @@ public class WaveCreator : MonoBehaviour
     private int setInfoIndex = 0;
     private int setInfoIndex2 = 0;
     private string[] setInfo2;
+    private int setInfoIndex3 = 0;
+    private string[] setInfo3;
     public Transform listPosForSet;
     public Transform listPosForRound;
     public Transform listPosForWave;
@@ -38,14 +41,23 @@ public class WaveCreator : MonoBehaviour
     public Toggle toggleCamo;
     public TMP_InputField timeBtwBloonsTextWave;
     public TMP_InputField numOfBloons;
-    private List<RoundSave> setSave = new List<RoundSave>();
+    private string titleSave;
+    public List<RoundSave> setSave = new List<RoundSave>();
+    private RoundSave roundSave;
+    private WaveSave waveSave;
+    public int amOfRounds;
+    public int currentNum;
+    private int curWaveNum;
     private void Start()
     {
         LoadSetLobby();
         waveCreate = gameObject.GetComponent<WaveCreator>();
     }
-    public void LoadWave(string waveFile)
+    public void LoadWave(string waveFile, int waveNum)
     {
+        curWaveNum = waveNum;
+        setSave[currentNum - 1].setSave.RemoveAt(waveNum - 1);
+        Destroy(listPosForWave.GetChild(waveNum).gameObject);
         RoundBuilder.SetActive(false);
         WaveBuilder.SetActive(true);
         setInfo = waveFile.Split(char.Parse(","));
@@ -54,7 +66,7 @@ public class WaveCreator : MonoBehaviour
         {
             if (setInfoIndex == 0)
             {
-                waveCard.bloonType = bloonTypes[int.Parse(currentInfo)];
+                //waveCard.bloonType = bloonTypes[int.Parse(currentInfo)];
             }
             else if (setInfoIndex == 1)
             {
@@ -72,13 +84,80 @@ public class WaveCreator : MonoBehaviour
         }
         setInfoIndex2 = 0;
     }
+    public void SaveWave()
+    {
+        waveSave = new WaveSave();
+        if(numOfBloons.text != "")
+        {
+            waveSave.amToSpawn = numOfBloons.text;
+        }
+        else
+        {
+            waveSave.amToSpawn = "1";
+        }
+        if (timeBtwBloonsTextWave.text != "")
+        {
+            waveSave.timeBtw = timeBtwBloonsTextWave.text;
+        }
+        else
+        {
+            waveSave.timeBtw = "1";
+        }
+        waveSave.isCamo = toggleCamo.isOn.ToString();
+        waveSave.fruitType = "0";
+        setSave[currentNum - 1].setSave.Insert(curWaveNum - 1, waveSave);
+        RoundBuilder.SetActive(true);
+        WaveBuilder.SetActive(false);
+        WaveObjectPri = Instantiate(WaveObject, listPosForWave);
+        waveCard = WaveObjectPri.GetComponent<WaveCard>();
+        waveCard.waveFile = waveSave.fruitType + "," + waveSave.timeBtw + "," + waveSave.isCamo + "," + waveSave.amToSpawn;
+        waveCard.isCamo = Convert.ToBoolean(waveSave.isCamo);
+        waveCard.waveNum = curWaveNum;
+        waveCard.howMany = waveSave.amToSpawn;
+        waveCard.waveCreator = waveCreate;
+        waveCard.bloonType = bloonTypes[int.Parse(waveSave.fruitType)];
+        waveCard.UpdateCard();
+    }
     public void CreateWave()
     {
         RoundBuilder.SetActive(false);
         WaveBuilder.SetActive(true);
+        curWaveNum = setSave[currentNum - 1].setSave.Count;
+    }
+    public void SaveRound()
+    {
+        if (timeBtwWavesText.text != "")
+        {
+            roundSave.timeBtwWaves = timeBtwWavesText.text;
+        }
+        else
+        {
+            roundSave.timeBtwWaves = "1";
+        }
+        if (amToRepeatText.text != "")
+        {
+            roundSave.amToRepeat = amToRepeatText.text;
+        }
+        else
+        {
+            roundSave.amToRepeat = "1";
+        }
+        setSave.Insert(currentNum - 1, roundSave);
+        Modebuilder.SetActive(true);
+        RoundBuilder.SetActive(false);
+        RoundObjectPri = Instantiate(RoundObject, listPosForRound);
+        roundCard = RoundObjectPri.GetComponent<RoundCard>();
+        roundCard.roundFile = waveSave.fruitType + "," + waveSave.timeBtw + "," + waveSave.isCamo + "," + waveSave.amToSpawn;
+        roundCard.numToRepeat = roundSave.amToRepeat;
+        roundCard.roundNum = currentNum - 1;
+        roundCard.listPosForRound = listPosForRound;
+        roundCard.waveCreator = waveCreate;
+        roundCard.timeBtwWaves = roundSave.timeBtwWaves;
+        roundCard.UpdateCard();
     }
     public void DecodeRound(string loadedString, int roundNum)
     {
+        currentNum = roundNum;
         Modebuilder.SetActive(false);
         RoundBuilder.SetActive(true);
         waveTitle.text = "Round " + roundNum;
@@ -129,6 +208,14 @@ public class WaveCreator : MonoBehaviour
     }
     public void CreateNewRound()
     {
+        if(!setSave.Any())
+        {
+            roundSave = new RoundSave();
+            waveSave = new WaveSave();
+            roundSave.setSave.Add(waveSave);
+            setSave.Add(roundSave);
+        }
+        currentNum = setSave.Count;
         Modebuilder.SetActive(false);
         RoundBuilder.SetActive(true);
     }
@@ -138,10 +225,12 @@ public class WaveCreator : MonoBehaviour
         Modebuilder.SetActive(true);
         setInfo = loadedString.Split(char.Parse("{"));
         setInfoIndex = 0;
+        setSave = new List<RoundSave>();
         foreach (string currentInfo in setInfo)
         {
             if (setInfoIndex == 0)
             {
+                titleSave = currentInfo;
                 titleText.text = currentInfo;
                 setInfoIndex++;
             }
@@ -155,6 +244,7 @@ public class WaveCreator : MonoBehaviour
                 roundCard = RoundObjectPri.GetComponent<RoundCard>();
                 roundCard.roundFile = currentInfo;
                 setInfoIndex2 = 0;
+                roundSave = new RoundSave();
                 setInfo2 = currentInfo.Split(char.Parse(":"));
                 foreach (string currentInfo2 in setInfo2)
                 {
@@ -162,18 +252,50 @@ public class WaveCreator : MonoBehaviour
                     {
                         roundCard.timeBtwWaves = currentInfo2;
                         setInfoIndex2++;
+                        roundSave.timeBtwWaves = currentInfo2;
                     }
                     else if (setInfoIndex2 == 1)
                     {
                         roundCard.numToRepeat = currentInfo2;
+                        roundSave.amToRepeat = currentInfo2;
                         roundCard.roundNum = setInfoIndex - 1;
                         roundCard.listPosForRound = listPosForRound;
                         roundCard.waveCreator = waveCreate;
                         roundCard.UpdateCard();
-                        setInfoIndex2 = 0;
-                        break;
+                        setInfoIndex2++;
+                    }
+                    else
+                    {
+                        setInfo3 = currentInfo2.Split(char.Parse(","));
+                        setInfoIndex3 = 0;
+                        waveSave = new WaveSave();
+                        foreach (string currentInfo3 in setInfo3)
+                        {
+                            if (setInfoIndex3 == 0)
+                            {
+                                waveSave.fruitType = currentInfo3;
+                            }
+                            else if(setInfoIndex3 == 1)
+                            {
+                                waveSave.timeBtw = currentInfo3;
+                            }
+                            else if (setInfoIndex3 == 2)
+                            {
+                                waveSave.isCamo = currentInfo3;
+                            }
+                            else if (setInfoIndex3 == 3)
+                            {
+                                waveSave.amToSpawn = currentInfo3;
+                            }
+                            setInfoIndex3++;
+                        }
+                        roundSave.setSave.Add(waveSave);
+                        setInfoIndex2++;
                     }
                 }
+                amOfRounds = setInfoIndex2 - 1;
+                setSave.Add(roundSave);
+                roundCard.roundSave = roundSave;
                 setInfoIndex++;
             }
         }

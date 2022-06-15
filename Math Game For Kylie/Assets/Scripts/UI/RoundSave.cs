@@ -4,5 +4,7 @@ using UnityEngine;
 
 public class RoundSave
 {
-    private List<WaveSave> setSave = new List<WaveSave>();
+    public List<WaveSave> setSave = new List<WaveSave>();
+    public string timeBtwWaves;
+    public string amToRepeat;
 }

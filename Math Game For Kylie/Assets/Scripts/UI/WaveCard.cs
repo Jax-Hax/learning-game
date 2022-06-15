@@ -32,10 +32,11 @@ public class WaveCard : MonoBehaviour
     }
     public void EditCard()
     {
-        waveCreator.LoadWave(waveFile);
+        waveCreator.LoadWave(waveFile, waveNum);
     }
     public void DeleteCard()
     {
-        //TODO
+        waveCreator.setSave[waveCreator.currentNum - 1].setSave.RemoveAt(waveNum - 1);
+        Destroy(gameObject);
     }
 }

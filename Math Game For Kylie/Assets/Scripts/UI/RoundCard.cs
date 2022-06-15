@@ -13,32 +13,25 @@ public class RoundCard : MonoBehaviour
     public string roundFile;
     public string pathToDelete;
     public WaveCreator waveCreator;
+    public RoundSave roundSave;
+    private int roundNumCopy;
+    private GameObject obj;
     public void UpdateCard()
     {
         roundsText.text = roundNum.ToString();
     }
     public void DeleteSet()
     {
-        /*File.Delete(pathToDelete);
-        Destroy(gameObject);*/
+        waveCreator.setSave.RemoveAt(roundNum - 1);
+        Destroy(gameObject);
     }
     public void DuplicateSet()
     {
-        /*newPathNum = 1;
-        RoundObjectPri = Instantiate(RoundObject, listPosForRound);
-        roundCard = RoundObjectPri.GetComponent<ModeCard>();
-        while (File.Exists(pathToDelete + newPathNum))
-        {
-            newPathNum += 1;
-        }
-        modeCard.title = title + newPathNum;
-        modeCard.pathToDelete = pathToDelete + newPathNum;
-        modeCard.loadableString = loadableString;
-        modeCard.amOfRounds = amOfRounds;
-        modeCard.UpdateCard();
-        StreamWriter streamWriter = new StreamWriter(Application.persistentDataPath + "/" + pathToDelete + newPathNum + ".roundSave");
-        streamWriter.Write(loadableString);
-        streamWriter.Close();*/
+        waveCreator.amOfRounds += 1;
+        roundNumCopy = waveCreator.amOfRounds;
+        waveCreator.setSave.Add(roundSave);
+        obj = Instantiate(gameObject,gameObject.transform.parent);
+        obj.GetComponent<RoundCard>().roundNum = roundNumCopy;
     }
     public void LoadSet()
     {

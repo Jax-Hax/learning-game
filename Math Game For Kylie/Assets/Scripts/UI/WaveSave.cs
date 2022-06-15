@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class WaveSave
 {
-    private string amToSpawn;
+    public string amToSpawn;
+    public string isCamo;
+    public string fruitType;
+    public string timeBtw;
 }
