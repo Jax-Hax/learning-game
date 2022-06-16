@@ -50,6 +50,8 @@ public class WaveCreator : MonoBehaviour
     private int curWaveNum;
     private string roundSaveCurrent;
     private string result;
+    private string title;
+    private int rounds;
     private void Start()
     {
         LoadSetLobby();
@@ -160,6 +162,7 @@ public class WaveCreator : MonoBehaviour
             roundSaveCurrent = roundSaveCurrent.Remove(roundSaveCurrent.Length - 4);
         }
         roundCard.roundFile = roundSaveCurrent;
+        roundSave.roundSave = roundSaveCurrent;
         roundCard.numToRepeat = roundSave.amToRepeat;
         roundCard.roundNum = currentNum;
         roundCard.listPosForRound = listPosForRound;
@@ -169,7 +172,6 @@ public class WaveCreator : MonoBehaviour
     }
     public void DecodeRound(string loadedString, int roundNum)
     {
-        Debug.Log(loadedString);
         currentNum = roundNum;
         setSave.RemoveAt(currentNum - 1);
         Destroy(listPosForRound.GetChild(currentNum - 1).gameObject);
@@ -201,7 +203,6 @@ public class WaveCreator : MonoBehaviour
                 {
                     if(setInfoIndex2 == 0)
                     {
-                        Debug.Log(currentInfo2);
                         waveCard.bloonType = bloonTypes[int.Parse(currentInfo2)];
                         setInfoIndex2++;
                     }
@@ -239,7 +240,31 @@ public class WaveCreator : MonoBehaviour
     }
     public void SaveSet()
     {
-
+        if (titleText.text != "")
+        {
+            title = titleText.text;
+        }
+        else
+        {
+            title = "Untitled";
+        }
+        Modebuilder.SetActive(false);
+        SetViewer.SetActive(true);
+        LobbyObjectPri = Instantiate(LobbyObject, listPosForSet);
+        modeCard = LobbyObjectPri.GetComponent<ModeCard>();
+        roundSaveCurrent = title + "{" + setSave.Count;
+        rounds = setSave.Count;
+        foreach (RoundSave save in setSave)
+        {
+            roundSaveCurrent += "{" + save.roundSave;
+        }
+        modeCard.title = title;
+        modeCard.amOfRounds = rounds.ToString();
+        modeCard.loadableString = roundSaveCurrent;
+        modeCard.pathToDelete = Application.persistentDataPath + "/modesave" + title + ".scree";
+        modeCard.listPosForSet = listPosForSet;
+        modeCard.waveCreator = waveCreate;
+        modeCard.UpdateCard();
     }
     public void DecodeSet(string loadedString)
     {
@@ -256,7 +281,7 @@ public class WaveCreator : MonoBehaviour
                 titleText.text = currentInfo;
                 setInfoIndex++;
             }
-            else if (setInfoIndex == 1)
+            else if(setInfoIndex == 1)
             {
                 setInfoIndex++;
             }
