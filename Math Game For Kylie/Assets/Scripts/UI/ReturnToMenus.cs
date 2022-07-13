@@ -19,51 +19,7 @@ public class ReturnToMenus : MonoBehaviour
     public TMP_InputField rounds;
     public TMP_InputField abilityCooldownRate;
     public TMP_InputField bloonHealthMultiplier;
-    private bool canChange;
     public TextMeshProUGUI speedText;
-    void Start()
-    {
-        if (dropDown != null)
-        {
-            dropDown.onValueChanged.AddListener(delegate
-            {
-                ChangeValue();
-            });
-        }
-    }
-    public void ChangeValue()
-    {
-        switch (dropDown.value)
-        {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-        }
-        canChange = false;
-        Invoke("SetToTrue", 0.1f);
-    }
-    public void InputChanged(string name)
-    {
-        if(name == "speed")
-        {
-            speedText.text = speed.value.ToString();
-        }
-        if(canChange == true)
-        {
-            dropDown.value = 4;
-        }
-    }
-    void SetToTrue()
-    {
-        canChange = true;
-    }
     public void OnSelectInput(string whatInput)
     {
         if(whatInput == "money")

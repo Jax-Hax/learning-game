@@ -2014,6 +2014,15 @@ MonoBehaviour:
   questionInput: {fileID: 0}
   answerInput: {fileID: 0}
   titleInput: {fileID: 0}
+  dropDown: {fileID: 0}
+  speed: {fileID: 0}
+  moneyEarnedScale: {fileID: 0}
+  startingCash: {fileID: 0}
+  startingLives: {fileID: 0}
+  rounds: {fileID: 0}
+  abilityCooldownRate: {fileID: 0}
+  bloonHealthMultiplier: {fileID: 0}
+  speedText: {fileID: 0}
 --- !u!1 &1886897215
 GameObject:
   m_ObjectHideFlags: 0

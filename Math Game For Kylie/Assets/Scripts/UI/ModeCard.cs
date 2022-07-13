@@ -11,6 +11,7 @@ public class ModeCard : MonoBehaviour
     public string amOfRounds;
     private string path;
     private string currentSaveString;
+    public int number;
     public GameObject isEnabled;
     public GameObject isNotEnabled;
     public string pathToDelete;
@@ -85,6 +86,6 @@ public class ModeCard : MonoBehaviour
     }
     public void LoadSet()
     {
-        waveCreator.DecodeSet(loadableString);
+        waveCreator.DecodeSet(loadableString, number);
     }
 }
