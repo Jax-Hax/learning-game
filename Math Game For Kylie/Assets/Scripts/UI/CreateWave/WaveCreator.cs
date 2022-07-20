@@ -77,15 +77,16 @@ public class WaveCreator : MonoBehaviour
             }
             else if (setInfoIndex == 2)
             {
-                toggleCamo.isOn = Convert.ToBoolean(currentInfo);
+                Debug.Log(currentInfo);
+                toggleCamo.isOn = Convert.ToBoolean(int.Parse(currentInfo));
             }
-            else if (setInfoIndex2 == 3)
+            else if (setInfoIndex == 3)
             {
                 numOfBloons.text = currentInfo;
             }
-            setInfoIndex2++;
+            setInfoIndex++;
         }
-        setInfoIndex2 = 0;
+        setInfoIndex = 0;
     }
     public void SaveWave()
     {
@@ -122,6 +123,7 @@ public class WaveCreator : MonoBehaviour
         RoundBuilder.SetActive(true);
         WaveBuilder.SetActive(false);
         WaveObjectPri = Instantiate(WaveObject, listPosForWave);
+        WaveObjectPri.transform.SetSiblingIndex(curWaveNum);
         waveCard = WaveObjectPri.GetComponent<WaveCard>();
         waveCard.waveFile = waveSave.fruitType + "," + waveSave.timeBtw + "," + waveSave.isCamo + "," + waveSave.amToSpawn;
         waveCard.isCamo = Convert.ToBoolean(int.Parse(waveSave.isCamo));
@@ -178,6 +180,7 @@ public class WaveCreator : MonoBehaviour
         Modebuilder.SetActive(true);
         RoundBuilder.SetActive(false);
         RoundObjectPri = Instantiate(RoundObject, listPosForRound);
+        RoundObjectPri.transform.SetSiblingIndex(amOfRoundNum);
         roundCard = RoundObjectPri.GetComponent<RoundCard>();
         roundSaveCurrent = roundSave.timeBtwWaves + ":" + roundSave.amToRepeat;
         foreach(WaveSave save in roundSave.waveSaves.Values)
@@ -290,6 +293,16 @@ public class WaveCreator : MonoBehaviour
         }
         Modebuilder.SetActive(false);
         RoundBuilder.SetActive(true);
+        timeBtwWavesText.text = "";
+        amToRepeatText.text = "";
+        foreach (Transform child in listPosForWave)
+        {
+            if (setInfoIndex != 0)
+            {
+                Destroy(child.gameObject);
+            }
+            setInfoIndex++;
+        }
     }
     public void SaveSet()
     {

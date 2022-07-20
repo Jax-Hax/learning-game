@@ -3511,7 +3511,7 @@ MonoBehaviour:
   timeBtwBloonsTextWave: {fileID: 1341269937}
   numOfBloons: {fileID: 1002930185}
   amOfRounds: 0
-  currentNum: 0
+  amOfRoundNum: 0
 --- !u!1 &882112445
 GameObject:
   m_ObjectHideFlags: 0
