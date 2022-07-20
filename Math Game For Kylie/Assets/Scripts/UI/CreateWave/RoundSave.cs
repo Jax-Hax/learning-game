@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RoundSave
 {
-    public List<WaveSave> setSave = new List<WaveSave>();
+    public Dictionary<int, WaveSave> waveSaves = new Dictionary<int, WaveSave>();
     public string timeBtwWaves;
     public string amToRepeat;
     public string roundSave;

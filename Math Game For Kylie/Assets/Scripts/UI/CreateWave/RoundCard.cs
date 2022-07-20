@@ -22,14 +22,14 @@ public class RoundCard : MonoBehaviour
     }
     public void DeleteSet()
     {
-        waveCreator.setSave.RemoveAt(roundNum - 1);
+        waveCreator.setSave.Remove(roundNum);
         Destroy(gameObject);
     }
     public void DuplicateSet()
     {
         waveCreator.amOfRounds += 1;
         roundNumCopy = waveCreator.amOfRounds;
-        waveCreator.setSave.Add(roundSave);
+        waveCreator.setSave[roundNum] = roundSave;
         obj = Instantiate(gameObject,gameObject.transform.parent);
         obj.GetComponent<RoundCard>().roundNum = roundNumCopy;
     }
