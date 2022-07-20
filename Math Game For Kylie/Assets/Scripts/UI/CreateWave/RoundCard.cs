@@ -29,7 +29,7 @@ public class RoundCard : MonoBehaviour
     {
         waveCreator.amOfRounds += 1;
         roundNumCopy = waveCreator.amOfRounds;
-        waveCreator.setSave[roundNum] = roundSave;
+        waveCreator.setSave[waveCreator.setSave.Count] = roundSave;
         obj = Instantiate(gameObject,gameObject.transform.parent);
         obj.GetComponent<RoundCard>().roundNum = roundNumCopy;
     }

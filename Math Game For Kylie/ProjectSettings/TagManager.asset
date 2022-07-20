@@ -23,6 +23,7 @@ TagManager:
   - rainbow
   - ceramic
   - penguin
+  - wavecreator
   layers:
   - Default
   - TransparentFX

@@ -295,6 +295,7 @@ public class WaveCreator : MonoBehaviour
         RoundBuilder.SetActive(true);
         timeBtwWavesText.text = "";
         amToRepeatText.text = "";
+        setInfoIndex = 0;
         foreach (Transform child in listPosForWave)
         {
             if (setInfoIndex != 0)
@@ -327,7 +328,10 @@ public class WaveCreator : MonoBehaviour
         modeCard.title = title;
         modeCard.amOfRounds = rounds.ToString();
         modeCard.loadableString = roundSaveCurrent;
-        modeCard.pathToDelete = Application.persistentDataPath + "/modesave" + title + ".scree";
+        modeCard.pathToDelete = Application.persistentDataPath + "/" + title + ".roundset";
+        StreamWriter streamWriter = new StreamWriter(modeCard.pathToDelete);
+        streamWriter.Write(roundSaveCurrent);
+        streamWriter.Close();
         modeCard.listPosForSet = listPosForSet;
         modeCard.waveCreator = waveCreate;
         modeCard.UpdateCard();
@@ -446,7 +450,7 @@ public class WaveCreator : MonoBehaviour
                 if (setInfoIndex == 0)
                 {
                     modeCard.title = currentInfo;
-                    modeCard.pathToDelete = Application.persistentDataPath + "/modesave" + currentInfo + ".scree";
+                    modeCard.pathToDelete = Application.persistentDataPath + "/modesave" + currentInfo + ".roundset";
                     modeCard.loadableString = loadableString;
                     modeCard.listPosForSet = listPosForSet;
                     modeCard.waveCreator = waveCreate;

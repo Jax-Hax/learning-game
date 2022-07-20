@@ -26,6 +26,7 @@ public class ModeCard : MonoBehaviour
     private void Start()
     {
         path = Application.persistentDataPath + "/currentSave.roundSave";
+        waveCreator = GameObject.FindGameObjectWithTag("wavecreator").GetComponent<WaveCreator>();
         if (File.Exists(path))
         {
             StreamReader reader = new StreamReader(path);
