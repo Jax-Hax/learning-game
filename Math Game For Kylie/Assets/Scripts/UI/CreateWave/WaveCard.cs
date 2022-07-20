@@ -6,6 +6,7 @@ using TMPro;
 
 public class WaveCard : MonoBehaviour
 {
+    public WaveSave waveSave;
     public Sprite bloonType;
     public string howMany;
     public bool isCamo;

@@ -35,6 +35,6 @@ public class RoundCard : MonoBehaviour
     }
     public void LoadSet()
     {
-        waveCreator.DecodeRound(roundFile, roundNum);
+        waveCreator.DecodeRound(roundFile, roundNum, roundSave);
     }
 }

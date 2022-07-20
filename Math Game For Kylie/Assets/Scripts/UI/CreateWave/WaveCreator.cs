@@ -60,7 +60,7 @@ public class WaveCreator : MonoBehaviour
     public void LoadWave(string waveFile, int waveNum)
     {
         curWaveNum = waveNum;
-        setSave[currentNum - 1].setSave.RemoveAt(waveNum - 1);
+        roundSave.setSave.RemoveAt(waveNum - 1);
         Destroy(listPosForWave.GetChild(waveNum).gameObject);
         RoundBuilder.SetActive(false);
         WaveBuilder.SetActive(true);
@@ -113,12 +113,10 @@ public class WaveCreator : MonoBehaviour
         {
             roundSave = new RoundSave();
             roundSave.setSave.Add(waveSave);
-            setSave.Add(roundSave);
         }
         else
         {
-            setSave[currentNum - 1].setSave.Insert(curWaveNum - 1, waveSave);
-
+            roundSave.setSave.Insert(curWaveNum - 1, waveSave);
         }
         RoundBuilder.SetActive(true);
         WaveBuilder.SetActive(false);
@@ -126,6 +124,7 @@ public class WaveCreator : MonoBehaviour
         waveCard = WaveObjectPri.GetComponent<WaveCard>();
         waveCard.waveFile = waveSave.fruitType + "," + waveSave.timeBtw + "," + waveSave.isCamo + "," + waveSave.amToSpawn;
         waveCard.isCamo = Convert.ToBoolean(int.Parse(waveSave.isCamo));
+        waveCard.waveSave = waveSave;
         waveCard.waveNum = curWaveNum;
         waveCard.howMany = waveSave.amToSpawn;
         waveCard.waveCreator = waveCreate;
@@ -136,13 +135,16 @@ public class WaveCreator : MonoBehaviour
     {
         RoundBuilder.SetActive(false);
         WaveBuilder.SetActive(true);
-        if(currentNum == 0)
+        numOfBloons.text = "";
+        timeBtwBloonsTextWave.text = "";
+        toggleCamo.isOn = false;
+        if (currentNum == 0)
         {
             curWaveNum = 1;
         }
         else
         {
-            curWaveNum = setSave[currentNum - 1].setSave.Count;
+            curWaveNum = roundSave.setSave.Count;
         }
     }
     public void SaveRound()
@@ -171,6 +173,7 @@ public class WaveCreator : MonoBehaviour
         {
             setSave.Insert(currentNum - 1, roundSave);
         }
+        currentNum = setSave.Count;
         Modebuilder.SetActive(true);
         RoundBuilder.SetActive(false);
         RoundObjectPri = Instantiate(RoundObject, listPosForRound);
@@ -192,9 +195,10 @@ public class WaveCreator : MonoBehaviour
         roundCard.listPosForRound = listPosForRound;
         roundCard.waveCreator = waveCreate;
         roundCard.timeBtwWaves = roundSave.timeBtwWaves;
+        roundCard.roundSave = roundSave;
         roundCard.UpdateCard();
     }
-    public void DecodeRound(string loadedString, int roundNum)
+    public void DecodeRound(string loadedString, int roundNum, RoundSave roundSave2)
     {
         setInfoIndex = 0;
         foreach(Transform child in listPosForWave)
@@ -206,11 +210,19 @@ public class WaveCreator : MonoBehaviour
             setInfoIndex++;
         }
         currentNum = roundNum;
-        setSave.RemoveAt(currentNum - 1);
-        Debug.Log(setSave.Count);
-        Destroy(listPosForRound.GetChild(currentNum - 1).gameObject);
+        if(currentNum == 0)
+        {
+            setSave.RemoveAt(currentNum);
+            Destroy(listPosForRound.GetChild(currentNum).gameObject);
+        }
+        else
+        {
+            setSave.RemoveAt(currentNum - 1);
+            Destroy(listPosForRound.GetChild(currentNum - 1).gameObject);
+        }
         Modebuilder.SetActive(false);
         RoundBuilder.SetActive(true);
+        roundSave = roundSave2;
         waveTitle.text = "Round " + roundNum;
         setInfo = loadedString.Split(char.Parse(":"));
         setInfoIndex = 0;
@@ -272,6 +284,16 @@ public class WaveCreator : MonoBehaviour
             waveSave = new WaveSave();
             roundSave.setSave.Add(waveSave);
             setSave.Add(roundSave);
+        }*/
+        /*if(setSave.Count == 0)
+        {
+            currentNum = 1;
+            roundSave = new RoundSave();
+        }
+        else
+        {
+            currentNum = setSave.Count;
+
         }*/
         currentNum = setSave.Count;
         Modebuilder.SetActive(false);
