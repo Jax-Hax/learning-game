@@ -52,10 +52,15 @@ public class WaveCreator : MonoBehaviour
     private string result;
     private string title;
     private int rounds;
+    public string waveFruitType = "0";
     private void Start()
     {
         LoadSetLobby();
         waveCreate = gameObject.GetComponent<WaveCreator>();
+    }
+    public void SetPlantType(string typeofPlant)
+    {
+        waveFruitType = typeofPlant;
     }
     public void LoadWave(string waveFile, int waveNum, GameObject obj)
     {
@@ -69,7 +74,7 @@ public class WaveCreator : MonoBehaviour
         {
             if (setInfoIndex == 0)
             {
-                //waveCard.bloonType = bloonTypes[int.Parse(currentInfo)];
+                waveCard.bloonType = bloonTypes[int.Parse(currentInfo)];
             }
             else if (setInfoIndex == 1)
             {
@@ -77,7 +82,6 @@ public class WaveCreator : MonoBehaviour
             }
             else if (setInfoIndex == 2)
             {
-                Debug.Log(currentInfo);
                 toggleCamo.isOn = Convert.ToBoolean(int.Parse(currentInfo));
             }
             else if (setInfoIndex == 3)
@@ -108,9 +112,7 @@ public class WaveCreator : MonoBehaviour
             waveSave.timeBtw = "1";
         }
         waveSave.isCamo = Convert.ToInt32(toggleCamo.isOn).ToString();
-        waveSave.fruitType = "0";
-        Debug.Log(curWaveNum);
-        Debug.Log("just now bruh" + amOfRoundNum);
+        waveSave.fruitType = waveFruitType;
         if(amOfRoundNum == 0)
         {
             roundSave = new RoundSave();
@@ -204,6 +206,7 @@ public class WaveCreator : MonoBehaviour
     }
     public void DecodeRound(string loadedString, int roundNum, RoundSave roundSave2)
     {
+        Debug.Log(loadedString);
         setInfoIndex = 0;
         foreach(Transform child in listPosForWave)
         {
@@ -213,8 +216,8 @@ public class WaveCreator : MonoBehaviour
             }
             setInfoIndex++;
         }
+        curWaveNum = roundSave2.waveSaves.Count + 1;
         amOfRoundNum = roundNum;
-        Debug.Log("should be above 0         " + amOfRoundNum);
         Destroy(listPosForRound.GetChild(amOfRoundNum - 1).gameObject);
         Modebuilder.SetActive(false);
         RoundBuilder.SetActive(true);
@@ -268,6 +271,7 @@ public class WaveCreator : MonoBehaviour
                     }
                 }
                 setInfoIndex2 = 0;
+                setInfoIndex++;
             }
         }
         setInfoIndex = 0;
@@ -281,6 +285,7 @@ public class WaveCreator : MonoBehaviour
             roundSave.setSave.Add(waveSave);
             setSave.Add(roundSave);
         }*/
+        curWaveNum = 1;
         if(setSave.Count == 0)
         {
             amOfRoundNum = 1;
@@ -338,6 +343,7 @@ public class WaveCreator : MonoBehaviour
     }
     public void DecodeSet(string loadedString, int numb)
     {
+        Debug.Log(loadedString);
         foreach (Transform child in listPosForRound)
         {
             Destroy(child.gameObject);
@@ -450,7 +456,7 @@ public class WaveCreator : MonoBehaviour
                 if (setInfoIndex == 0)
                 {
                     modeCard.title = currentInfo;
-                    modeCard.pathToDelete = Application.persistentDataPath + "/modesave" + currentInfo + ".roundset";
+                    modeCard.pathToDelete = Application.persistentDataPath + "/" + currentInfo + ".roundset";
                     modeCard.loadableString = loadableString;
                     modeCard.listPosForSet = listPosForSet;
                     modeCard.waveCreator = waveCreate;
