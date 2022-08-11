@@ -64,6 +64,8 @@ public class BloonCode : MonoBehaviour
     private int purpleEnemyHP = 28; //splits to 1 orange and one black
     private int rainbowEnemyHP = 23; //splits to 1 black and one white
     private int ceramicEnemyHP = 73; //50 hp then one rainbow
+    public float healthMult;
+    public float speedMult;
     private void Awake()
     {
         image = GetComponent<Image>();
@@ -252,6 +254,8 @@ public class BloonCode : MonoBehaviour
             image.sprite = ceramicEnemy;
             speed = ceramicEnemySpeed;
         }
+        health = Mathf.RoundToInt(health * (healthMult / 100));
+        speed = Mathf.RoundToInt(speed * (speedMult / 100));
     }
     public void SlowDown()
     {

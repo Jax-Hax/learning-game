@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.IO;
 public class GameManager : MonoBehaviour
 {
     public Transform canvas;
@@ -58,8 +59,14 @@ public class GameManager : MonoBehaviour
     public GameObject upgrades;
     public GameObject choosePath;
     public Upgrades upgradeMain;
+    private string saveFile;
+    private string[] setInfo;
+    private int setInfoIndex;
     private void Awake()
     {
+        StreamReader reader = new StreamReader(Application.persistentDataPath + "/" + "saveFile.saveFile");
+        saveFile = reader.ReadLine();
+        reader.Close();
         SetStartMoneyFromDifficulty();
         SetMap();
         PutArrowsInCorrectPlace();
@@ -93,13 +100,21 @@ public class GameManager : MonoBehaviour
 
     private void SetStartMoneyFromDifficulty()
     {
-        difficulty = PlayerPrefs.GetString("DifficultyName");
-        showableMoney.SetActive(false);
-        if (difficulty == "DefaultEasy")
+        setInfo = saveFile.Split(char.Parse("{"));
+        setInfoIndex = 0;
+        foreach (string currentInfo in setInfo)
         {
-            moneyInt = 100000000; //TODO: Change money back
-            health = 100;
+            if (setInfoIndex == 4)
+            {
+                moneyInt = int.Parse(currentInfo);
+            }
+            if (setInfoIndex == 5)
+            {
+                health = int.Parse(currentInfo);
+            }
+            setInfoIndex++;
         }
+        showableMoney.SetActive(false);
         money.text = moneyInt.ToString();
         healthText.text = health.ToString();
     }

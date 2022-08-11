@@ -33,6 +33,7 @@ public class QuestionCreator : MonoBehaviour
     public GameObject studiedAll;
     private string flashcardAnswer;
     private int flashcardMoney;
+    public float moneyMult;
     private void Awake()
     {
         studiedAll.SetActive(false);
@@ -78,7 +79,7 @@ public class QuestionCreator : MonoBehaviour
         set.flashcards.Remove(key);
         questionText.text = flashcard.question;
         flashcardAnswer = flashcard.answer;
-        flashcardMoney = flashcard.moneyGiven;
+        flashcardMoney = Mathf.RoundToInt(flashcard.moneyGiven * (moneyMult / 100));
         moneyEarnedText.text = "Worth: $" + flashcardMoney.ToString();
         if (set.flashcards.Count <= 0)
         {

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using System.IO;
 
 public class ReadAndSpawnWaves : MonoBehaviour
 {
     private List<Round> rounds = new List<Round>();
-    private string difficulty;
     private int maxRound;
     private Transform whereToSpawnThem;
     public TextAsset textFile;
@@ -22,13 +22,48 @@ public class ReadAndSpawnWaves : MonoBehaviour
     private int howManyTimesToRepeat;
     public TextMeshProUGUI roundText;
     private GameManager gameManager;
+    public GameObject questionCreator;
+    private string saveFile;
+    private string[] setInfo;
+    private int setInfoIndex;
+    private float speedMult;
+    private float healthMult;
+    private float moneyMult;
+    private bool isCamo;
+    private BloonCode blooncode;
     private void Start()
     {
-        difficulty = PlayerPrefs.GetString("DifficultyName");
-        if (difficulty == "DefaultEasy")
+        StreamReader reader = new StreamReader(Application.persistentDataPath + "/" + "saveFile.saveFile");
+        saveFile = reader.ReadLine();
+        reader.Close();
+        setInfo = saveFile.Split(char.Parse("{"));
+        setInfoIndex = 0;
+        Debug.Log(saveFile);
+        foreach (string currentInfo in setInfo)
         {
-            maxRound = 40;
+            if (setInfoIndex == 0)
+            {
+                maxRound = int.Parse(currentInfo);
+            }
+            if (setInfoIndex == 1)
+            {
+                speedMult = float.Parse(currentInfo);
+            }
+            if (setInfoIndex == 2)
+            {
+                healthMult = float.Parse(currentInfo);
+            }
+            if (setInfoIndex == 3)
+            {
+                moneyMult = float.Parse(currentInfo);
+            }
+            if (setInfoIndex == 6)
+            {
+                isCamo = Convert.ToBoolean(int.Parse(currentInfo));
+            }
+            setInfoIndex++;
         }
+        questionCreator.GetComponent<QuestionCreator>().moneyMult = moneyMult;
         ParseFile();
         whereToSpawnThem = GameObject.FindGameObjectWithTag("SpawnPos").transform;
         whereToSpawnThem.position = new Vector3(whereToSpawnThem.position.x, whereToSpawnThem.position.y, 0);
@@ -54,7 +89,10 @@ public class ReadAndSpawnWaves : MonoBehaviour
                         GameObject bloon = ObjectPooler.SharedInstance.GetPooledObject(wave.bloonType);
                         bloon.SetActive(true);
                         bloon.transform.position = whereToSpawnThem.position;
-                        bloon.GetComponent<BloonCode>().wayPointIndex = 0;
+                        blooncode = bloon.GetComponent<BloonCode>();
+                        blooncode.wayPointIndex = 0;
+                        blooncode.healthMult = healthMult;
+                        blooncode.speedMult = speedMult;
                         gameManager.enemies.Add(bloon);
                         yield return new WaitForSeconds(wave.timeBetweenBloons);
                     }

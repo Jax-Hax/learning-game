@@ -6668,6 +6668,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textFile: {fileID: 4900000, guid: 9b4f1debe9842584b860b4e13392c754, type: 3}
   roundText: {fileID: 822306369}
+  questionCreator: {fileID: 1977898838}
 --- !u!1 &1018704174
 GameObject:
   m_ObjectHideFlags: 0
@@ -12739,6 +12740,7 @@ MonoBehaviour:
   isAnswerRightText: {fileID: 492335217}
   gameManager: {fileID: 483598185}
   studiedAll: {fileID: 78472609}
+  moneyMult: 0
 --- !u!114 &1977898841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12755,6 +12757,15 @@ MonoBehaviour:
   questionInput: {fileID: 0}
   answerInput: {fileID: 0}
   titleInput: {fileID: 0}
+  dropDown: {fileID: 0}
+  speed: {fileID: 0}
+  moneyEarnedScale: {fileID: 0}
+  startingCash: {fileID: 0}
+  startingLives: {fileID: 0}
+  rounds: {fileID: 0}
+  abilityCooldownRate: {fileID: 0}
+  bloonHealthMultiplier: {fileID: 0}
+  speedText: {fileID: 0}
 --- !u!1 &2024672607
 GameObject:
   m_ObjectHideFlags: 0

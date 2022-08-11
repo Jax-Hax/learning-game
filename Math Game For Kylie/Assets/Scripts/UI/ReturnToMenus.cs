@@ -70,6 +70,10 @@ public class ReturnToMenus : MonoBehaviour
     {
         SceneManager.LoadScene("Game Choice Screen");
     }
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Game");
+    }
     public void CreateFlashcards()
     {
         SceneManager.LoadScene("Create Flashcard Scene");

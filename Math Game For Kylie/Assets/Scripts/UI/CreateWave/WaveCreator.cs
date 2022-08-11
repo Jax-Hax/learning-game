@@ -157,7 +157,6 @@ public class WaveCreator : MonoBehaviour
         {
             curWaveNum = roundSave.waveSaves.Count + 1;
         }
-        Debug.Log(curWaveNum);
     }
     public void SaveRound()
     {
@@ -195,7 +194,6 @@ public class WaveCreator : MonoBehaviour
         RoundObjectPri.transform.SetSiblingIndex(amOfRoundNum - 1);
         roundCard = RoundObjectPri.GetComponent<RoundCard>();
         roundSaveCurrent = roundSave.timeBtwWaves + ":" + roundSave.amToRepeat;
-        Debug.Log(roundSaveCurrent + "cur2");
         if(roundSave.waveSaves.Count > 0)
         {
             foreach (WaveSave save in roundSave.waveSaves.Values)
@@ -208,7 +206,6 @@ public class WaveCreator : MonoBehaviour
                 roundSaveCurrent = roundSaveCurrent.Remove(roundSaveCurrent.Length - 4);
             }
         }
-        Debug.Log(roundSaveCurrent + "cur");
         roundCard.roundFile = roundSaveCurrent;
         roundSave.roundSave = roundSaveCurrent;
         roundCard.numToRepeat = roundSave.amToRepeat;
@@ -225,7 +222,6 @@ public class WaveCreator : MonoBehaviour
     public void DecodeRound(string loadedString, int roundNum, RoundSave roundSave2)
     {
         didMakeAWave = true;
-        Debug.Log(loadedString);
         setInfoIndex = 0;
         foreach(Transform child in listPosForWave)
         {
@@ -327,7 +323,6 @@ public class WaveCreator : MonoBehaviour
             }
             setInfoIndex++;
         }
-        Debug.Log(amOfRoundNum);
     }
     public void SaveSet()
     {
@@ -362,7 +357,6 @@ public class WaveCreator : MonoBehaviour
     }
     public void DecodeSet(string loadedString, int numb)
     {
-        Debug.Log(loadedString);
         foreach (Transform child in listPosForRound)
         {
             Destroy(child.gameObject);
