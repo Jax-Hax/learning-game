@@ -53,6 +53,7 @@ public class WaveCreator : MonoBehaviour
     private string title;
     private int rounds;
     public string waveFruitType = "0";
+    bool didMakeAWave;
     private void Start()
     {
         LoadSetLobby();
@@ -94,6 +95,7 @@ public class WaveCreator : MonoBehaviour
     }
     public void SaveWave()
     {
+        didMakeAWave = true;
         waveSave = new WaveSave();
         if(numOfBloons.text != "")
         {
@@ -135,9 +137,13 @@ public class WaveCreator : MonoBehaviour
         waveCard.waveCreator = waveCreate;
         waveCard.bloonType = bloonTypes[int.Parse(waveSave.fruitType)];
         waveCard.UpdateCard();
+        numOfBloons.text = "";
+        timeBtwBloonsTextWave.text = "";
+        toggleCamo.isOn = false;
     }
     public void CreateWave()
     {
+        didMakeAWave = true;
         RoundBuilder.SetActive(false);
         WaveBuilder.SetActive(true);
         numOfBloons.text = "";
@@ -151,9 +157,14 @@ public class WaveCreator : MonoBehaviour
         {
             curWaveNum = roundSave.waveSaves.Count + 1;
         }
+        Debug.Log(curWaveNum);
     }
     public void SaveRound()
     {
+        if (didMakeAWave == false)
+        {
+            roundSave = new RoundSave();
+        }
         if (timeBtwWavesText.text != "")
         {
             roundSave.timeBtwWaves = timeBtwWavesText.text;
@@ -178,22 +189,26 @@ public class WaveCreator : MonoBehaviour
         {
             setSave[amOfRoundNum] = roundSave;
         }
-        amOfRoundNum = setSave.Count;
         Modebuilder.SetActive(true);
         RoundBuilder.SetActive(false);
         RoundObjectPri = Instantiate(RoundObject, listPosForRound);
-        RoundObjectPri.transform.SetSiblingIndex(amOfRoundNum);
+        RoundObjectPri.transform.SetSiblingIndex(amOfRoundNum - 1);
         roundCard = RoundObjectPri.GetComponent<RoundCard>();
         roundSaveCurrent = roundSave.timeBtwWaves + ":" + roundSave.amToRepeat;
-        foreach(WaveSave save in roundSave.waveSaves.Values)
+        Debug.Log(roundSaveCurrent + "cur2");
+        if(roundSave.waveSaves.Count > 0)
         {
-            roundSaveCurrent += ":" + save.fruitType + "," + save.timeBtw + "," + save.isCamo + "," + save.amToSpawn;
+            foreach (WaveSave save in roundSave.waveSaves.Values)
+            {
+                roundSaveCurrent += ":" + save.fruitType + "," + save.timeBtw + "," + save.isCamo + "," + save.amToSpawn;
+            }
+            result = roundSaveCurrent.Substring(roundSaveCurrent.Length - 4);
+            if (result == ":,,,")
+            {
+                roundSaveCurrent = roundSaveCurrent.Remove(roundSaveCurrent.Length - 4);
+            }
         }
-        result = roundSaveCurrent.Substring(roundSaveCurrent.Length - 4);
-        if(result == ":,,,")
-        {
-            roundSaveCurrent = roundSaveCurrent.Remove(roundSaveCurrent.Length - 4);
-        }
+        Debug.Log(roundSaveCurrent + "cur");
         roundCard.roundFile = roundSaveCurrent;
         roundSave.roundSave = roundSaveCurrent;
         roundCard.numToRepeat = roundSave.amToRepeat;
@@ -203,9 +218,13 @@ public class WaveCreator : MonoBehaviour
         roundCard.timeBtwWaves = roundSave.timeBtwWaves;
         roundCard.roundSave = roundSave;
         roundCard.UpdateCard();
+        timeBtwWavesText.text = "";
+        amToRepeatText.text = "";
+        roundSave = new RoundSave();
     }
     public void DecodeRound(string loadedString, int roundNum, RoundSave roundSave2)
     {
+        didMakeAWave = true;
         Debug.Log(loadedString);
         setInfoIndex = 0;
         foreach(Transform child in listPosForWave)
@@ -294,7 +313,6 @@ public class WaveCreator : MonoBehaviour
         else
         {
             amOfRoundNum = setSave.Count + 1;
-
         }
         Modebuilder.SetActive(false);
         RoundBuilder.SetActive(true);
@@ -309,6 +327,7 @@ public class WaveCreator : MonoBehaviour
             }
             setInfoIndex++;
         }
+        Debug.Log(amOfRoundNum);
     }
     public void SaveSet()
     {
