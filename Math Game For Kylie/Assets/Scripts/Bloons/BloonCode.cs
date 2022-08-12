@@ -162,6 +162,8 @@ public class BloonCode : MonoBehaviour
             speed = ceramicEnemySpeed;
             damageBloonDoesToLives = ceramicEnemyHP;
         }
+        damageBloonDoesToLives = Mathf.RoundToInt(damageBloonDoesToLives * healthMult);
+        speed *= speedMult;
         return health;
     }
     private void OnEnable()
@@ -254,8 +256,13 @@ public class BloonCode : MonoBehaviour
             image.sprite = ceramicEnemy;
             speed = ceramicEnemySpeed;
         }
-        health = Mathf.RoundToInt(health * (healthMult / 100));
-        speed = Mathf.RoundToInt(speed * (speedMult / 100));
+        Invoke("AddModifiers", 0.1f);
+    }
+    void AddModifiers()
+    {
+        health = Mathf.RoundToInt(health * healthMult);
+        damageBloonDoesToLives = Mathf.RoundToInt(damageBloonDoesToLives * healthMult);
+        speed *= speedMult;
     }
     public void SlowDown()
     {

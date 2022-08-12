@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
 
     private void SetStartMoneyFromDifficulty()
     {
-        setInfo = saveFile.Split(char.Parse("{"));
+        setInfo = saveFile.Split(char.Parse("}"));
         setInfoIndex = 0;
         foreach (string currentInfo in setInfo)
         {

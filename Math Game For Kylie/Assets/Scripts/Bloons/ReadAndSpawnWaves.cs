@@ -36,7 +36,7 @@ public class ReadAndSpawnWaves : MonoBehaviour
         StreamReader reader = new StreamReader(Application.persistentDataPath + "/" + "saveFile.saveFile");
         saveFile = reader.ReadLine();
         reader.Close();
-        setInfo = saveFile.Split(char.Parse("{"));
+        setInfo = saveFile.Split(char.Parse("}"));
         setInfoIndex = 0;
         Debug.Log(saveFile);
         foreach (string currentInfo in setInfo)
@@ -44,14 +44,15 @@ public class ReadAndSpawnWaves : MonoBehaviour
             if (setInfoIndex == 0)
             {
                 maxRound = int.Parse(currentInfo);
+                roundText.text = "0/" + maxRound;
             }
             if (setInfoIndex == 1)
             {
-                speedMult = float.Parse(currentInfo);
+                speedMult = float.Parse(currentInfo) / 100;
             }
             if (setInfoIndex == 2)
             {
-                healthMult = float.Parse(currentInfo);
+                healthMult = float.Parse(currentInfo)  / 100;
             }
             if (setInfoIndex == 3)
             {
@@ -140,7 +141,7 @@ public class ReadAndSpawnWaves : MonoBehaviour
                         }
                         else if (waveParseIndex == 2)
                         {
-                            wave.isCamo = Convert.ToBoolean(currentPartOfWave);
+                            wave.isCamo = Convert.ToBoolean(int.Parse(currentPartOfWave));
                             waveParseIndex++;
                         }
                         else if (waveParseIndex == 3)

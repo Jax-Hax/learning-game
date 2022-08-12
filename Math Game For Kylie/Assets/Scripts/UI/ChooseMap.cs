@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using System.IO;
-using UnityEngine.SceneManagement;
 using System;
 
 public class ChooseMap : MonoBehaviour
@@ -16,19 +15,19 @@ public class ChooseMap : MonoBehaviour
     public Slider hpSlider;
     public TMP_InputField moneyInputField;
     public Slider moneySlider;
-    public int mapNum;
+    public int mapNum = 0;
     public Image mapImage;
     public TextMeshProUGUI mapsName;
     public Sprite[] maps;
     public string[] names;
     private string saveFile;
-    public TextMeshProUGUI speed;
-    public TextMeshProUGUI health;
-    public TextMeshProUGUI money;
-    public TextMeshProUGUI cash;
-    public TextMeshProUGUI lives;
+    public TMP_InputField speed;
+    public TMP_InputField health;
+    public TMP_InputField money;
+    public TMP_InputField cash;
+    public TMP_InputField lives;
     public Toggle camo;
-    public TextMeshProUGUI rounds;
+    public TMP_InputField rounds;
     public void SliderUpdate() { speedInputField.text = speedSlider.value.ToString(); }
     public void InputFieldUpdate() { speedSlider.value = System.Convert.ToSingle(speedInputField.text); }
     public void HealthSliderUpdate() { hpInputField.text = hpSlider.value.ToString(); }
@@ -45,12 +44,12 @@ public class ChooseMap : MonoBehaviour
     {
         saveFile = "";
         PlayerPrefs.SetInt("MapName", mapNum);
-        saveFile += rounds.text + "}";
-        saveFile += speed.text + "}";
-        saveFile += health.text + "}";
-        saveFile += money.text + "}";
-        saveFile += cash.text + "}";
-        saveFile += lives.text + "}";
+        if (rounds.text != "") {saveFile += rounds.text + "}"; } else {  saveFile += "50}"; }
+        if (speed.text != "") { saveFile += speed.text + "}"; } else {  saveFile += "100}"; }
+        if (health.text != "") { saveFile += health.text + "}"; } else {  saveFile += "100}"; }
+        if (money.text != "") { saveFile += money.text + "}"; } else {  saveFile += "100}"; }
+        if (cash.text != "") { saveFile += cash.text + "}"; } else {  saveFile += "500}"; }
+        if (lives.text != "") { saveFile += lives.text + "}"; } else {  saveFile += "100}"; }
         saveFile += Convert.ToInt32(camo.isOn).ToString();
         StreamWriter streamWriter = new StreamWriter(Application.persistentDataPath + "/" + "saveFile.saveFile");
         streamWriter.Write(saveFile);
