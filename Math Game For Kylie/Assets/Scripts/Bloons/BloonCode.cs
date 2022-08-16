@@ -15,58 +15,12 @@ public class BloonCode : MonoBehaviour
     public int wayPointIndex = 0;
     [HideInInspector]
     public int damageBloonDoesToLives;
-    [SerializeField]
-    private GameObject[] bloons;
     [HideInInspector]
     public Transform whereToSpawn;
     private Image image;
     public Sprite[] enemySprites;
     public float[] enemySpeeds;
     public int[] enemyHealths;
-    [SerializeField]
-    private Sprite redEnemy;
-    [SerializeField]
-    private Sprite blueEnemy;
-    [SerializeField]
-    private Sprite greenEnemy;
-    [SerializeField]
-    private Sprite yellowEnemy;
-    [SerializeField]
-    private Sprite pinkEnemy;
-    [SerializeField]
-    private Sprite blackEnemy;
-    [SerializeField]
-    private Sprite whiteEnemy;
-    [SerializeField]
-    private Sprite orangeEnemy;
-    [SerializeField]
-    private Sprite purpleEnemy;
-    [SerializeField]
-    private Sprite rainbowEnemy;
-    [SerializeField]
-    private Sprite ceramicEnemy;
-    private float redEnemySpeed = 6;
-    private float blueEnemySpeed = 8.4f;
-    private float greenEnemySpeed = 10.8f;
-    private float yellowEnemySpeed = 19.2f;
-    private float pinkEnemySpeed = 21;
-    private float whiteEnemySpeed = 12;
-    private float blackEnemySpeed = 10.8f;
-    private float orangeEnemySpeed = 11;
-    private float purpleEnemySpeed = 18;
-    private float rainbowEnemySpeed = 13.2f;
-    private float ceramicEnemySpeed = 15;
-    private int redEnemyHP = 1;
-    private int blueEnemyHP = 2;
-    private int greenEnemyHP = 3;
-    private int yellowEnemyHP = 4;
-    private int pinkEnemyHP = 5;
-    private int whiteEnemyHP = 11; //splits to 2 pink
-    private int blackEnemyHP = 11; //splits to 2 pink
-    private int orangeEnemyHP = 16; //splits to 3 pink
-    private int purpleEnemyHP = 28; //splits to 1 orange and one black
-    private int rainbowEnemyHP = 23; //splits to 1 black and one white
-    private int ceramicEnemyHP = 73; //50 hp then one rainbow
     public float healthMult;
     public float speedMult;
     private void Awake()
@@ -102,40 +56,40 @@ public class BloonCode : MonoBehaviour
         }
         else if(health == 1)
         {
-            image.sprite = redEnemy;
-            speed = redEnemySpeed;
-            damageBloonDoesToLives = redEnemyHP;
+            image.sprite = enemySprites[0];
+            speed = enemySpeeds[0];
+            damageBloonDoesToLives = enemyHealths[0];
         }
         else if (health == 2)
         {
-            image.sprite = blueEnemy;
-            speed = blueEnemySpeed;
-            damageBloonDoesToLives = blueEnemyHP;
+            image.sprite = enemySprites[1];
+            speed = enemySpeeds[1];
+            damageBloonDoesToLives = enemyHealths[1];
         }
         else if (health == 3)
         {
-            image.sprite = greenEnemy;
-            speed = greenEnemySpeed;
-            damageBloonDoesToLives = greenEnemyHP;
+            image.sprite = enemySprites[2];
+            speed = enemySpeeds[2];
+            damageBloonDoesToLives = enemyHealths[2];
         }
         else if (health == 4)
         {
-            image.sprite = yellowEnemy;
-            speed = yellowEnemySpeed;
-            damageBloonDoesToLives = yellowEnemyHP;
+            image.sprite = enemySprites[3];
+            speed = enemySpeeds[3];
+            damageBloonDoesToLives = enemyHealths[3];
         }
         else if (health == 5)
         {
-            image.sprite = pinkEnemy;
-            speed = pinkEnemySpeed;
-            damageBloonDoesToLives = pinkEnemyHP;
+            image.sprite = enemySprites[4];
+            speed = enemySpeeds[4];
+            damageBloonDoesToLives = enemyHealths[4];
         }
-        else if (health == 10)
+        else if (health <= 10 && health >= 6)
         {
-            image.sprite = pinkEnemy;
-            speed = pinkEnemySpeed;
-            damageBloonDoesToLives = pinkEnemyHP;
-            health = pinkEnemyHP;
+            image.sprite = enemySprites[4];
+            speed = enemySpeeds[4];
+            damageBloonDoesToLives = enemyHealths[4];
+            health = enemyHealths[4];
             GameObject bloon = ObjectPooler.SharedInstance.GetPooledObject(4);
             bloon.SetActive(true);
             bloon.GetComponent<BloonCode>().wayPointIndex = wayPointIndex;
@@ -144,28 +98,31 @@ public class BloonCode : MonoBehaviour
         }
         else if (health == 11)
         {
-            image.sprite = whiteEnemy;
-            speed = whiteEnemySpeed;
-            damageBloonDoesToLives = whiteEnemyHP;
+            image.sprite = enemySprites[6];
+            speed = enemySpeeds[6];
+            damageBloonDoesToLives = enemyHealths[6];
             GameObject bloon = ObjectPooler.SharedInstance.GetPooledObject(5);
             bloon.SetActive(true);
             bloon.GetComponent<BloonCode>().wayPointIndex = wayPointIndex;
             bloon.GetComponent<BloonCode>().SlowDown();
             bloon.transform.position = gameObject.transform.position;
         }
-        else if (health == 23)
+        else if (health >= 23 && health <= 72)
         {
-            image.sprite = rainbowEnemy;
-            speed = rainbowEnemySpeed;
-            damageBloonDoesToLives = rainbowEnemyHP;
+            image.sprite = enemySprites[9];
+            speed = enemySpeeds[9];
+            damageBloonDoesToLives = enemyHealths[9];
         }
-        else if (health == 73)
+        else if (health >= 73 && health <= 415)
         {
-            image.sprite = ceramicEnemy;
-            speed = ceramicEnemySpeed;
-            damageBloonDoesToLives = ceramicEnemyHP;
+            image.sprite = enemySprites[10];
+            speed = enemySpeeds[10];
+            damageBloonDoesToLives = enemyHealths[10];
         }
-        //new order:
+        else if(health == 416)
+        {
+
+        }
         damageBloonDoesToLives = Mathf.RoundToInt(damageBloonDoesToLives * healthMult);
         speed *= speedMult;
         return health;

@@ -13764,8 +13764,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef83516ea2e66554a8bf132476114988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pooledObjects:
-  - {fileID: 0}
+  redObjects: []
+  blueObjects: []
+  greenObjects: []
+  yellowObjects: []
+  pinkObjects: []
+  blackObjects: []
+  whiteObjects: []
+  orangeObjects: []
+  purpleObjects: []
+  rainbowObjects: []
+  ceramicObjects: []
+  leadObjects: []
+  redVObjects: []
+  blueVObjects: []
+  greenVObjects: []
+  yellowVObjects: []
+  pinkVObjects: []
+  mushroomObjects: []
   itemsToPool:
   - amountToPool: 20
     objectToPool: {fileID: 5695918002174570015, guid: 8c3b35059682a3c4a9ab5d7a8b325e8e, type: 3}
@@ -13789,4 +13805,18 @@ MonoBehaviour:
     objectToPool: {fileID: 5695918002174570015, guid: 060838fb972a17f4db35172ff2c3fb2e, type: 3}
   - amountToPool: 20
     objectToPool: {fileID: 5695918002174570015, guid: 876fdd50307402f428eba86ca5fd8849, type: 3}
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: 4b3f2ba62e71b284f85725607f13fc4c, type: 3}
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: 764b8650e80abc240bb95230fda8d9d9, type: 3}
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: 8e43ff2789b51314d8ba5f423f860985, type: 3}
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: fe160f69cd7f5a64697543aef7fbf277, type: 3}
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: 3283b7d0290319d4f9209ce47f78cfd7, type: 3}
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: f68887209cb27e14994b2f081f2981fc, type: 3}
+  - amountToPool: 20
+    objectToPool: {fileID: 5695918002174570015, guid: c1df1db280c600c47ae521917af41607, type: 3}
   instantiatedParent: {fileID: 277595296}
