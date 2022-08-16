@@ -23,12 +23,21 @@ public class BloonCode : MonoBehaviour
     public int[] enemyHealths;
     public float healthMult;
     public float speedMult;
+    private bool isPinkSplit;
+    private bool isBWSplit;
+    private bool isRedSplit;
+    private float tempSpeed;
+    private bool isBlueSplit;
     private void Awake()
     {
         image = GetComponent<Image>();
     }
     private void Start()
     {
+        isPinkSplit = false;
+        isBWSplit = false;
+        isRedSplit = false;
+        isBlueSplit = false;
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         waypoints = gameManager.mapPositions;
     }
@@ -84,8 +93,9 @@ public class BloonCode : MonoBehaviour
             speed = enemySpeeds[4];
             damageBloonDoesToLives = enemyHealths[4];
         }
-        else if (health <= 10 && health >= 6)
+        else if (health <= 10 && health >= 6 && !isPinkSplit)
         {
+            isPinkSplit = true;
             image.sprite = enemySprites[4];
             speed = enemySpeeds[4];
             damageBloonDoesToLives = enemyHealths[4];
@@ -93,35 +103,55 @@ public class BloonCode : MonoBehaviour
             GameObject bloon = ObjectPooler.SharedInstance.GetPooledObject(4);
             bloon.SetActive(true);
             bloon.GetComponent<BloonCode>().wayPointIndex = wayPointIndex;
-            bloon.GetComponent<BloonCode>().SlowDown();
+            bloon.GetComponent<BloonCode>().SlowDown(2);
             bloon.transform.position = gameObject.transform.position;
         }
-        else if (health == 11)
+        else if (health >= 11 && health <= 22 && !isBWSplit)
         {
+            isBWSplit = true;
             image.sprite = enemySprites[6];
             speed = enemySpeeds[6];
             damageBloonDoesToLives = enemyHealths[6];
             GameObject bloon = ObjectPooler.SharedInstance.GetPooledObject(5);
             bloon.SetActive(true);
             bloon.GetComponent<BloonCode>().wayPointIndex = wayPointIndex;
-            bloon.GetComponent<BloonCode>().SlowDown();
+            bloon.GetComponent<BloonCode>().SlowDown(2);
             bloon.transform.position = gameObject.transform.position;
         }
-        else if (health >= 23 && health <= 72)
+        else if (health >= 23 && health <= 63)
         {
+            if(image.sprite == enemySprites[10])
+            {
+                GameObject bloon = ObjectPooler.SharedInstance.GetPooledObject(9);
+                bloon.SetActive(true);
+                bloon.GetComponent<BloonCode>().wayPointIndex = wayPointIndex;
+                bloon.GetComponent<BloonCode>().SlowDown(2);
+                bloon.transform.position = gameObject.transform.position;
+            }
             image.sprite = enemySprites[9];
             speed = enemySpeeds[9];
             damageBloonDoesToLives = enemyHealths[9];
         }
-        else if (health >= 73 && health <= 415)
+        else if (health >= 73 && health <= 218 && !isRedSplit)
         {
+            isRedSplit = true;
             image.sprite = enemySprites[10];
             speed = enemySpeeds[10];
             damageBloonDoesToLives = enemyHealths[10];
+            GameObject bloon = ObjectPooler.SharedInstance.GetPooledObject(10);
+            bloon.SetActive(true);
+            bloon.GetComponent<BloonCode>().wayPointIndex = wayPointIndex;
+            bloon.GetComponent<BloonCode>().SlowDown(2);
+            bloon.transform.position = gameObject.transform.position;
+            bloon = ObjectPooler.SharedInstance.GetPooledObject(10);
+            bloon.SetActive(true);
+            bloon.GetComponent<BloonCode>().wayPointIndex = wayPointIndex;
+            bloon.GetComponent<BloonCode>().SlowDown(4);
+            bloon.transform.position = gameObject.transform.position;
         }
-        else if(health == 416)
+        else if(health >= 219 && health <= 1276 && !isBlueSplit)
         {
-
+            //red = 3 ceramics + 100 hp, blue = 4 reds and 700 hp, green = 4 blues and 1700, yellow = 4 ceramics and 480, pink = 4 yellows and 1700, mushroom = pink and 3 greens and 2000 hp
         }
         damageBloonDoesToLives = Mathf.RoundToInt(damageBloonDoesToLives * healthMult);
         speed *= speedMult;
@@ -129,6 +159,10 @@ public class BloonCode : MonoBehaviour
     }
     private void OnEnable()
     {
+        isBWSplit = false;
+        isPinkSplit = false;
+        isRedSplit = false;
+        isBlueSplit = false;
         health = enemyHealths[bloonType];
         damageBloonDoesToLives = enemyHealths[bloonType];
         image.sprite = enemySprites[bloonType];
@@ -141,13 +175,14 @@ public class BloonCode : MonoBehaviour
         damageBloonDoesToLives = Mathf.RoundToInt(damageBloonDoesToLives * healthMult);
         speed *= speedMult;
     }
-    public void SlowDown()
+    public void SlowDown(float curSpeed)
     {
-        speed /= 2;
+        tempSpeed = curSpeed;
+        speed /= curSpeed;
         Invoke("SpeedUp", 0.5f);
     }
     private void SpeedUp()
     {
-        speed *= 2;
+        speed *= tempSpeed;
     }
 }
