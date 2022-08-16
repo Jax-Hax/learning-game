@@ -54,6 +54,7 @@ public class WaveCreator : MonoBehaviour
     private int rounds;
     public string waveFruitType = "0";
     bool didMakeAWave;
+    public Image bloonTypeImage;
     private void Start()
     {
         LoadSetLobby();
@@ -62,6 +63,7 @@ public class WaveCreator : MonoBehaviour
     public void SetPlantType(string typeofPlant)
     {
         waveFruitType = typeofPlant;
+        bloonTypeImage.sprite = bloonTypes[int.Parse(waveFruitType)];
     }
     public void LoadWave(string waveFile, int waveNum, GameObject obj)
     {
@@ -75,7 +77,8 @@ public class WaveCreator : MonoBehaviour
         {
             if (setInfoIndex == 0)
             {
-                waveCard.bloonType = bloonTypes[int.Parse(currentInfo)];
+                waveFruitType = currentInfo;
+                bloonTypeImage.sprite = bloonTypes[int.Parse(waveFruitType)];
             }
             else if (setInfoIndex == 1)
             {
