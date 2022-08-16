@@ -46,21 +46,17 @@ public class ModeCard : MonoBehaviour
     }
     public void ChooseSet()
     {
-        if (File.Exists(path))
-        {
-            File.Delete(path);
-        }
         StreamWriter streamWriter = new StreamWriter(path);
         streamWriter.Write(loadableString);
         streamWriter.Close();
-        isEnabled.SetActive(false);
-        isNotEnabled.SetActive(true);
+        isEnabled.SetActive(true);
+        isNotEnabled.SetActive(false);
     }
     public void UnchooseSet()
     {
         File.Delete(path);
-        isEnabled.SetActive(true);
-        isNotEnabled.SetActive(false);
+        isEnabled.SetActive(false);
+        isNotEnabled.SetActive(true);
     }
     public void DeleteSet()
     {

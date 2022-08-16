@@ -123,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6969776599014640953}
         m_TargetAssemblyTypeName: ModeCard, Assembly-CSharp
-        m_MethodName: ChooseSet
+        m_MethodName: UnchooseSet
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enable
+  m_text: Not Active
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 48f0c8b86b6528743b492c12c2485d07, type: 2}
   m_sharedMaterial: {fileID: 8368132474090271773, guid: 48f0c8b86b6528743b492c12c2485d07, type: 2}
@@ -390,7 +390,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6969776599014640953}
         m_TargetAssemblyTypeName: ModeCard, Assembly-CSharp
-        m_MethodName: UnchooseSet
+        m_MethodName: ChooseSet
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -498,6 +498,7 @@ MonoBehaviour:
   loadableString: 
   title: 
   amOfRounds: 
+  number: 0
   isEnabled: {fileID: 6969776598351342527}
   isNotEnabled: {fileID: 6969776598861032867}
   pathToDelete: 
@@ -969,7 +970,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enabled
+  m_text: Active
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 48f0c8b86b6528743b492c12c2485d07, type: 2}
   m_sharedMaterial: {fileID: 8368132474090271773, guid: 48f0c8b86b6528743b492c12c2485d07, type: 2}

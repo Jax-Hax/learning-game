@@ -31,6 +31,8 @@ public class ReadAndSpawnWaves : MonoBehaviour
     private float moneyMult;
     private bool isCamo;
     private BloonCode blooncode;
+    private string textToParse;
+    private int index2;
     private void Start()
     {
         StreamReader reader = new StreamReader(Application.persistentDataPath + "/" + "saveFile.saveFile");
@@ -38,7 +40,6 @@ public class ReadAndSpawnWaves : MonoBehaviour
         reader.Close();
         setInfo = saveFile.Split(char.Parse("}"));
         setInfoIndex = 0;
-        Debug.Log(saveFile);
         foreach (string currentInfo in setInfo)
         {
             if (setInfoIndex == 0)
@@ -105,56 +106,71 @@ public class ReadAndSpawnWaves : MonoBehaviour
     }
     private void ParseFile()
     {
-        allRounds = textFile.text.Split(char.Parse("|"));
+        if(File.Exists(Application.persistentDataPath + "/currentSave.roundSave"))
+        {
+            StreamReader reader = new StreamReader(Application.persistentDataPath + "/currentSave.roundSave");
+            textToParse = reader.ReadLine();
+            reader.Close();
+        }
+        else
+        {
+            textToParse = textFile.text;
+        }
+        allRounds = textToParse.Split(char.Parse("{"));
         parseIndex = 0;
+        index2 = 0;
         foreach (string currentRound in allRounds)
         {
-            round = new Round();
-            allWaves = currentRound.Split(char.Parse(":"));
-            foreach (string currentWave in allWaves)
+            if(index2 == 2)
             {
-                if (parseIndex == 0)
+                round = new Round();
+                allWaves = currentRound.Split(char.Parse(":"));
+                foreach (string currentWave in allWaves)
                 {
-                    round.timeBetweenEachWave = float.Parse(currentWave);
-                    parseIndex++;
-                }
-                else if (parseIndex == 1)
-                {
-                    round.howManyTimesToRepeat = int.Parse(currentWave);
-                    parseIndex++;
-                }
-                else
-                {
-                    wave = new Wave();
-                    allPartsOfWave = currentWave.Split(char.Parse("-"));
-                    foreach (string currentPartOfWave in allPartsOfWave)
+                    if (parseIndex == 0)
                     {
-                        if (waveParseIndex == 0)
+                        round.timeBetweenEachWave = float.Parse(currentWave);
+                        parseIndex++;
+                    }
+                    else if (parseIndex == 1)
+                    {
+                        round.howManyTimesToRepeat = int.Parse(currentWave);
+                        parseIndex++;
+                    }
+                    else
+                    {
+                        wave = new Wave();
+                        allPartsOfWave = currentWave.Split(char.Parse(","));
+                        foreach (string currentPartOfWave in allPartsOfWave)
                         {
-                            wave.bloonType = int.Parse(currentPartOfWave);
-                            waveParseIndex++;
-                        }
-                        else if (waveParseIndex == 1)
-                        {
-                            wave.timeBetweenBloons = float.Parse(currentPartOfWave);
-                            waveParseIndex++;
-                        }
-                        else if (waveParseIndex == 2)
-                        {
-                            wave.isCamo = Convert.ToBoolean(int.Parse(currentPartOfWave));
-                            waveParseIndex++;
-                        }
-                        else if (waveParseIndex == 3)
-                        {
-                            wave.howManyBloons = int.Parse(currentPartOfWave);
-                            waveParseIndex = 0;
-                            round.waves.Add(wave);
+                            if (waveParseIndex == 0)
+                            {
+                                wave.bloonType = int.Parse(currentPartOfWave);
+                                waveParseIndex++;
+                            }
+                            else if (waveParseIndex == 1)
+                            {
+                                wave.timeBetweenBloons = float.Parse(currentPartOfWave);
+                                waveParseIndex++;
+                            }
+                            else if (waveParseIndex == 2)
+                            {
+                                wave.isCamo = Convert.ToBoolean(int.Parse(currentPartOfWave));
+                                waveParseIndex++;
+                            }
+                            else if (waveParseIndex == 3)
+                            {
+                                wave.howManyBloons = int.Parse(currentPartOfWave);
+                                waveParseIndex = 0;
+                                round.waves.Add(wave);
+                            }
                         }
                     }
                 }
+                parseIndex = 0;
+                rounds.Add(round);
             }
-            parseIndex = 0;
-            rounds.Add(round);
+            index2++;
         }
     }
 }
