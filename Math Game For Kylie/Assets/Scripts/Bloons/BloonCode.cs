@@ -165,100 +165,17 @@ public class BloonCode : MonoBehaviour
             speed = ceramicEnemySpeed;
             damageBloonDoesToLives = ceramicEnemyHP;
         }
+        //new order:
         damageBloonDoesToLives = Mathf.RoundToInt(damageBloonDoesToLives * healthMult);
         speed *= speedMult;
         return health;
     }
     private void OnEnable()
     {
-        if (bloonType == 0)
-        {
-            //red
-            health = redEnemyHP;
-            damageBloonDoesToLives = redEnemyHP;
-            image.sprite = redEnemy;
-            speed = redEnemySpeed;
-        }
-        else if (bloonType == 1)
-        {
-            //blue
-            health = blueEnemyHP;
-            damageBloonDoesToLives = blueEnemyHP;
-            image.sprite = blueEnemy;
-            speed = blueEnemySpeed;
-        }
-        else if (bloonType == 2)
-        {
-            //green
-            health = greenEnemyHP;
-            damageBloonDoesToLives = greenEnemyHP;
-            image.sprite = greenEnemy;
-            speed = greenEnemySpeed;
-        }
-        else if (bloonType == 3)
-        {
-            //yellow
-            health = yellowEnemyHP;
-            damageBloonDoesToLives = yellowEnemyHP;
-            image.sprite = yellowEnemy;
-            speed = yellowEnemySpeed;
-        }
-        else if (bloonType == 4)
-        {
-            //pink
-            health = pinkEnemyHP;
-            damageBloonDoesToLives = pinkEnemyHP;
-            image.sprite = pinkEnemy;
-            speed = pinkEnemySpeed;
-        }
-        else if (bloonType == 5)
-        {
-            //black
-            health = blackEnemyHP;
-            damageBloonDoesToLives = blackEnemyHP;
-            image.sprite = blackEnemy;
-            speed = blackEnemySpeed;
-        }
-        else if (bloonType == 6)
-        {
-            //white
-            health = whiteEnemyHP;
-            damageBloonDoesToLives = whiteEnemyHP;
-            image.sprite = whiteEnemy;
-            speed = whiteEnemySpeed;
-        }
-        else if (bloonType == 7)
-        {
-            //orange
-            health = orangeEnemyHP;
-            damageBloonDoesToLives = orangeEnemyHP;
-            image.sprite = orangeEnemy;
-            speed = orangeEnemySpeed;
-        }
-        else if (bloonType == 8)
-        {
-            //purple
-            health = purpleEnemyHP;
-            damageBloonDoesToLives = purpleEnemyHP;
-            image.sprite = purpleEnemy;
-            speed = purpleEnemySpeed;
-        }
-        else if (bloonType == 9)
-        {
-            //rainbow
-            health = rainbowEnemyHP;
-            damageBloonDoesToLives = rainbowEnemyHP;
-            image.sprite = rainbowEnemy;
-            speed = rainbowEnemySpeed;
-        }
-        else if (bloonType == 10)
-        {
-            //ceramic
-            health = ceramicEnemyHP;
-            damageBloonDoesToLives = ceramicEnemyHP;
-            image.sprite = ceramicEnemy;
-            speed = ceramicEnemySpeed;
-        }
+        health = enemyHealths[bloonType];
+        damageBloonDoesToLives = enemyHealths[bloonType];
+        image.sprite = enemySprites[bloonType];
+        speed = enemySpeeds[bloonType];
         Invoke("AddModifiers", 0.1f);
     }
     void AddModifiers()
