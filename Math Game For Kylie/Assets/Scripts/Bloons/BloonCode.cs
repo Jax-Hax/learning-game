@@ -20,6 +20,9 @@ public class BloonCode : MonoBehaviour
     [HideInInspector]
     public Transform whereToSpawn;
     private Image image;
+    public Sprite[] enemySprites;
+    public float[] enemySpeeds;
+    public int[] enemyHealths;
     [SerializeField]
     private Sprite redEnemy;
     [SerializeField]

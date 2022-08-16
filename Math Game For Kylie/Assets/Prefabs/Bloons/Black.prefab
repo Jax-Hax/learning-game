@@ -107,6 +107,31 @@ MonoBehaviour:
   - {fileID: 5695918002174570015, guid: 060838fb972a17f4db35172ff2c3fb2e, type: 3}
   - {fileID: 5695918002174570015, guid: 876fdd50307402f428eba86ca5fd8849, type: 3}
   whereToSpawn: {fileID: 0}
+  enemySprites:
+  - {fileID: 21300000, guid: a895a83d59c80014184a387e87a74145, type: 3}
+  - {fileID: 21300000, guid: d5d34a3f61c2f2c418bcc9733d51a551, type: 3}
+  - {fileID: 21300000, guid: 64f9c738dab8fa842b3c9de86fb1c012, type: 3}
+  - {fileID: 21300000, guid: 8a42564e1177d3441a5e2c0b7beebabc, type: 3}
+  - {fileID: 21300000, guid: 799fdf299388f18458def92fccf0fd67, type: 3}
+  - {fileID: 21300000, guid: b4434ae90f1b0f041936bc24dc6dc504, type: 3}
+  - {fileID: 21300000, guid: 45080b8f2a42ea349bd0f65e83274e94, type: 3}
+  - {fileID: 21300000, guid: 96106b2a8a39a8140a4ccd220ec59cf2, type: 3}
+  - {fileID: 21300000, guid: 9e408d2eabeff8641afdc0efc8e474fb, type: 3}
+  - {fileID: 21300000, guid: 079454c9d7f2def459d730c3393fd420, type: 3}
+  - {fileID: 21300000, guid: 0cb43672ab9fe19409a49c026a5a3e07, type: 3}
+  enemySpeeds:
+  - 6
+  - 8.4
+  - 10.8
+  - 19.2
+  - 21
+  - 12
+  - 10.8
+  - 11
+  - 18
+  - 13.2
+  - 15
+  enemyHealths: 01000000020000000300000004000000050000000b0000000b000000100000001c0000001700000049000000
   redEnemy: {fileID: 21300000, guid: a895a83d59c80014184a387e87a74145, type: 3}
   blueEnemy: {fileID: 21300000, guid: d5d34a3f61c2f2c418bcc9733d51a551, type: 3}
   greenEnemy: {fileID: 21300000, guid: 64f9c738dab8fa842b3c9de86fb1c012, type: 3}
@@ -118,6 +143,8 @@ MonoBehaviour:
   purpleEnemy: {fileID: 21300000, guid: 9e408d2eabeff8641afdc0efc8e474fb, type: 3}
   rainbowEnemy: {fileID: 21300000, guid: 079454c9d7f2def459d730c3393fd420, type: 3}
   ceramicEnemy: {fileID: 21300000, guid: 0cb43672ab9fe19409a49c026a5a3e07, type: 3}
+  healthMult: 0
+  speedMult: 0
 --- !u!61 &-766729654931892106
 BoxCollider2D:
   m_ObjectHideFlags: 0
