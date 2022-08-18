@@ -33,6 +33,7 @@ public class ReadAndSpawnWaves : MonoBehaviour
     private BloonCode blooncode;
     private string textToParse;
     private int index2;
+    private int maxRound2;
     private void Start()
     {
         StreamReader reader = new StreamReader(Application.persistentDataPath + "/" + "saveFile.saveFile");
@@ -45,7 +46,6 @@ public class ReadAndSpawnWaves : MonoBehaviour
             if (setInfoIndex == 0)
             {
                 maxRound = int.Parse(currentInfo);
-                roundText.text = "0/" + maxRound;
             }
             if (setInfoIndex == 1)
             {
@@ -79,6 +79,7 @@ public class ReadAndSpawnWaves : MonoBehaviour
     {
         foreach (Round round in rounds)
         {
+            while (gameManager.enemies.Count != 0) { }
             currentRoundNumber++;
             roundText.text = currentRoundNumber + "/" + maxRound;
             howManyTimesToRepeat = round.howManyTimesToRepeat;
@@ -121,7 +122,13 @@ public class ReadAndSpawnWaves : MonoBehaviour
         index2 = 0;
         foreach (string currentRound in allRounds)
         {
-            if(index2 == 2)
+            if(index2 == 1)
+            {
+                maxRound2 = Mathf.RoundToInt(Mathf.Clamp(maxRound, 1, float.Parse(currentRound)));
+                roundText.text = "0/" + maxRound2;
+                maxRound = maxRound2;
+            }
+            if (index2 >= 2)
             {
                 round = new Round();
                 allWaves = currentRound.Split(char.Parse(":"));

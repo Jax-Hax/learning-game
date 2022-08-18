@@ -315,6 +315,7 @@ public class WaveCreator : MonoBehaviour
         }
         Modebuilder.SetActive(false);
         RoundBuilder.SetActive(true);
+        waveTitle.text = "Round " + amOfRoundNum;
         timeBtwWavesText.text = "";
         amToRepeatText.text = "";
         setInfoIndex = 0;
