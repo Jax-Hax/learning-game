@@ -55,6 +55,7 @@ public class WaveCreator : MonoBehaviour
     public string waveFruitType = "0";
     bool didMakeAWave;
     public Image bloonTypeImage;
+    private string roundSaveSaveThing;
     private void Start()
     {
         LoadSetLobby();
@@ -346,6 +347,7 @@ public class WaveCreator : MonoBehaviour
         rounds = setSave.Count;
         foreach (RoundSave save in setSave.Values)
         {
+            Debug.Log(save.roundSave + " save");
             roundSaveCurrent += "{" + save.roundSave;
         }
         modeCard.title = title;
@@ -398,11 +400,13 @@ public class WaveCreator : MonoBehaviour
                         roundCard.timeBtwWaves = currentInfo2;
                         setInfoIndex2++;
                         roundSave.timeBtwWaves = currentInfo2;
+                        roundSaveSaveThing = currentInfo2;
                     }
                     else if (setInfoIndex2 == 1)
                     {
                         roundCard.numToRepeat = currentInfo2;
                         roundSave.amToRepeat = currentInfo2;
+                        roundSaveSaveThing += ":" + currentInfo2;
                         roundCard.roundNum = setInfoIndex - 1;
                         roundCard.listPosForRound = listPosForRound;
                         roundCard.waveCreator = waveCreate;
@@ -418,19 +422,24 @@ public class WaveCreator : MonoBehaviour
                         {
                             if (setInfoIndex3 == 0)
                             {
+                                roundSaveSaveThing += ":" + currentInfo3 + ",";
+                                Debug.Log("bu");
                                 waveSave.fruitType = currentInfo3;
                             }
                             else if(setInfoIndex3 == 1)
                             {
+                                roundSaveSaveThing += currentInfo3 + ",";
                                 waveSave.timeBtw = currentInfo3;
                             }
                             else if (setInfoIndex3 == 2)
                             {
+                                roundSaveSaveThing += currentInfo3 + ",";
                                 waveSave.isCamo = currentInfo3;
                             }
                             else if (setInfoIndex3 == 3)
                             {
                                 waveSave.amToSpawn = currentInfo3;
+                                roundSaveSaveThing += currentInfo3;
                             }
                             setInfoIndex3++;
                         }
@@ -438,7 +447,10 @@ public class WaveCreator : MonoBehaviour
                         setInfoIndex2++;
                     }
                 }
+                roundSave.roundSave = roundSaveSaveThing;
                 amOfRounds = setInfoIndex2 - 1;
+                Debug.Log(setInfoIndex - 1);
+                Debug.Log(roundSave.roundSave);
                 setSave[setInfoIndex - 1] = roundSave;
                 roundCard.roundSave = roundSave;
                 setInfoIndex++;

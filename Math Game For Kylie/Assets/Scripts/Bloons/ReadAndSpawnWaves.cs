@@ -79,7 +79,7 @@ public class ReadAndSpawnWaves : MonoBehaviour
     {
         foreach (Round round in rounds)
         {
-            while (gameManager.enemies.Count != 0) { }
+            while (gameManager.enemies.Count != 0) { yield return new WaitForSeconds(0.5f); }
             currentRoundNumber++;
             roundText.text = currentRoundNumber + "/" + maxRound;
             howManyTimesToRepeat = round.howManyTimesToRepeat;
@@ -120,6 +120,7 @@ public class ReadAndSpawnWaves : MonoBehaviour
         allRounds = textToParse.Split(char.Parse("{"));
         parseIndex = 0;
         index2 = 0;
+        Debug.Log(textToParse);
         foreach (string currentRound in allRounds)
         {
             if(index2 == 1)
@@ -132,10 +133,12 @@ public class ReadAndSpawnWaves : MonoBehaviour
             {
                 round = new Round();
                 allWaves = currentRound.Split(char.Parse(":"));
+                Debug.Log(currentRound);
                 foreach (string currentWave in allWaves)
                 {
                     if (parseIndex == 0)
                     {
+                        Debug.Log(currentWave);
                         round.timeBetweenEachWave = float.Parse(currentWave);
                         parseIndex++;
                     }
