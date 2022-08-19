@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("red") || collision.gameObject.CompareTag("blue"))
         {
-            collision.gameObject.GetComponent<BloonCode>().RemoveHealth(damage);
+            collision.gameObject.GetComponent<BloonCode>().RemoveHealth(damage, false, false, false, false, false, false);
 			pierce--;
 			if(pierce <= 0)
             {

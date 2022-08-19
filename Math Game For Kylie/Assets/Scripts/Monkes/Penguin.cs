@@ -29,12 +29,25 @@ public class Penguin : MonoBehaviour
 	public LayerMask mask;
 	private bool isAbilityActive = false;
 	public GameObject penguinAbilityButton;
-	private WaitForSeconds timeToWait = new WaitForSeconds(0.75f);
 	private WaitForSeconds timeToWait1 = new WaitForSeconds(0.3f);
-
+	bool canSeeCamo;
+	bool canPopWhite;
+	bool canPopLead;
+	bool canPopBlack;
+	bool canPopOrange;
+	bool canPopPurple;
+	bool extraDamage;
+	private BloonCode bloonCode;
 	// Use this for initialization
 	void Start()
 	{
+		canSeeCamo = false;
+		canPopWhite = false;
+		canPopLead = false;
+		canPopBlack = false;
+		canPopOrange = false;
+		canPopPurple = false;
+		extraDamage = false;
 		rangeObject.SetActive(false);
 		gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
 		upgradeMenu = GameObject.FindGameObjectWithTag("UpgradeMenu");
@@ -124,7 +137,16 @@ public class Penguin : MonoBehaviour
 	{
 		if(target != null)
         {
-			target.GetComponent<BloonCode>().RemoveHealth(damage);
+			bloonCode = target.GetComponent<BloonCode>();
+			bloonCode.RemoveHealth(damage, canSeeCamo, canPopBlack, canPopLead, canPopOrange, canPopPurple, canPopWhite);
+            if (extraDamage)
+            {
+				if(bloonCode.bloonType <= 11)
+                {
+					bloonCode.SlowDown(1.2f, 4);
+					bloonCode.extraDamageTaken = Mathf.RoundToInt(damage * 1.2f);
+				}
+			}
 			popCount += damage;
 			anim.Play("Shoot");
 		}
@@ -146,6 +168,7 @@ public class Penguin : MonoBehaviour
 						range = 2.45f;
 						break;
 					case 3:
+						Invoke("UpdateSurroundings", 2);
 						break;
 					case 4:
 						break;
@@ -159,14 +182,19 @@ public class Penguin : MonoBehaviour
 				switch (upgradeLevel)
 				{
 					case 1:
+						fireRate = 1.25f;
 						break;
 					case 2:
+						canSeeCamo = true;
 						break;
 					case 3:
+						fireRate = 2.25f;
 						break;
 					case 4:
+						extraDamage = true;
 						break;
 					case 5:
+						
 						break;
 					case 6:
 						break;
@@ -179,10 +207,9 @@ public class Penguin : MonoBehaviour
 						damage += 1;
 						break;
 					case 2:
-						damage += 4;
+						damage += 3;
 						break;
 					case 3:
-						Invoke("UpdateSurroundings", 2);
 						break;
 					case 4:
 						break;
@@ -205,20 +232,40 @@ public class Penguin : MonoBehaviour
 	{
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(transform.position, range);
-	}
-	void UpdateSurroundings()
+    }
+    void UpdateSurroundings()
     {
-		hitColliders = Physics.OverlapSphere(transform.position, range, mask);
-		foreach(Collider col in hitColliders)
+        hitColliders = Physics.OverlapSphere(transform.position, range, mask);
+        foreach (Collider col in hitColliders)
         {
             if (col.CompareTag("penguin"))
             {
-				isAbilityActive = true;
-				penguinAbilityButton.SetActive(true);
-				return;
+                isAbilityActive = true;
+                penguinAbilityButton.SetActive(true);
+                return;
             }
         }
-		isAbilityActive = false;
-		penguinAbilityButton.SetActive(false);
+        isAbilityActive = false;
+        penguinAbilityButton.SetActive(false);
+    }
+	public void HaveChild1()
+    {
+		Invoke("ReDoHaveChild1", 45);
+    }
+	public void HaveChild2()
+	{
+
+	}
+	public void HaveChild3()
+	{
+
+	}
+	public void UltraPeck()
+	{
+
+	}
+	public void ReDoHaveChild1()
+    {
+		gameManager.haveChild1.Add(this);
     }
 }

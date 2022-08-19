@@ -39,12 +39,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  path010Cost: fa000000f401000058020000d007000064190000204e0000
-  path010SellPrices: 96000000130100003f02000027060000b20c00006419000074400000
+  path010Cost: fa00000058020000bc020000d007000064190000204e0000
+  path010SellPrices: 96000000260200005802000027060000b20c00006419000074400000
   path010Name:
   - Faster Pecking
-  - Even Faster Pecking
   - Camo Penguin
+  - Even Faster Pecking
   - Freezing Penguin
   - Ultra Peck
   - Perma Peck

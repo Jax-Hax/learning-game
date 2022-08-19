@@ -63,6 +63,20 @@ public class GameManager : MonoBehaviour
     private string[] setInfo;
     private int setInfoIndex;
     public bool won;
+
+    //Abilities
+    //Penguin
+    [HideInInspector]
+    public List<Penguin> haveChild1 = new List<Penguin>();
+    public GameObject haveChild1Button;
+    public TextMeshProUGUI haveChild1Text;
+    [HideInInspector]
+    public List<Penguin> haveChild2 = new List<Penguin>();
+    [HideInInspector]
+    public List<Penguin> haveChild3 = new List<Penguin>();
+    [HideInInspector]
+    public List<Penguin> ultraPeck = new List<Penguin>();
+
     private void Awake()
     {
         StreamReader reader = new StreamReader(Application.persistentDataPath + "/" + "saveFile.saveFile");
@@ -314,6 +328,50 @@ public class GameManager : MonoBehaviour
             questions.SetActive(false);
             isQuestionsShowing = false;
             isShopShowing = true;
+        }
+    }
+    public void UseAbility(string abilityName)
+    {
+        switch (abilityName)
+        {
+            case "haveChild1":
+                haveChild1[0].HaveChild1();
+                haveChild1.RemoveAt(0);
+                if (haveChild1.Count == 0)
+                {
+                    haveChild1Text.text = "1";
+                    haveChild1Button.SetActive(false);
+                }
+                else
+                {
+                    haveChild1Text.text = haveChild1.Count.ToString();
+                }
+                break;
+            case "haveChild2":
+                haveChild2[0].HaveChild2();
+                break;
+            case "haveChild3":
+                haveChild3[0].HaveChild3();
+                break;
+            case "ultraPeck":
+                ultraPeck[0].UltraPeck();
+                break;
+        }
+    }
+    public void CheckAbility(string abilityName)
+    {
+        switch (abilityName)
+        {
+            case "haveChild1":
+                if (haveChild1Button.activeSelf == false)
+                {
+                    haveChild1Button.SetActive(true);
+                }
+                else
+                {
+                    haveChild1Text.text = haveChild1.Count.ToString();
+                }
+                break;
         }
     }
 }
