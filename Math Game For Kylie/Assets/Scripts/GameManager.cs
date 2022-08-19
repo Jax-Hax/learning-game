@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
     private string saveFile;
     private string[] setInfo;
     private int setInfoIndex;
+    public bool won;
     private void Awake()
     {
         StreamReader reader = new StreamReader(Application.persistentDataPath + "/" + "saveFile.saveFile");
@@ -280,6 +281,7 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
+        won = true;
         Debug.Log("You won!");
     }
     private void Unactivate()

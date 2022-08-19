@@ -96,6 +96,7 @@ public class ReadAndSpawnWaves : MonoBehaviour
                         blooncode.wayPointIndex = 0;
                         blooncode.healthMult = healthMult;
                         blooncode.speedMult = speedMult;
+                        blooncode.roundNum = currentRoundNumber;
                         gameManager.enemies.Add(bloon);
                         yield return new WaitForSeconds(wave.timeBetweenBloons);
                     }
@@ -120,7 +121,6 @@ public class ReadAndSpawnWaves : MonoBehaviour
         allRounds = textToParse.Split(char.Parse("{"));
         parseIndex = 0;
         index2 = 0;
-        Debug.Log(textToParse);
         foreach (string currentRound in allRounds)
         {
             if(index2 == 1)
@@ -133,12 +133,10 @@ public class ReadAndSpawnWaves : MonoBehaviour
             {
                 round = new Round();
                 allWaves = currentRound.Split(char.Parse(":"));
-                Debug.Log(currentRound);
                 foreach (string currentWave in allWaves)
                 {
                     if (parseIndex == 0)
                     {
-                        Debug.Log(currentWave);
                         round.timeBetweenEachWave = float.Parse(currentWave);
                         parseIndex++;
                     }

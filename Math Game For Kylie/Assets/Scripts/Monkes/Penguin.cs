@@ -29,6 +29,8 @@ public class Penguin : MonoBehaviour
 	public LayerMask mask;
 	private bool isAbilityActive = false;
 	public GameObject penguinAbilityButton;
+	private WaitForSeconds timeToWait = new WaitForSeconds(0.75f);
+	private WaitForSeconds timeToWait1 = new WaitForSeconds(0.3f);
 
 	// Use this for initialization
 	void Start()
@@ -37,38 +39,41 @@ public class Penguin : MonoBehaviour
 		gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
 		upgradeMenu = GameObject.FindGameObjectWithTag("UpgradeMenu");
 		upgradeScript = upgradeMenu.GetComponent<Upgrades>();
-		InvokeRepeating("UpdateTarget", 0.1f, fireRate);
+		StartCoroutine(UpdatePlantTarget());
 	}
-
-	void UpdateTarget()
-	{
-		if (gameManager.enemies.Count != 0)
-		{
-			GameObject[] enemies = gameManager.enemies.ToArray();
-			if (targeting == "close")
+	IEnumerator UpdatePlantTarget()
+    {
+        while (!gameManager.won)
+        {
+			if (gameManager.enemies.Count != 0)
 			{
-				float shortestDistance = Mathf.Infinity;
-				GameObject nearestEnemy = null;
-				foreach (GameObject enemy in enemies)
+				GameObject[] enemies = gameManager.enemies.ToArray();
+				if (targeting == "close")
 				{
-					float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-					if (distanceToEnemy < shortestDistance)
+					float shortestDistance = Mathf.Infinity;
+					GameObject nearestEnemy = null;
+					foreach (GameObject enemy in enemies)
 					{
-						shortestDistance = distanceToEnemy;
-						nearestEnemy = enemy;
+						float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+						if (distanceToEnemy < shortestDistance)
+						{
+							shortestDistance = distanceToEnemy;
+							nearestEnemy = enemy;
+						}
+					}
+
+					if (nearestEnemy != null && shortestDistance <= range)
+					{
+						target = nearestEnemy.transform;
+						enemyScript = nearestEnemy.GetComponent<BloonCode>();
+					}
+					else
+					{
+						target = null;
 					}
 				}
-
-				if (nearestEnemy != null && shortestDistance <= range)
-				{
-					target = nearestEnemy.transform;
-					enemyScript = nearestEnemy.GetComponent<BloonCode>();
-				}
-				else
-				{
-					target = null;
-				}
 			}
+			yield return timeToWait1;
 		}
 	}
 	public void HideRange()
@@ -86,7 +91,7 @@ public class Penguin : MonoBehaviour
 		{
 			return;
 		}
-		if (fireCountdown <= 0f)
+		if (fireCountdown <= 0f && target != null)
 		{
 			LockOnTarget();
 			Shoot();
@@ -119,11 +124,9 @@ public class Penguin : MonoBehaviour
 	{
 		if(target != null)
         {
-			if(target.GetComponent<BloonCode>().RemoveHealth(damage) != 0)
-            {
-				popCount += damage;
-				anim.Play("Shoot");
-			}
+			target.GetComponent<BloonCode>().RemoveHealth(damage);
+			popCount += damage;
+			anim.Play("Shoot");
 		}
 	}
 	public void Upgrade()

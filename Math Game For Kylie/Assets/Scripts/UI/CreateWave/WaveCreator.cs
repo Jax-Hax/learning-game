@@ -347,7 +347,6 @@ public class WaveCreator : MonoBehaviour
         rounds = setSave.Count;
         foreach (RoundSave save in setSave.Values)
         {
-            Debug.Log(save.roundSave + " save");
             roundSaveCurrent += "{" + save.roundSave;
         }
         modeCard.title = title;
@@ -423,7 +422,6 @@ public class WaveCreator : MonoBehaviour
                             if (setInfoIndex3 == 0)
                             {
                                 roundSaveSaveThing += ":" + currentInfo3 + ",";
-                                Debug.Log("bu");
                                 waveSave.fruitType = currentInfo3;
                             }
                             else if(setInfoIndex3 == 1)
@@ -449,8 +447,6 @@ public class WaveCreator : MonoBehaviour
                 }
                 roundSave.roundSave = roundSaveSaveThing;
                 amOfRounds = setInfoIndex2 - 1;
-                Debug.Log(setInfoIndex - 1);
-                Debug.Log(roundSave.roundSave);
                 setSave[setInfoIndex - 1] = roundSave;
                 roundCard.roundSave = roundSave;
                 setInfoIndex++;
