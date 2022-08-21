@@ -73,7 +73,6 @@ public class GameManager : MonoBehaviour
     public GameObject haveChild1Button;
     public TextMeshProUGUI haveChild1Text;
     public GameObject haveChild1Slider;
-    public Image haveChild1SliderImage;
     [HideInInspector]
     public List<Penguin> haveChild2 = new List<Penguin>();
     [HideInInspector]
@@ -344,9 +343,9 @@ public class GameManager : MonoBehaviour
                 if (haveChild1.Count == 0)
                 {
                     haveChild1Text.text = "1";
-                    haveChild1Button.SetActive(false);
+                    haveChild1Button.GetComponent<Button>().interactable = false;
                     haveChild1Slider.SetActive(true);
-                    haveChild1SliderImage.fillAmount = 1;
+                    haveChild1Slider.GetComponent<AbilitySlider>().SetCooldown(45);
                 }
                 else
                 {
@@ -364,19 +363,16 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-    void MoveSliderDown(Image slider, int abilityCooldown)
-    {
-        amToGoDownPerTime = abilityCooldown / 60;
-        StartCoroutine(Moveslider);
-    }
     public void CheckAbility(string abilityName)
     {
         switch (abilityName)
         {
             case "haveChild1":
-                if (haveChild1Button.activeSelf == false)
+                haveChild1Button.SetActive(true);
+                if (haveChild1Button.GetComponent<Button>().interactable == false)
                 {
-                    haveChild1Button.SetActive(true);
+                    haveChild1Button.GetComponent<Button>().interactable = true;
+                    haveChild1Slider.SetActive(false);
                 }
                 else
                 {

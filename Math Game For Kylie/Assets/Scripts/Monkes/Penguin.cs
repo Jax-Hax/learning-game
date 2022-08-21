@@ -171,6 +171,7 @@ public class Penguin : MonoBehaviour
 						Invoke("UpdateSurroundings", 2);
 						break;
 					case 4:
+						ReDoHaveChild1();
 						break;
 					case 5:
 						break;
@@ -235,7 +236,7 @@ public class Penguin : MonoBehaviour
     }
     void UpdateSurroundings()
     {
-        hitColliders = Physics.OverlapSphere(transform.position, range, mask);
+        /*hitColliders = Physics.OverlapSphere(transform.position, range, mask);
         foreach (Collider col in hitColliders)
         {
             if (col.CompareTag("penguin"))
@@ -246,7 +247,7 @@ public class Penguin : MonoBehaviour
             }
         }
         isAbilityActive = false;
-        penguinAbilityButton.SetActive(false);
+        penguinAbilityButton.SetActive(false);*/
     }
 	public void HaveChild1()
     {
@@ -267,6 +268,6 @@ public class Penguin : MonoBehaviour
 	public void ReDoHaveChild1()
     {
 		gameManager.haveChild1.Add(this);
-		gameManager.CheckAbility("HaveChild1");
+		gameManager.CheckAbility("haveChild1");
     }
 }

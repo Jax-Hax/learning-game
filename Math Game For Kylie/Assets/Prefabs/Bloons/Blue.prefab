@@ -136,6 +136,15 @@ MonoBehaviour:
   enemyHealths: 01000000020000000300000004000000050000000b0000000b000000100000001c00000017000000490000000c0000003f010000b8070000802e000004030000b00f000004a60000
   healthMult: 0
   speedMult: 0
+  roundNum: 0
+  isCamo: 0
+  isPurple: 0
+  isLead: 0
+  isOrange: 0
+  isWhite: 0
+  isBlack: 0
+  spriteThing: {fileID: 5695918002174570465}
+  extraDamageTaken: 0
 --- !u!61 &516248657983009214
 BoxCollider2D:
   m_ObjectHideFlags: 0
