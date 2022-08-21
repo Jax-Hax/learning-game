@@ -267,5 +267,6 @@ public class Penguin : MonoBehaviour
 	public void ReDoHaveChild1()
     {
 		gameManager.haveChild1.Add(this);
+		gameManager.CheckAbility("HaveChild1");
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.IO;
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public Transform canvas;
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
     private string[] setInfo;
     private int setInfoIndex;
     public bool won;
+    private float amToGoDownPerTime;
 
     //Abilities
     //Penguin
@@ -70,6 +72,8 @@ public class GameManager : MonoBehaviour
     public List<Penguin> haveChild1 = new List<Penguin>();
     public GameObject haveChild1Button;
     public TextMeshProUGUI haveChild1Text;
+    public GameObject haveChild1Slider;
+    public Image haveChild1SliderImage;
     [HideInInspector]
     public List<Penguin> haveChild2 = new List<Penguin>();
     [HideInInspector]
@@ -341,6 +345,8 @@ public class GameManager : MonoBehaviour
                 {
                     haveChild1Text.text = "1";
                     haveChild1Button.SetActive(false);
+                    haveChild1Slider.SetActive(true);
+                    haveChild1SliderImage.fillAmount = 1;
                 }
                 else
                 {
@@ -357,6 +363,11 @@ public class GameManager : MonoBehaviour
                 ultraPeck[0].UltraPeck();
                 break;
         }
+    }
+    void MoveSliderDown(Image slider, int abilityCooldown)
+    {
+        amToGoDownPerTime = abilityCooldown / 60;
+        StartCoroutine(Moveslider);
     }
     public void CheckAbility(string abilityName)
     {
