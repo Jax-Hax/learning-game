@@ -345,7 +345,7 @@ public class GameManager : MonoBehaviour
                     haveChild1Text.text = "1";
                     haveChild1Button.GetComponent<Button>().interactable = false;
                     haveChild1Slider.SetActive(true);
-                    haveChild1Slider.GetComponent<AbilitySlider>().SetCooldown(45);
+                    haveChild1Slider.GetComponent<AbilitySlider>().SetCooldown(5);
                 }
                 else
                 {

@@ -9,10 +9,21 @@ public class AbilitySlider : MonoBehaviour
     private float ability;
     public void SetCooldown(int abilityCooldown)
     {
-        ability = (float)abilityCooldown / 60;
         slider.fillAmount = 1;
-        Debug.Log(ability);
+        StartCoroutine(AnimateSliderOverTime(abilityCooldown));
     }
+    IEnumerator AnimateSliderOverTime(float seconds)
+    {
+        float animationTime = 0f;
+        while (animationTime < seconds)
+        {
+            animationTime += Time.deltaTime;
+            float lerpValue = animationTime / seconds;
+            slider.fillAmount = Mathf.Lerp(seconds, 0f, lerpValue);
+            yield return null;
+        }
+    }
+
     public void Update()
     {
         slider.fillAmount = Mathf.MoveTowards(slider.fillAmount, 0, ability * Time.deltaTime);
