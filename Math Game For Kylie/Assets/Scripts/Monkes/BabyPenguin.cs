@@ -107,7 +107,13 @@ public class BabyPenguin : MonoBehaviour
 		fireCountdown -= Time.deltaTime;
 
 	}
-
+	public void SetStats(Penguin statBruh)
+    {
+		Invoke("KillMe", 20);
+		range = statBruh.range;
+		damage = statBruh.damage;
+		fireRate = statBruh.fireRate;
+	}
 	void LockOnTarget()
 	{
 		if (target != null)
@@ -144,4 +150,8 @@ public class BabyPenguin : MonoBehaviour
 			anim.Play("Shoot");
 		}
 	}
+	public void KillMe()
+    {
+		Destroy(gameObject);
+    }
 }

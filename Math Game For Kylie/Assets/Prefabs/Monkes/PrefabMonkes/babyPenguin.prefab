@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 8047437272294827275}
   - component: {fileID: 8047437272294827272}
   - component: {fileID: 3915813220455846245}
-  - component: {fileID: 2080564300}
+  - component: {fileID: 7023583550326528870}
   m_Layer: 6
   m_Name: babyPenguin
   m_TagString: penguin
@@ -168,7 +168,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 38.666977, y: 44.933624}
   m_EdgeRadius: 0
---- !u!114 &2080564300
+--- !u!114 &7023583550326528870
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -177,22 +177,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 8047437272294827268}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f211de7d71bf1743a5edfcdf81e8e26, type: 3}
+  m_Script: {fileID: 11500000, guid: c6709d0f8617f2c46a41f7735eb991b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   range: 1.35
   targeting: close
-  fireRate: 0.5
+  fireRate: 0.75
   popCount: 0
   upgradePath: 4
   upgradeLevel: 0
-  penguinObject: {fileID: 11400000, guid: ce7327c953f304a459dcc549ea8aab07, type: 2}
+  penguinObject: {fileID: 0}
   anim: {fileID: 303630575}
   rangeObject: {fileID: 4114102586055542340}
   mask:
     serializedVersion: 2
     m_Bits: 64
-  babyPenguin: {fileID: 0}
 --- !u!1001 &4411389264628188315
 PrefabInstance:
   m_ObjectHideFlags: 0

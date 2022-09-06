@@ -24,7 +24,7 @@ public class Penguin : MonoBehaviour
 	public TowerUpgradeScriptableObject penguinObject;
 	public Animator anim;
 	public GameObject rangeObject;
-	private int damage = 1;
+	public int damage = 1;
 	private Collider[] hitColliders;
 	public LayerMask mask;
 	private WaitForSeconds timeToWait1 = new WaitForSeconds(0.3f);
@@ -263,6 +263,7 @@ public class Penguin : MonoBehaviour
 			if (col.CompareTag("penguin") && gameObject != col.gameObject)
 			{
 				tempObject = Instantiate(babyPenguin, new Vector3(transform.position.x + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f)),Quaternion.identity);
+				tempObject.GetComponent<BabyPenguin>().SetStats(this);
 				return;
 			}
 		}
