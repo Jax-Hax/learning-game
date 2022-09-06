@@ -27,7 +27,6 @@ public class Penguin : MonoBehaviour
 	private int damage = 1;
 	private Collider[] hitColliders;
 	public LayerMask mask;
-	public GameObject penguinAbilityButton;
 	private WaitForSeconds timeToWait1 = new WaitForSeconds(0.3f);
 	bool canSeeCamo;
 	bool canPopWhite;
@@ -168,7 +167,7 @@ public class Penguin : MonoBehaviour
 						range = 2.45f;
 						break;
 					case 3:
-						UpdateSurroundings();
+						InvokeRepeating("UpdateSurroundings", 0, 10);
 						break;
 					case 4:
 						ReDoHaveChild1();
@@ -236,7 +235,11 @@ public class Penguin : MonoBehaviour
     }
     void UpdateSurroundings()
     {
-        hitColliders = Physics.OverlapSphere(transform.position, range, mask);
+		range -= (float)(buffAm / 10);
+		fireRate -= (float)(buffAm / 10);
+		damage -= Mathf.RoundToInt(buffAm / 3);
+		buffAm = -1;
+		hitColliders = Physics.OverlapSphere(transform.position, range, mask);
         foreach (Collider col in hitColliders)
         {
             if (col.CompareTag("penguin"))
@@ -244,9 +247,10 @@ public class Penguin : MonoBehaviour
 				buffAm += 1;
             }
         }
-		range += (float)(buffAm * 0.25);
-		fireRate += (float)(buffAm * 0.25);
-        penguinAbilityButton.SetActive(false);
+		Debug.Log("being buffed by " + buffAm);
+		range += (float)(buffAm / 10);
+		fireRate += (float)(buffAm / 10);
+		damage += Mathf.RoundToInt(buffAm / 3);
     }
 	public void HaveChild1()
     {
@@ -254,15 +258,12 @@ public class Penguin : MonoBehaviour
 		hitColliders = Physics.OverlapSphere(transform.position, range, mask);
 		foreach (Collider col in hitColliders)
 		{
-			if (col.CompareTag("penguin"))
+			if (col.CompareTag("penguin") && gameObject != col.gameObject)
 			{
-				buffAm += 1;
-				penguinAbilityButton.SetActive(true);
+
 				return;
 			}
 		}
-		isAbilityActive = false;
-		penguinAbilityButton.SetActive(false);
 	}
 	public void HaveChild2()
 	{
