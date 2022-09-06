@@ -37,6 +37,8 @@ public class Penguin : MonoBehaviour
 	bool extraDamage;
 	private BloonCode bloonCode;
 	int buffAm;
+	public GameObject babyPenguin;
+	private GameObject tempObject;
 	// Use this for initialization
 	void Start()
 	{
@@ -260,7 +262,7 @@ public class Penguin : MonoBehaviour
 		{
 			if (col.CompareTag("penguin") && gameObject != col.gameObject)
 			{
-
+				tempObject = Instantiate(babyPenguin, new Vector3(transform.position.x + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f)),Quaternion.identity);
 				return;
 			}
 		}
