@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game Choice Screen.unity
     guid: fd936a854e2a401408c103b52a618585
+  - enabled: 1
+    path: Assets/Scenes/RoundBuilder.unity
+    guid: 3d46d31e6b1aa6d45ab2b27ccdd8862f
   m_configObjects: {}

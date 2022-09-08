@@ -16,8 +16,6 @@ public class Upgrades : MonoBehaviour
     public TextMeshProUGUI popCount;
     public TextMeshProUGUI targeting;
     public Image[] upgradeLevels;
-    public Sprite isUpgraded;
-    public Sprite isNotUpgraded;
     public TextMeshProUGUI currentUpgradeText;
     public Image currentUpgradeImage;
     public TextMeshProUGUI nextUpgradeText;
@@ -74,7 +72,7 @@ public class Upgrades : MonoBehaviour
         titleForChooseAnotherPath.SetActive(true);
         for (int i = 0; i < upgradeLevel; i++)
         {
-            upgradeLevels[i].sprite = isUpgraded;
+            upgradeLevels[i].color = Color.green;
         }
         if (upgradePath == 1)
         {

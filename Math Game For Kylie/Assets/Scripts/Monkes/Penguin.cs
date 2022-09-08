@@ -237,21 +237,22 @@ public class Penguin : MonoBehaviour
     }
     void UpdateSurroundings()
     {
-		range -= (float)(buffAm / 10);
-		fireRate -= (float)(buffAm / 10);
+		range -= (buffAm / 10);
+		fireRate -= (buffAm / 10);
 		damage -= Mathf.RoundToInt(buffAm / 3);
 		buffAm = -1;
 		hitColliders = Physics.OverlapSphere(transform.position, range, mask);
         foreach (Collider col in hitColliders)
         {
+			Debug.Log("e");
             if (col.CompareTag("penguin"))
             {
 				buffAm += 1;
             }
         }
 		Debug.Log("being buffed by " + buffAm);
-		range += (float)(buffAm / 10);
-		fireRate += (float)(buffAm / 10);
+		range += (buffAm / 10);
+		fireRate += (buffAm / 10);
 		damage += Mathf.RoundToInt(buffAm / 3);
     }
 	public void HaveChild1()

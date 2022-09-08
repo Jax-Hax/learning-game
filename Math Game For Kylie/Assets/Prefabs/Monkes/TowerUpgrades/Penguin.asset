@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b98d25477d9da4e8f43817f335aebb, type: 3}
   m_Name: Penguin
   m_EditorClassIdentifier: 
-  towerImage: {fileID: 21300000, guid: 52a46962c3d79a84fb592073ad0dca41, type: 3}
+  towerImage: {fileID: 21300000, guid: 50129ff1c72a33b4f9c30ee6c169fab5, type: 3}
   costToUpgradeToPath1: 100
   costToUpgradeToPath2: 200
   costToUpgradeToPath3: 300
   path100Images:
-  - {fileID: 21300000, guid: d0d5004093e9e7f489c5918af144139c, type: 3}
-  - {fileID: 21300000, guid: a426693d585ee7341985cdd5c25b0aca, type: 3}
-  - {fileID: 21300000, guid: 8bedf9aa10499114a94163283d8c8c70, type: 3}
-  - {fileID: 21300000, guid: e969ee71696d72b4f94165e7e36ad968, type: 3}
-  - {fileID: 21300000, guid: b4434ae90f1b0f041936bc24dc6dc504, type: 3}
+  - {fileID: 21300000, guid: 2b358accd7b850a468dbc5c45e4efa7c, type: 3}
+  - {fileID: 21300000, guid: ce78edae714ae8b47aef1a374298e999, type: 3}
+  - {fileID: 21300000, guid: 3455440e9bb70e44489b264572ccb40f, type: 3}
+  - {fileID: 21300000, guid: fd5b8617cc14bfb43a1b925e88fd4b4c, type: 3}
+  - {fileID: 21300000, guid: 66334ed47002c6c4cb547c72997892a7, type: 3}
   - {fileID: 21300000, guid: 0cb43672ab9fe19409a49c026a5a3e07, type: 3}
   path100Cost: 64000000fa00000058020000b80b0000d430000050c30000
   path100SellPrices: 96000000c8000000130100003f0200001b0800008b1f0000b8880000

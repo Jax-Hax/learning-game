@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.IO;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public Transform canvas;
@@ -241,6 +242,10 @@ public class GameManager : MonoBehaviour
             isShopShowing = false;
             isQuestionsShowing = true;
         }
+    }
+    public void ResetLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void LoseGame()
     {
