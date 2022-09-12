@@ -33,12 +33,12 @@ MonoBehaviour:
   - Ultra Child
   - Perma-child
   path010Images:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 874498ecdf5ac3b468c9ba88997d135c, type: 3}
+  - {fileID: 21300000, guid: ac218082c9fb8304c9484508a3635b73, type: 3}
+  - {fileID: 21300000, guid: f2106e8f352c44e4db1f30500cb160e9, type: 3}
+  - {fileID: 21300000, guid: 93a72b54f192beb41bafdacde6e20fed, type: 3}
+  - {fileID: 21300000, guid: cab4ebf0694661b4691999316c3121e9, type: 3}
+  - {fileID: 21300000, guid: 96fb3d4f96bf8604799b7416bf315de4, type: 3}
   path010Cost: fa00000058020000bc020000d007000064190000204e0000
   path010SellPrices: 96000000260200005802000027060000b20c00006419000074400000
   path010Name:
