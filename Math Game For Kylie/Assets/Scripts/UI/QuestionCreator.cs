@@ -34,6 +34,7 @@ public class QuestionCreator : MonoBehaviour
     private string flashcardAnswer;
     private int flashcardMoney;
     public float moneyMult;
+    public TextAsset defaultQuestions;
     private void Awake()
     {
         studiedAll.SetActive(false);
@@ -51,8 +52,13 @@ public class QuestionCreator : MonoBehaviour
         }
         else
         {
-            newQuestion = false;
-            NoSetEnabled.SetActive(true);
+            loadableString = defaultQuestions.text;
+            StreamWriter streamWriter = new StreamWriter(Application.persistentDataPath + "/currentSave.hecc");
+            streamWriter.Write(loadableString);
+            streamWriter.Close();
+            streamWriter = new StreamWriter(Application.persistentDataPath + "/defaultMultiplicationQuestions.scree");
+            streamWriter.Write(loadableString);
+            streamWriter.Close();
         }
     }
     public void NewQuestion()

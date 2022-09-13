@@ -117,6 +117,12 @@ public class ReadAndSpawnWaves : MonoBehaviour
         else
         {
             textToParse = textFile.text;
+            StreamWriter streamWriter = new StreamWriter(Application.persistentDataPath + "/currentSave.roundSave");
+            streamWriter.Write(textToParse);
+            streamWriter.Close();
+            streamWriter = new StreamWriter(Application.persistentDataPath + "/defaultrounds.roundset");
+            streamWriter.Write(textToParse);
+            streamWriter.Close();
         }
         allRounds = textToParse.Split(char.Parse("{"));
         parseIndex = 0;
