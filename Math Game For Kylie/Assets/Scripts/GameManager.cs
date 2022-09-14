@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
     private int setInfoIndex;
     public bool won;
     private float amToGoDownPerTime;
+    public GameObject WinningObject;
 
     //Abilities
     //Penguin
@@ -247,6 +248,14 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
+    public void GameMenu()
+    {
+        SceneManager.LoadScene("Game Choice Screen");
+    }
     public void LoseGame()
     {
         Debug.Log("u lost lmao");
@@ -303,8 +312,7 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
-        won = true;
-        Debug.Log("You won!");
+        WinningObject.SetActive(true);
     }
     private void Unactivate()
     {
