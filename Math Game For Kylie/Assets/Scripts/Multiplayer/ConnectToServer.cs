@@ -22,6 +22,6 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     }
     public override void OnDisconnected(DisconnectCause cause)
     {
-        base.OnDisconnected(cause);)
+        SceneManager.LoadScene("Main Menu");
     }
 }
