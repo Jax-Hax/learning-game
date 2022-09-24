@@ -3,25 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 using Photon.Realtime;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks
 {
-    void Start()
+    public TMP_InputField usernameInput;
+    public TextMeshProUGUI buttonText;
+    public Button button;
+    public void OnClickConnect()
     {
-        PhotonNetwork.ConnectUsingSettings();
+        if(usernameInput.text.Length >= 1)
+        {
+            PhotonNetwork.NickName = usernameInput.text;
+            buttonText.text = "Connecting...";
+            button.interactable = false;
+            PhotonNetwork.ConnectUsingSettings();
+        }
     }
     public override void OnConnectedToMaster()
     {
-        PhotonNetwork.JoinLobby();
-    }
-    public override void OnJoinedLobby()
-    {
-        SceneManager.LoadScene("Lobby");
-    }
-    public override void OnDisconnected(DisconnectCause cause)
-    {
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene("LobbyCreater");
     }
 }

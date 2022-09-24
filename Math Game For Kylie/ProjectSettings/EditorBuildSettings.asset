@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RoundBuilder.unity
     guid: 3d46d31e6b1aa6d45ab2b27ccdd8862f
+  - enabled: 1
+    path: Assets/Scenes/LobbyCreater.unity
+    guid: 296d38d3b0d75674b93b206588d8a0e6
   m_configObjects: {}
