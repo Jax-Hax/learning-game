@@ -86,6 +86,30 @@ public class Penguin : MonoBehaviour
 						target = null;
 					}
 				}
+				else if(targeting == "strong")
+                {
+					int strongest = 0;
+					GameObject bestEnemy = null;
+					int enemyHealth = 0;
+					foreach (GameObject enemy in enemies)
+					{
+						float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+						if (distanceToEnemy <= range)
+						{
+							enemyHealth = enemy.GetComponent<BloonCode>().health;
+							if(enemyHealth >= strongest)
+							{
+								bestEnemy = enemy;
+								strongest = enemyHealth;
+							}
+						}
+					}
+					if(bestEnemy != null)
+                    {
+						target = bestEnemy.transform;
+						enemyScript = bestEnemy.GetComponent<BloonCode>();
+					}
+				}
 			}
 			yield return timeToWait1;
 		}

@@ -241,7 +241,7 @@ public class Upgrades : MonoBehaviour
     }
     public void CloseUpgrades()
     {
-        if (scriptableObjectName == "penguin")
+        if (scriptableObjectName == "penguin" && penguin != null)
         {
             penguin.HideRange();
         }
@@ -386,5 +386,26 @@ public class Upgrades : MonoBehaviour
             CloseChangePath();
             UpdateValues();
         }
+    }
+    public void Sell()
+    {
+        if(upgradePath == 1)
+        {
+            gameManager.UpdateMoney(currentTower.path100SellPrices[upgradeLevel], true);
+        }
+        else if(upgradePath == 2)
+        {
+            gameManager.UpdateMoney(currentTower.path010SellPrices[upgradeLevel], true);
+        }
+        else if (upgradePath == 3)
+        {
+            gameManager.UpdateMoney(currentTower.path001SellPrices[upgradeLevel], true);
+        }
+        if (scriptableObjectName == "penguin")
+        {
+            Destroy(penguin.gameObject);
+            gameManager.IsUpgradesTurnedOff(false);
+        }
+        penguin = null;
     }
 }

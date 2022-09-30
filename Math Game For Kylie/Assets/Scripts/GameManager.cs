@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
     public bool won;
     private float amToGoDownPerTime;
     public GameObject WinningObject;
+    public GameObject LosingObject;
 
     //Abilities
     //Penguin
@@ -185,7 +186,7 @@ public class GameManager : MonoBehaviour
         isQuestionsShowing = false;
         isShopShowing = false;
     }
-    public void IsUpgradesTurnedOff()
+    public void IsUpgradesTurnedOff(bool isPerma)
     {
         if(!upgrades.activeSelf)
         {
@@ -204,6 +205,10 @@ public class GameManager : MonoBehaviour
             questions.SetActive(false);
             isQuestionsShowing = false;
             isShopShowing = false;
+        }
+        if(isPerma == false)
+        {
+            upgradeArrow.SetActive(false);
         }
     }
     public void UpdateHealth(int healthTaken)
@@ -258,7 +263,8 @@ public class GameManager : MonoBehaviour
     }
     public void LoseGame()
     {
-        Debug.Log("u lost lmao");
+        LosingObject.SetActive(true);
+        Time.timeScale = 0;
     }
     public void UpdateMoney(int addedMoney, bool isNegative)
     {
@@ -313,6 +319,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         WinningObject.SetActive(true);
+        Time.timeScale = 0;
     }
     private void Unactivate()
     {

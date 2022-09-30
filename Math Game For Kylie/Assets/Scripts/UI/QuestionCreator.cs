@@ -35,6 +35,7 @@ public class QuestionCreator : MonoBehaviour
     private int flashcardMoney;
     public float moneyMult;
     public TextAsset defaultQuestions;
+    public ReadAndSpawnWaves bloonSpawner;
     private void Awake()
     {
         studiedAll.SetActive(false);
@@ -85,7 +86,7 @@ public class QuestionCreator : MonoBehaviour
         set.flashcards.Remove(key);
         questionText.text = flashcard.question;
         flashcardAnswer = flashcard.answer;
-        flashcardMoney = Mathf.RoundToInt(flashcard.moneyGiven * (moneyMult / 100));
+        flashcardMoney = Mathf.RoundToInt(flashcard.moneyGiven * (moneyMult / 100) + ((bloonSpawner.currentRoundNumber * bloonSpawner.currentRoundNumber)/75));
         moneyEarnedText.text = "Worth: $" + flashcardMoney.ToString();
         if (set.flashcards.Count <= 0)
         {

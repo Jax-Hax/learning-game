@@ -15,7 +15,7 @@ public class ReadAndSpawnWaves : MonoBehaviour
     private string[] allWaves;
     private int parseIndex;
     private int waveParseIndex;
-    private int currentRoundNumber = 0;
+    public int currentRoundNumber = 0;
     private Round round;
     private Wave wave;
     private string[] allPartsOfWave;
