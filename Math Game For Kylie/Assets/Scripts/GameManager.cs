@@ -401,4 +401,66 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+    public GameObject GetEnemy(float range, string targeting)
+    {
+        if (targeting == "close")
+        {
+            float shortestDistance = Mathf.Infinity;
+            GameObject nearestEnemy = null;
+            foreach (GameObject enemy in enemies)
+            {
+                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+                if (distanceToEnemy < shortestDistance)
+                {
+                    shortestDistance = distanceToEnemy;
+                    nearestEnemy = enemy;
+                }
+            }
+
+            if (nearestEnemy != null && shortestDistance <= range)
+            {
+                return nearestEnemy;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        else if(targeting == "strong")
+        {
+            int strongest = 0;
+            GameObject bestEnemy = null;
+            int enemyHealth = 0;
+            foreach (GameObject enemy in enemies)
+            {
+                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+                if (distanceToEnemy <= range)
+                {
+                    enemyHealth = enemy.GetComponent<BloonCode>().health;
+                    if (enemyHealth >= strongest)
+                    {
+                        bestEnemy = enemy;
+                        strongest = enemyHealth;
+                    }
+                }
+            }
+            if (bestEnemy != null)
+            {
+                return bestEnemy;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        else if (targeting == "first")
+        {
+
+        }
+        else if (targeting == "last")
+        {
+
+        }
+        return null;
+    }
 }

@@ -288,19 +288,19 @@ public class BloonCode : MonoBehaviour
         {
             isLead = true;
         }
-        else if (bloonType == 11)
+        else if (bloonType == 6)
         {
             isWhite = true;
         }
-        else if (bloonType == 11)
+        else if (bloonType == 5)
         {
             isBlack = true;
         }
-        else if (bloonType == 11)
+        else if (bloonType == 7)
         {
             isOrange = true;
         }
-        else if (bloonType == 11)
+        else if (bloonType == 8)
         {
             isPurple = true;
         }

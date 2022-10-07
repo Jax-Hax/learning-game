@@ -61,54 +61,15 @@ public class Penguin : MonoBehaviour
         {
 			if (gameManager.enemies.Count != 0)
 			{
-				GameObject[] enemies = gameManager.enemies.ToArray();
-				if (targeting == "close")
+				GameObject enemy = gameManager.GetEnemy(range, targeting);
+				if (enemy != null)
 				{
-					float shortestDistance = Mathf.Infinity;
-					GameObject nearestEnemy = null;
-					foreach (GameObject enemy in enemies)
-					{
-						float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-						if (distanceToEnemy < shortestDistance)
-						{
-							shortestDistance = distanceToEnemy;
-							nearestEnemy = enemy;
-						}
-					}
-
-					if (nearestEnemy != null && shortestDistance <= range)
-					{
-						target = nearestEnemy.transform;
-						enemyScript = nearestEnemy.GetComponent<BloonCode>();
-					}
-					else
-					{
-						target = null;
-					}
+					target = enemy.transform;
+					enemyScript = enemy.GetComponent<BloonCode>();
 				}
-				else if(targeting == "strong")
-                {
-					int strongest = 0;
-					GameObject bestEnemy = null;
-					int enemyHealth = 0;
-					foreach (GameObject enemy in enemies)
-					{
-						float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-						if (distanceToEnemy <= range)
-						{
-							enemyHealth = enemy.GetComponent<BloonCode>().health;
-							if(enemyHealth >= strongest)
-							{
-								bestEnemy = enemy;
-								strongest = enemyHealth;
-							}
-						}
-					}
-					if(bestEnemy != null)
-                    {
-						target = bestEnemy.transform;
-						enemyScript = bestEnemy.GetComponent<BloonCode>();
-					}
+				else
+				{
+					target = null;
 				}
 			}
 			yield return timeToWait1;
