@@ -7,29 +7,34 @@ public class AbilitySlider : MonoBehaviour
 {
     public Image slider;
     private float ability;
+    private int index;
+    private int maxIndex;
     public void SetCooldown(int abilityCooldown)
     {
+        index = 0;
+        maxIndex = abilityCooldown;
         slider.fillAmount = 1;
-        StartCoroutine(AnimateSliderOverTime(abilityCooldown));
+        ability = (float)1 / abilityCooldown;
+        InvokeRepeating("ChangeSliderAm", 0f, 1f);
     }
-    IEnumerator AnimateSliderOverTime(float seconds)
+    public IEnumerator ChangeSomeValue(float oldValue, float newValue, float duration)
     {
-        float animationTime = 0f;
-        while (animationTime < seconds)
+        for (float t = 0f; t < duration; t += Time.deltaTime)
         {
-            animationTime += Time.deltaTime;
-            float lerpValue = animationTime / seconds;
-            slider.fillAmount = Mathf.Lerp(seconds, 0f, lerpValue);
+            slider.fillAmount = Mathf.Lerp(oldValue, newValue, t / duration);
             yield return null;
         }
+        slider.fillAmount = newValue;
     }
-
-    public void Update()
+    void ChangeSliderAm()
     {
-        slider.fillAmount = Mathf.MoveTowards(slider.fillAmount, 0, ability * Time.deltaTime);
-        if(slider.fillAmount <= 0)
+        if(index >= maxIndex)
         {
             gameObject.SetActive(false);
+            CancelInvoke();
         }
+        slider.fillAmount -= ability;
+        //ChangeSomeValue(slider.fillAmount, slider.fillAmount - 0.2f, 1f);
+        index++;
     }
 }
