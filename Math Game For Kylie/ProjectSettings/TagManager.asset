@@ -24,6 +24,7 @@ TagManager:
   - ceramic
   - penguin
   - wavecreator
+  - shootingtower
   layers:
   - Default
   - TransparentFX

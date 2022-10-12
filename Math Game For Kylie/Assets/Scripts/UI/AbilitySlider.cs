@@ -6,16 +6,15 @@ using UnityEngine.UI;
 public class AbilitySlider : MonoBehaviour
 {
     public Image slider;
-    private float ability;
-    private int index;
-    private int maxIndex;
+    bool isAlreadyGoing;
     public void SetCooldown(int abilityCooldown)
     {
-        index = 0;
-        maxIndex = abilityCooldown;
-        slider.fillAmount = 1;
-        ability = (float)1 / abilityCooldown;
-        InvokeRepeating("ChangeSliderAm", 0f, 1f);
+        if (!isAlreadyGoing)
+        {
+            slider.fillAmount = 1;
+            isAlreadyGoing = true;
+            StartCoroutine(ChangeSomeValue(1, 0, abilityCooldown));
+        }
     }
     public IEnumerator ChangeSomeValue(float oldValue, float newValue, float duration)
     {
@@ -25,16 +24,7 @@ public class AbilitySlider : MonoBehaviour
             yield return null;
         }
         slider.fillAmount = newValue;
-    }
-    void ChangeSliderAm()
-    {
-        if(index >= maxIndex)
-        {
-            gameObject.SetActive(false);
-            CancelInvoke();
-        }
-        slider.fillAmount -= ability;
-        //ChangeSomeValue(slider.fillAmount, slider.fillAmount - 0.2f, 1f);
-        index++;
+        isAlreadyGoing = false;
+        gameObject.SetActive(false);
     }
 }

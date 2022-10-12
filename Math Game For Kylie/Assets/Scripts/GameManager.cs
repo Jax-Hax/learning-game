@@ -78,10 +78,19 @@ public class GameManager : MonoBehaviour
     public GameObject haveChild1Slider;
     [HideInInspector]
     public List<Penguin> haveChild2 = new List<Penguin>();
+    public GameObject haveChild2Button;
+    public TextMeshProUGUI haveChild2Text;
+    public GameObject haveChild2Slider;
     [HideInInspector]
     public List<Penguin> haveChild3 = new List<Penguin>();
+    public GameObject haveChild3Button;
+    public TextMeshProUGUI haveChild3Text;
+    public GameObject haveChild3Slider;
     [HideInInspector]
     public List<Penguin> ultraPeck = new List<Penguin>();
+    public GameObject ultraPeckButton;
+    public TextMeshProUGUI ultraPeckText;
+    public GameObject ultraPeckSlider;
 
     private void Awake()
     {
@@ -365,7 +374,7 @@ public class GameManager : MonoBehaviour
                     haveChild1Text.text = "1";
                     haveChild1Button.GetComponent<Button>().interactable = false;
                     haveChild1Slider.SetActive(true);
-                    haveChild1Slider.GetComponent<AbilitySlider>().SetCooldown(5);
+                    haveChild1Slider.GetComponent<AbilitySlider>().SetCooldown(45);
                 }
                 else
                 {
@@ -374,12 +383,48 @@ public class GameManager : MonoBehaviour
                 break;
             case "haveChild2":
                 haveChild2[0].HaveChild2();
+                haveChild2.RemoveAt(0);
+                if (haveChild2.Count == 0)
+                {
+                    haveChild2Text.text = "1";
+                    haveChild2Button.GetComponent<Button>().interactable = false;
+                    haveChild2Slider.SetActive(true);
+                    haveChild2Slider.GetComponent<AbilitySlider>().SetCooldown(45);
+                }
+                else
+                {
+                    haveChild2Text.text = haveChild2.Count.ToString();
+                }
                 break;
             case "haveChild3":
                 haveChild3[0].HaveChild3();
+                haveChild3.RemoveAt(0);
+                if (haveChild3.Count == 0)
+                {
+                    haveChild3Text.text = "1";
+                    haveChild3Button.GetComponent<Button>().interactable = false;
+                    haveChild3Slider.SetActive(true);
+                    haveChild3Slider.GetComponent<AbilitySlider>().SetCooldown(45);
+                }
+                else
+                {
+                    haveChild3Text.text = haveChild3.Count.ToString();
+                }
                 break;
             case "ultraPeck":
                 ultraPeck[0].UltraPeck();
+                ultraPeck.RemoveAt(0);
+                if (ultraPeck.Count == 0)
+                {
+                    ultraPeckText.text = "1";
+                    ultraPeckButton.GetComponent<Button>().interactable = false;
+                    ultraPeckSlider.SetActive(true);
+                    ultraPeckSlider.GetComponent<AbilitySlider>().SetCooldown(45);
+                }
+                else
+                {
+                    ultraPeckText.text = ultraPeck.Count.ToString();
+                }
                 break;
         }
     }
@@ -399,9 +444,45 @@ public class GameManager : MonoBehaviour
                     haveChild1Text.text = haveChild1.Count.ToString();
                 }
                 break;
+            case "haveChild2":
+                haveChild2Button.SetActive(true);
+                if (haveChild2Button.GetComponent<Button>().interactable == false)
+                {
+                    haveChild2Button.GetComponent<Button>().interactable = true;
+                    haveChild2Slider.SetActive(false);
+                }
+                else
+                {
+                    haveChild2Text.text = haveChild2.Count.ToString();
+                }
+                break;
+            case "haveChild3":
+                haveChild3Button.SetActive(true);
+                if (haveChild3Button.GetComponent<Button>().interactable == false)
+                {
+                    haveChild3Button.GetComponent<Button>().interactable = true;
+                    haveChild3Slider.SetActive(false);
+                }
+                else
+                {
+                    haveChild3Text.text = haveChild3.Count.ToString();
+                }
+                break;
+            case "ultraPeck":
+                ultraPeckButton.SetActive(true);
+                if (ultraPeckButton.GetComponent<Button>().interactable == false)
+                {
+                    ultraPeckButton.GetComponent<Button>().interactable = true;
+                    ultraPeckSlider.SetActive(false);
+                }
+                else
+                {
+                    ultraPeckText.text = ultraPeck.Count.ToString();
+                }
+                break;
         }
     }
-    public GameObject GetEnemy(float range, string targeting)
+    public GameObject GetEnemy(float range, string targeting, Transform transform)
     {
         if (targeting == "close")
         {

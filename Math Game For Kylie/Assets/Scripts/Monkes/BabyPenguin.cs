@@ -22,7 +22,7 @@ public class BabyPenguin : MonoBehaviour
 	public TowerUpgradeScriptableObject penguinObject;
 	public Animator anim;
 	public GameObject rangeObject;
-	private int damage = 1;
+	public int damage = 1;
 	public LayerMask mask;
 	private WaitForSeconds timeToWait1 = new WaitForSeconds(0.3f);
 	bool canSeeCamo;
@@ -53,30 +53,15 @@ public class BabyPenguin : MonoBehaviour
 		{
 			if (gameManager.enemies.Count != 0)
 			{
-				GameObject[] enemies = gameManager.enemies.ToArray();
-				if (targeting == "close")
+				GameObject enemy = gameManager.GetEnemy(range, targeting, gameObject.transform);
+				if (enemy != null)
 				{
-					float shortestDistance = Mathf.Infinity;
-					GameObject nearestEnemy = null;
-					foreach (GameObject enemy in enemies)
-					{
-						float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-						if (distanceToEnemy < shortestDistance)
-						{
-							shortestDistance = distanceToEnemy;
-							nearestEnemy = enemy;
-						}
-					}
-
-					if (nearestEnemy != null && shortestDistance <= range)
-					{
-						target = nearestEnemy.transform;
-						enemyScript = nearestEnemy.GetComponent<BloonCode>();
-					}
-					else
-					{
-						target = null;
-					}
+					target = enemy.transform;
+					enemyScript = enemy.GetComponent<BloonCode>();
+				}
+				else
+				{
+					target = null;
 				}
 			}
 			yield return timeToWait1;
@@ -107,13 +92,7 @@ public class BabyPenguin : MonoBehaviour
 		fireCountdown -= Time.deltaTime;
 
 	}
-	public void SetStats(Penguin statBruh)
-    {
-		Invoke("KillMe", 20);
-		range = statBruh.range;
-		damage = statBruh.damage;
-		fireRate = statBruh.fireRate;
-	}
+
 	void LockOnTarget()
 	{
 		if (target != null)
@@ -136,7 +115,7 @@ public class BabyPenguin : MonoBehaviour
 	{
 		if (target != null)
 		{
-			bloonCode = target.GetComponent<BloonCode>();
+			bloonCode = enemyScript;
 			bloonCode.RemoveHealth(damage, canSeeCamo, canPopBlack, canPopLead, canPopOrange, canPopPurple, canPopWhite);
 			if (extraDamage)
 			{
@@ -150,8 +129,15 @@ public class BabyPenguin : MonoBehaviour
 			anim.Play("Shoot");
 		}
 	}
+	public void SetStats(Penguin statBruh)
+	{
+		Invoke("KillMe", 20);
+		range = statBruh.range;
+		damage = statBruh.damage;
+		fireRate = statBruh.fireRate;
+	}
 	public void KillMe()
-    {
+	{
 		Destroy(gameObject);
-    }
+	}
 }

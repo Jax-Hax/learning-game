@@ -25,7 +25,7 @@ public class Penguin : MonoBehaviour
 	public Animator anim;
 	public GameObject rangeObject;
 	public int damage = 1;
-	private Collider[] hitColliders;
+	private Collider2D[] hitColliders;
 	public LayerMask mask;
 	private WaitForSeconds timeToWait1 = new WaitForSeconds(0.3f);
 	bool canSeeCamo;
@@ -39,6 +39,7 @@ public class Penguin : MonoBehaviour
 	int buffAm;
 	public GameObject babyPenguin;
 	private GameObject tempObject;
+	private Transform placeToSpawnBaby;
 	// Use this for initialization
 	void Start()
 	{
@@ -53,6 +54,7 @@ public class Penguin : MonoBehaviour
 		gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
 		upgradeMenu = GameObject.FindGameObjectWithTag("UpgradeMenu");
 		upgradeScript = upgradeMenu.GetComponent<Upgrades>();
+		placeToSpawnBaby = GameObject.FindGameObjectWithTag("shootingtower").transform;
 		StartCoroutine(UpdatePlantTarget());
 	}
 	IEnumerator UpdatePlantTarget()
@@ -61,7 +63,7 @@ public class Penguin : MonoBehaviour
         {
 			if (gameManager.enemies.Count != 0)
 			{
-				GameObject enemy = gameManager.GetEnemy(range, targeting);
+				GameObject enemy = gameManager.GetEnemy(range, targeting, gameObject.transform);
 				if (enemy != null)
 				{
 					target = enemy.transform;
@@ -123,7 +125,7 @@ public class Penguin : MonoBehaviour
 	{
 		if(target != null)
         {
-			bloonCode = target.GetComponent<BloonCode>();
+			bloonCode = enemyScript;
 			bloonCode.RemoveHealth(damage, canSeeCamo, canPopBlack, canPopLead, canPopOrange, canPopPurple, canPopWhite);
             if (extraDamage)
             {
@@ -226,29 +228,31 @@ public class Penguin : MonoBehaviour
 		fireRate -= (buffAm / 10);
 		damage -= Mathf.RoundToInt(buffAm / 3);
 		buffAm = -1;
-		hitColliders = Physics.OverlapSphere(transform.position, range, mask);
-        foreach (Collider col in hitColliders)
+		hitColliders = Physics2D.OverlapCircleAll(transform.position, range, mask);
+        foreach (Collider2D col in hitColliders)
         {
-			Debug.Log("e");
             if (col.CompareTag("penguin"))
             {
 				buffAm += 1;
             }
         }
-		Debug.Log("being buffed by " + buffAm);
 		range += (buffAm / 10);
 		fireRate += (buffAm / 10);
 		damage += Mathf.RoundToInt(buffAm / 3);
     }
-	public void HaveChild1()
+    private void OnDrawGizmos()
+    {
+		Gizmos.DrawWireSphere(transform.position, 2.25f);
+    }
+    public void HaveChild1()
     {
 		Invoke("ReDoHaveChild1", 45);
-		hitColliders = Physics.OverlapSphere(transform.position, range, mask);
-		foreach (Collider col in hitColliders)
+		hitColliders = Physics2D.OverlapCircleAll(transform.position, range, mask);
+		foreach (Collider2D col in hitColliders)
 		{
 			if (col.CompareTag("penguin") && gameObject != col.gameObject)
 			{
-				tempObject = Instantiate(babyPenguin, new Vector3(transform.position.x + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f)),Quaternion.identity);
+				tempObject = Instantiate(babyPenguin, new Vector3(transform.position.x + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f)), Quaternion.identity, placeToSpawnBaby);
 				tempObject.GetComponent<BabyPenguin>().SetStats(this);
 				return;
 			}
@@ -271,4 +275,19 @@ public class Penguin : MonoBehaviour
 		gameManager.haveChild1.Add(this);
 		gameManager.CheckAbility("haveChild1");
     }
+	public void ReDoHaveChild2()
+	{
+		gameManager.haveChild2.Add(this);
+		gameManager.CheckAbility("haveChild2");
+	}
+	public void ReDoHaveChild3()
+	{
+		gameManager.haveChild3.Add(this);
+		gameManager.CheckAbility("haveChild3");
+	}
+	public void ReDoUltraPeck()
+	{
+		gameManager.ultraPeck.Add(this);
+		gameManager.CheckAbility("ultraPeck");
+	}
 }

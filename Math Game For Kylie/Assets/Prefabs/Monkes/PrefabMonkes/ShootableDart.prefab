@@ -277,9 +277,11 @@ MonoBehaviour:
   penguinObject: {fileID: 11400000, guid: ce7327c953f304a459dcc549ea8aab07, type: 2}
   anim: {fileID: 303630575}
   rangeObject: {fileID: 4114102586055542340}
+  damage: 1
   mask:
     serializedVersion: 2
     m_Bits: 64
+  babyPenguin: {fileID: 8047437272294827268, guid: d27e332cbdac13849b915c9b8918c9cb, type: 3}
 --- !u!1001 &4411389264628188315
 PrefabInstance:
   m_ObjectHideFlags: 0
