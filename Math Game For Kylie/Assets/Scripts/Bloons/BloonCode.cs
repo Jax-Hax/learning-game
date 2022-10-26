@@ -43,6 +43,8 @@ public class BloonCode : MonoBehaviour
     public int extraDamageTaken;
     private Color color = new Color(1f, 1f, 1f, 0.6f);
     private Color color1 = new Color(1f, 1f, 1f, 1f);
+    bool isStopped;
+    float tempSpeedStopped;
     private void Awake()
     {
         image = GetComponent<Image>();
@@ -50,6 +52,7 @@ public class BloonCode : MonoBehaviour
     private void Start()
     {
         isBeingSlowed = false;
+        isStopped = false;
         isPinkSplit = false;
         isBWSplit = false;
         isRedSplit = false;
@@ -57,7 +60,7 @@ public class BloonCode : MonoBehaviour
         isGreenSplit = false;
         isYellowSplit = false;
         isMushroomSplit = false;
-        gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        gameManager = GameManager.SharedInstance;
         waypoints = gameManager.mapPositions;
     }
     private void FixedUpdate()
@@ -76,7 +79,7 @@ public class BloonCode : MonoBehaviour
     }
     public void RemoveHealth(int healthRemoved, bool seeCamo, bool popPurple, bool popOrange, bool popLead, bool popWhite, bool popBlack)
     {
-        if(isCamo && !seeCamo || isLead && !popLead || isWhite && !popWhite || isBlack && !popBlack || isOrange && !popOrange || isPurple && !popPurple)
+        if((isCamo && !seeCamo) || (isLead && !popLead) || (isWhite && !popWhite) || (isBlack && !popBlack) || (isOrange && !popOrange) || (isPurple && !popPurple))
         {
             return;
         }
@@ -271,6 +274,7 @@ public class BloonCode : MonoBehaviour
     private void OnEnable()
     {
         isBeingSlowed = false;
+        isStopped = false;
         extraDamageTaken = 0;
         isBWSplit = false;
         isPinkSplit = false;
@@ -328,15 +332,31 @@ public class BloonCode : MonoBehaviour
     {
         if (!isBeingSlowed)
         {
+            Debug.Log("slowed");
             isBeingSlowed = true;
             tempSpeed = curSpeed;
             speed /= curSpeed;
             Invoke("SpeedUp", timeTillSpeedUp);
         }
     }
+    public void Stop(float timeToStop)
+    {
+        if (!isStopped)
+        {
+            isStopped = true;
+            tempSpeedStopped = speed;
+            speed = 0;
+            Invoke("UnStop", timeToStop);
+        }
+    }
     private void SpeedUp()
     {
         speed *= tempSpeed;
         isBeingSlowed = false;
+    }
+    void UnStop()
+    {
+        isStopped = false;
+        speed = tempSpeedStopped;
     }
 }

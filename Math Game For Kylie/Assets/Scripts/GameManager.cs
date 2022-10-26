@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
+    public static GameManager SharedInstance;
     public Transform canvas;
     private int mapName;
     public GameObject[] maps;
@@ -71,6 +72,7 @@ public class GameManager : MonoBehaviour
 
     //Abilities
     //Penguin
+    public List<Penguin> penguins = new List<Penguin>();
     [HideInInspector]
     public List<Penguin> haveChild1 = new List<Penguin>();
     public GameObject haveChild1Button;
@@ -102,6 +104,7 @@ public class GameManager : MonoBehaviour
         PutArrowsInCorrectPlace();
         moneyAddedOrTaken = 0;
         upgradeArrow.SetActive(false);
+        SharedInstance = this;
     }
 
     private void PutArrowsInCorrectPlace()
@@ -404,7 +407,7 @@ public class GameManager : MonoBehaviour
                     haveChild3Text.text = "1";
                     haveChild3Button.GetComponent<Button>().interactable = false;
                     haveChild3Slider.SetActive(true);
-                    haveChild3Slider.GetComponent<AbilitySlider>().SetCooldown(45);
+                    haveChild3Slider.GetComponent<AbilitySlider>().SetCooldown(30);
                 }
                 else
                 {
@@ -419,7 +422,7 @@ public class GameManager : MonoBehaviour
                     ultraPeckText.text = "1";
                     ultraPeckButton.GetComponent<Button>().interactable = false;
                     ultraPeckSlider.SetActive(true);
-                    ultraPeckSlider.GetComponent<AbilitySlider>().SetCooldown(45);
+                    ultraPeckSlider.GetComponent<AbilitySlider>().SetCooldown(30);
                 }
                 else
                 {

@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BabyPenguin : MonoBehaviour
 {
 	private Transform target;
 	private BloonCode enemyScript;
+	public Sprite pengNorm;
+	public Sprite pengStrong;
+	public Sprite pengPerma;
 
 	[Header("General")]
 
@@ -44,7 +48,7 @@ public class BabyPenguin : MonoBehaviour
 		canPopPurple = false;
 		extraDamage = false;
 		rangeObject.SetActive(false);
-		gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+		gameManager = GameManager.SharedInstance;
 		StartCoroutine(UpdatePlantTarget());
 	}
 	IEnumerator UpdatePlantTarget()
@@ -135,6 +139,46 @@ public class BabyPenguin : MonoBehaviour
 		range = statBruh.range;
 		damage = statBruh.damage;
 		fireRate = statBruh.fireRate;
+		canSeeCamo = statBruh.canSeeCamo;
+		GetComponent<Image>().sprite = pengNorm;
+	}
+	public void SetStatsStrong(Penguin statBruh)
+	{
+		Invoke("KillMe", 20);
+		range = statBruh.range;
+		damage = statBruh.damage;
+		fireRate = statBruh.fireRate;
+		canSeeCamo = statBruh.canSeeCamo;
+		GetComponent<Image>().sprite = pengStrong;
+	}
+	public void SetStatsPerma(Penguin statBruh)
+	{
+		range = statBruh.range;
+		damage = statBruh.damage;
+		fireRate = statBruh.fireRate;
+		canSeeCamo = statBruh.canSeeCamo;
+		GetComponent<Image>().sprite = pengPerma;
+	}
+	public void IncreaseStats()
+    {
+		if(range <= 7)
+        {
+			range += 0.5f;
+		}
+		if (damage <= 10)
+		{
+			damage += 1;
+		}
+		if (fireRate <= 4)
+		{
+			fireRate += 0.1f;
+		}
+		canSeeCamo = true;
+		canPopWhite = true;
+		canPopLead = true;
+		canPopBlack = true;
+		canPopOrange = false;
+		canPopPurple = true;
 	}
 	public void KillMe()
 	{

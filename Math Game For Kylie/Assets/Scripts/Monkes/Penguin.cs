@@ -27,8 +27,8 @@ public class Penguin : MonoBehaviour
 	public int damage = 1;
 	private Collider2D[] hitColliders;
 	public LayerMask mask;
-	private WaitForSeconds timeToWait1 = new WaitForSeconds(0.3f);
-	bool canSeeCamo;
+	private WaitForSeconds timeToWait1 = new WaitForSeconds(0.2f);
+	public bool canSeeCamo;
 	bool canPopWhite;
 	bool canPopLead;
 	bool canPopBlack;
@@ -40,9 +40,12 @@ public class Penguin : MonoBehaviour
 	public GameObject babyPenguin;
 	private GameObject tempObject;
 	private Transform placeToSpawnBaby;
+	private BabyPenguin permaPeng;
+	private int stunBloons;
 	// Use this for initialization
 	void Start()
 	{
+		stunBloons = 0;
 		canSeeCamo = false;
 		canPopWhite = false;
 		canPopLead = false;
@@ -51,7 +54,8 @@ public class Penguin : MonoBehaviour
 		canPopPurple = false;
 		extraDamage = false;
 		rangeObject.SetActive(false);
-		gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+		gameManager = GameManager.SharedInstance;
+		gameManager.penguins.Add(this);
 		upgradeMenu = GameObject.FindGameObjectWithTag("UpgradeMenu");
 		upgradeScript = upgradeMenu.GetComponent<Upgrades>();
 		placeToSpawnBaby = GameObject.FindGameObjectWithTag("shootingtower").transform;
@@ -96,15 +100,19 @@ public class Penguin : MonoBehaviour
 		{
 			LockOnTarget();
 			Shoot();
-			fireCountdown = fireRate;
+			fireCountdown = 0.6525f / fireRate;
+		}
+		else if (fireCountdown <= 0f)
+        {
+			timeToWait1 = new WaitForSeconds(0.05f);
 		}
 
 		fireCountdown -= Time.deltaTime;
-
 	}
 
 	void LockOnTarget()
 	{
+		WaitForSeconds timeToWait1 = new WaitForSeconds(0.3f);
 		if (target != null)
 		{
 			transform.up = target.position - transform.position;
@@ -126,14 +134,59 @@ public class Penguin : MonoBehaviour
 		if(target != null)
         {
 			bloonCode = enemyScript;
-			bloonCode.RemoveHealth(damage, canSeeCamo, canPopBlack, canPopLead, canPopOrange, canPopPurple, canPopWhite);
-            if (extraDamage)
-            {
-				if(bloonCode.bloonType <= 11)
-                {
+			if (extraDamage)
+			{
+				bloonCode.RemoveHealth(damage, canSeeCamo, canPopBlack, canPopLead, canPopOrange, canPopPurple, canPopWhite);
+				if (bloonCode.bloonType <= 11)
+				{
 					bloonCode.SlowDown(1.2f, 4);
 					bloonCode.extraDamageTaken = Mathf.RoundToInt(damage * 1.2f);
 				}
+			}
+			else if (stunBloons == 1)
+			{
+				bloonCode.RemoveHealth(damage, canSeeCamo, canPopBlack, canPopLead, canPopOrange, canPopPurple, canPopWhite);
+				if (bloonCode.bloonType <= 11)
+				{
+					bloonCode.Stop(1f);
+				}
+			}
+			else if (stunBloons == 2)
+			{
+				bloonCode.RemoveHealth(damage, canSeeCamo, canPopBlack, canPopLead, canPopOrange, canPopPurple, canPopWhite);
+				if (bloonCode.bloonType <= 11)
+                {
+					bloonCode.Stop(1.5f);
+				}
+			}
+			else if(stunBloons == 3)
+            {
+				bloonCode.RemoveHealth(damage, canSeeCamo, canPopBlack, canPopLead, canPopOrange, canPopPurple, canPopWhite);
+				if (bloonCode.bloonType <= 14)
+				{
+					bloonCode.Stop(1.5f);
+				}
+			}
+			else if (stunBloons == 3)
+			{
+                if (bloonCode.bloonType <= 11)
+                {
+					popCount += bloonCode.health - damage;
+					bloonCode.RemoveHealth(bloonCode.health, canSeeCamo, canPopBlack, canPopLead, canPopOrange, canPopPurple, canPopWhite);
+				}
+				else if (bloonCode.bloonType <= 13)
+				{
+					bloonCode.RemoveHealth(75, canSeeCamo, canPopBlack, canPopLead, canPopOrange, canPopPurple, canPopWhite);
+				}
+				if (bloonCode.bloonType <= 16)
+				{
+					bloonCode.RemoveHealth(50, canSeeCamo, canPopBlack, canPopLead, canPopOrange, canPopPurple, canPopWhite);
+					bloonCode.Stop(1.5f);
+				}
+			}
+            else
+            {
+				bloonCode.RemoveHealth(damage, canSeeCamo, canPopBlack, canPopLead, canPopOrange, canPopPurple, canPopWhite);
 			}
 			popCount += damage;
 			anim.Play("Shoot");
@@ -162,8 +215,10 @@ public class Penguin : MonoBehaviour
 						ReDoHaveChild1();
 						break;
 					case 5:
+						ReDoHaveChild2();
 						break;
 					case 6:
+						ReDoHaveChild3();
 						break;
 				}
                 break;
@@ -183,9 +238,10 @@ public class Penguin : MonoBehaviour
 						extraDamage = true;
 						break;
 					case 5:
-						
+						ReDoUltraPeck();
 						break;
 					case 6:
+						fireRate = 6f;
 						break;
 				}
 				break;
@@ -199,12 +255,19 @@ public class Penguin : MonoBehaviour
 						damage += 3;
 						break;
 					case 3:
+						stunBloons = 1;
+						canPopLead = true;
 						break;
 					case 4:
+						stunBloons = 2;
+						damage += 7;
 						break;
 					case 5:
+						stunBloons = 3;
+						fireRate -= 0.25f;
 						break;
 					case 6:
+						stunBloons = 4;
 						break;
 				}
 				break;
@@ -260,16 +323,65 @@ public class Penguin : MonoBehaviour
 	}
 	public void HaveChild2()
 	{
-
+		Invoke("ReDoHaveChild2", 45);
+		hitColliders = Physics2D.OverlapCircleAll(transform.position, range, mask);
+		foreach (Collider2D col in hitColliders)
+		{
+			if (col.CompareTag("penguin") && gameObject != col.gameObject)
+			{
+				Penguin bestPeng = this;
+				tempObject = Instantiate(babyPenguin, new Vector3(transform.position.x + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f)), Quaternion.identity, placeToSpawnBaby);
+				foreach (Penguin peng in gameManager.penguins)
+				{
+					if (peng.upgradeLevel >= bestPeng.upgradeLevel && (peng.upgradePath == 2 || peng.upgradePath == 3))
+					{
+						bestPeng = this;
+					}
+				}
+				tempObject.GetComponent<BabyPenguin>().SetStatsStrong(bestPeng);
+				return;
+			}
+		}
 	}
 	public void HaveChild3()
 	{
-
+		Invoke("ReDoHaveChild3", 30);
+		if(permaPeng == null)
+        {
+			hitColliders = Physics2D.OverlapCircleAll(transform.position, range, mask);
+			foreach (Collider2D col in hitColliders)
+			{
+				if (col.CompareTag("penguin") && gameObject != col.gameObject)
+				{
+					Penguin bestPeng = this;
+					tempObject = Instantiate(babyPenguin, new Vector3(transform.position.x + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f)), Quaternion.identity, placeToSpawnBaby);
+					foreach (Penguin peng in gameManager.penguins)
+					{
+						if (peng.upgradeLevel >= bestPeng.upgradeLevel && (peng.upgradePath == 2 || peng.upgradePath == 3))
+						{
+							bestPeng = this;
+						}
+					}
+					tempObject.GetComponent<BabyPenguin>().SetStatsPerma(bestPeng);
+					return;
+				}
+			}
+		}
+        else
+        {
+			permaPeng.IncreaseStats();
+        }
 	}
 	public void UltraPeck()
 	{
-
+		Invoke("ReDoUltraPeck", 30);
+		fireRate = 6f;
+		Invoke("StopUltraPeck", 10);
 	}
+	void StopUltraPeck()
+    {
+		fireRate = 2.25f;
+    }
 	public void ReDoHaveChild1()
     {
 		gameManager.haveChild1.Add(this);
