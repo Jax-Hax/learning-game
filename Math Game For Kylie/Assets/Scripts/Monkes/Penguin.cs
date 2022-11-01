@@ -397,7 +397,21 @@ public class Penguin : MonoBehaviour
 				return;
 			}
 		}
+		//Invoke("CheckForChild1",0.5f);
 	}
+    /*void CheckForChild1()
+    {
+		hitColliders = Physics2D.OverlapCircleAll(transform.position, range, mask);
+		foreach (Collider2D col in hitColliders)
+		{
+			if (col.CompareTag("penguin") && gameObject != col.gameObject)
+			{
+				tempObject = Instantiate(babyPenguin, new Vector3(transform.position.x + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f)), Quaternion.identity, placeToSpawnBaby);
+				tempObject.GetComponent<BabyPenguin>().SetStats(this);
+				return;
+			}
+		}
+	}*/
 	public void HaveChild2()
 	{
 		Invoke("ReDoHaveChild2", 45);
@@ -419,6 +433,7 @@ public class Penguin : MonoBehaviour
 				return;
 			}
 		}
+		//Invoke("CheckForChild2", 0.5f);
 	}
 	public void HaveChild3()
 	{
@@ -443,6 +458,7 @@ public class Penguin : MonoBehaviour
 					return;
 				}
 			}
+			//Invoke("CheckForChild3", 0.5f);
 		}
         else
         {

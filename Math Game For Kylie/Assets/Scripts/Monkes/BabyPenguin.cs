@@ -36,7 +36,6 @@ public class BabyPenguin : MonoBehaviour
 	bool canPopBlack;
 	bool canPopOrange;
 	bool canPopPurple;
-	bool extraDamage;
 	private BloonCode bloonCode;
 	private Image rangeImg;
 	bool isFastChecking = false;
@@ -50,7 +49,6 @@ public class BabyPenguin : MonoBehaviour
 		canPopBlack = false;
 		canPopOrange = false;
 		canPopPurple = false;
-		extraDamage = false;
 		rangeImg.enabled = false;
 		gameManager = GameManager.SharedInstance;
 		StartCoroutine(UpdatePlantTarget());
@@ -128,10 +126,7 @@ public class BabyPenguin : MonoBehaviour
 	}
 	private void OnMouseUp()
 	{
-		if (gameManager.upgrades.activeSelf == false)
-		{
-			rangeImg.enabled = false;
-		}
+		rangeImg.enabled = false;
 	}
 	void Shoot()
 	{
@@ -145,7 +140,7 @@ public class BabyPenguin : MonoBehaviour
 			}
 			bloonCode.RemoveHealth(damage, canSeeCamo, canPopBlack, canPopLead, canPopOrange, canPopPurple, canPopWhite);
 			popCount += damage;
-			anim.Play("Shoot");
+			//anim.Play("Shoot");
 		}
 	}
 	public void SetStats(Penguin statBruh)
