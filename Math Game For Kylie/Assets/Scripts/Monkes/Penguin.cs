@@ -184,7 +184,7 @@ public class Penguin : MonoBehaviour
 
 	void LockOnTarget()
 	{
-		WaitForSeconds timeToWait1 = new WaitForSeconds(0.3f);
+		timeToWait1 = new WaitForSeconds(0.3f);
 		if (target != null)
 		{
 			transform.up = target.position - transform.position;
