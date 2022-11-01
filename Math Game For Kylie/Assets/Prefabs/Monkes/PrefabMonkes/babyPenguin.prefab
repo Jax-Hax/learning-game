@@ -30,7 +30,9 @@ GameObject:
   - component: {fileID: 1822527282324212686}
   - component: {fileID: 4670358646214391113}
   - component: {fileID: 9159147513494440692}
-  m_Layer: 6
+  - component: {fileID: 4071795699781216589}
+  - component: {fileID: 1606418575370356384}
+  m_Layer: 9
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,6 +96,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4071795699781216589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4114102586055542340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90393eb14f2ac454784e30554d09e463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeList: []
+  notActiveList: []
+--- !u!58 &1606418575370356384
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4114102586055542340}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.09682655, y: 0}
+  serializedVersion: 2
+  m_Radius: 49.3891
 --- !u!1 &8047437272294827268
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,6 +212,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6709d0f8617f2c46a41f7735eb991b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pengNorm: {fileID: 0}
+  pengStrong: {fileID: 0}
+  pengPerma: {fileID: 0}
+  rangeObj: {fileID: 4071795699781216589}
   range: 1.35
   targeting: close
   fireRate: 0.75
@@ -189,6 +225,7 @@ MonoBehaviour:
   penguinObject: {fileID: 0}
   anim: {fileID: 303630575}
   rangeObject: {fileID: 4114102586055542340}
+  damage: 1
   mask:
     serializedVersion: 2
     m_Bits: 64

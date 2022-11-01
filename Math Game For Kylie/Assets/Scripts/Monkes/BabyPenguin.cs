@@ -10,7 +10,7 @@ public class BabyPenguin : MonoBehaviour
 	public Sprite pengNorm;
 	public Sprite pengStrong;
 	public Sprite pengPerma;
-
+	public Range rangeObj;
 	[Header("General")]
 
 	public float range = 1.35f;
@@ -57,7 +57,7 @@ public class BabyPenguin : MonoBehaviour
 		{
 			if (gameManager.enemies.Count != 0)
 			{
-				GameObject enemy = gameManager.GetEnemy(range, targeting, gameObject.transform);
+				GameObject enemy = GetEnemy();
 				if (enemy != null)
 				{
 					target = enemy.transform;
@@ -70,6 +70,68 @@ public class BabyPenguin : MonoBehaviour
 			}
 			yield return timeToWait1;
 		}
+	}
+	GameObject GetEnemy()
+	{
+		if (targeting.Equals("close"))
+		{
+			float shortestDistance = Mathf.Infinity;
+			GameObject nearestEnemy = null;
+			foreach (GameObject enemy in rangeObj.activeList)
+			{
+				float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+				if (distanceToEnemy < shortestDistance)
+				{
+					shortestDistance = distanceToEnemy;
+					nearestEnemy = enemy;
+				}
+			}
+
+			if (nearestEnemy != null && shortestDistance <= range)
+			{
+				return nearestEnemy;
+			}
+			else
+			{
+				return null;
+			}
+		}
+		else if (targeting.Equals("strong"))
+		{
+			int strongest = 0;
+			GameObject bestEnemy = null;
+			int enemyHealth = 0;
+			foreach (GameObject enemy in rangeObj.activeList)
+			{
+				float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+				if (distanceToEnemy <= range)
+				{
+					enemyHealth = enemy.GetComponent<BloonCode>().health;
+					if (enemyHealth >= strongest)
+					{
+						bestEnemy = enemy;
+						strongest = enemyHealth;
+					}
+				}
+			}
+			if (bestEnemy != null)
+			{
+				return bestEnemy;
+			}
+			else
+			{
+				return null;
+			}
+		}
+		else if (targeting.Equals("first"))
+		{
+			return rangeObj.activeList[0];
+		}
+		else if (targeting.Equals("last"))
+		{
+			return rangeObj.activeList[rangeObj.activeList.Count - 1];
+		}
+		return null;
 	}
 	public void HideRange()
 	{

@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Penguin : MonoBehaviour
 {
 	private Transform target;
 	private BloonCode enemyScript;
-
+	public Range rangeObj;
 	[Header("General")]
 
 	public float range = 1.35f;
-	public string targeting = "close";
+	public string targeting = "first";
 
 	public float fireRate = 0.75f;
 	private float fireCountdown = 0f;
@@ -42,9 +43,12 @@ public class Penguin : MonoBehaviour
 	private Transform placeToSpawnBaby;
 	private BabyPenguin permaPeng;
 	private int stunBloons;
+	private Image rangeImg;
+	bool isFastChecking = false;
 	// Use this for initialization
 	void Start()
 	{
+		rangeImg = rangeObject.GetComponent<Image>();
 		stunBloons = 0;
 		canSeeCamo = false;
 		canPopWhite = false;
@@ -53,7 +57,7 @@ public class Penguin : MonoBehaviour
 		canPopOrange = false;
 		canPopPurple = false;
 		extraDamage = false;
-		rangeObject.SetActive(false);
+		rangeImg.enabled = false;
 		gameManager = GameManager.SharedInstance;
 		gameManager.penguins.Add(this);
 		upgradeMenu = GameObject.FindGameObjectWithTag("UpgradeMenu");
@@ -64,10 +68,18 @@ public class Penguin : MonoBehaviour
 	IEnumerator UpdatePlantTarget()
     {
         while (!gameManager.won)
-        {
+		{
 			if (gameManager.enemies.Count != 0)
 			{
-				GameObject enemy = gameManager.GetEnemy(range, targeting, gameObject.transform);
+                if (isFastChecking)
+                {
+					if(rangeObj.activeList.Count >= 1)
+                    {
+						target = rangeObj.activeList[0].transform;
+						enemyScript = rangeObj.activeList[0].GetComponent<BloonCode>();
+					}
+                }
+				GameObject enemy = GetEnemy();
 				if (enemy != null)
 				{
 					target = enemy.transform;
@@ -76,37 +88,97 @@ public class Penguin : MonoBehaviour
 				else
 				{
 					target = null;
+					enemyScript = null;
 				}
 			}
 			yield return timeToWait1;
 		}
 	}
+	GameObject GetEnemy()
+	{
+		if (targeting.Equals("close"))
+		{
+			float shortestDistance = Mathf.Infinity;
+			GameObject nearestEnemy = null;
+			foreach (GameObject enemy in rangeObj.activeList)
+			{
+				float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+				if (distanceToEnemy < shortestDistance)
+				{
+					shortestDistance = distanceToEnemy;
+					nearestEnemy = enemy;
+				}
+			}
+
+			if (nearestEnemy != null && shortestDistance <= range)
+			{
+				return nearestEnemy;
+			}
+			else
+			{
+				return null;
+			}
+		}
+		else if (targeting.Equals("strong"))
+		{
+			int strongest = 0;
+			GameObject bestEnemy = null;
+			int enemyHealth = 0;
+			foreach (GameObject enemy in rangeObj.activeList)
+			{
+				float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+				if (distanceToEnemy <= range)
+				{
+					enemyHealth = enemy.GetComponent<BloonCode>().health;
+					if (enemyHealth >= strongest)
+					{
+						bestEnemy = enemy;
+						strongest = enemyHealth;
+					}
+				}
+			}
+			if (bestEnemy != null)
+			{
+				return bestEnemy;
+			}
+			else
+			{
+				return null;
+			}
+		}
+		else if (targeting.Equals("first"))
+		{
+			return rangeObj.activeList[0];
+		}
+		else if (targeting.Equals("last"))
+		{
+			return rangeObj.activeList[rangeObj.activeList.Count - 1];
+		}
+		return null;
+	}
 	public void HideRange()
     {
-		rangeObject.SetActive(false);
+		rangeImg.enabled = false;
 	}
 	public void ShowRange()
     {
-		rangeObject.SetActive(true);
-    }
-	// Update is called once per frame
-	void FixedUpdate()
+		rangeImg.enabled = true;
+	}
+    // Update is called once per frame
+    void FixedUpdate()
 	{
-		if (target == null)
-		{
-			return;
-		}
 		if (fireCountdown <= 0f && target != null)
 		{
 			LockOnTarget();
 			Shoot();
 			fireCountdown = 0.6525f / fireRate;
+			isFastChecking = false;
 		}
 		else if (fireCountdown <= 0f)
         {
 			timeToWait1 = new WaitForSeconds(0.05f);
+			isFastChecking = true;
 		}
-
 		fireCountdown -= Time.deltaTime;
 	}
 
@@ -120,13 +192,13 @@ public class Penguin : MonoBehaviour
 	}
     private void OnMouseDown()
     {
-		rangeObject.SetActive(true);
-    }
+		rangeImg.enabled = true;
+	}
     private void OnMouseUp()
     {
         if(gameManager.upgrades.activeSelf == false)
         {
-			rangeObject.SetActive(false);
+			rangeImg.enabled = false;
         }
     }
     void Shoot()
@@ -134,6 +206,11 @@ public class Penguin : MonoBehaviour
 		if(target != null)
         {
 			bloonCode = enemyScript;
+			if(bloonCode.gameObject.activeSelf == false)
+            {
+				target = null;
+				return;
+            }
 			if (extraDamage)
 			{
 				bloonCode.RemoveHealth(damage, canSeeCamo, canPopBlack, canPopLead, canPopOrange, canPopPurple, canPopWhite);
@@ -277,7 +354,7 @@ public class Penguin : MonoBehaviour
 	{
 		upgradeScript.CloseUpgrades();
 		upgradeScript.penguin = this;
-		rangeObject.SetActive(true);
+		rangeImg.enabled = true;
 		upgradeScript.OpenMenu("penguin", upgradeLevel, upgradePath, "First", penguinObject, popCount);
 	}
 	void OnDrawGizmosSelected()

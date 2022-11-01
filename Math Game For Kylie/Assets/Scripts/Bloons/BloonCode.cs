@@ -74,6 +74,7 @@ public class BloonCode : MonoBehaviour
         {
             gameManager.UpdateHealth(-damageBloonDoesToLives);
             gameManager.enemies.Remove(gameObject);
+            gameManager.RemoveBloonFromRange(gameObject);
             gameObject.SetActive(false);
         }
     }

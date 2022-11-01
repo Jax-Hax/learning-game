@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
     private float amToGoDownPerTime;
     public GameObject WinningObject;
     public GameObject LosingObject;
+    public List<Range> ranges = new List<Range>();
 
     //Abilities
     //Penguin
@@ -485,66 +486,12 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-    public GameObject GetEnemy(float range, string targeting, Transform transform)
+    public void RemoveBloonFromRange(GameObject bloon)
     {
-        if (targeting == "close")
+        foreach(Range range in ranges)
         {
-            float shortestDistance = Mathf.Infinity;
-            GameObject nearestEnemy = null;
-            foreach (GameObject enemy in enemies)
-            {
-                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-                if (distanceToEnemy < shortestDistance)
-                {
-                    shortestDistance = distanceToEnemy;
-                    nearestEnemy = enemy;
-                }
-            }
-
-            if (nearestEnemy != null && shortestDistance <= range)
-            {
-                return nearestEnemy;
-            }
-            else
-            {
-                return null;
-            }
+            range.activeList.Remove(bloon);
+            range.notActiveList.Remove(bloon);
         }
-        else if(targeting == "strong")
-        {
-            int strongest = 0;
-            GameObject bestEnemy = null;
-            int enemyHealth = 0;
-            foreach (GameObject enemy in enemies)
-            {
-                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-                if (distanceToEnemy <= range)
-                {
-                    enemyHealth = enemy.GetComponent<BloonCode>().health;
-                    if (enemyHealth >= strongest)
-                    {
-                        bestEnemy = enemy;
-                        strongest = enemyHealth;
-                    }
-                }
-            }
-            if (bestEnemy != null)
-            {
-                return bestEnemy;
-            }
-            else
-            {
-                return null;
-            }
-        }
-        else if (targeting == "first")
-        {
-
-        }
-        else if (targeting == "last")
-        {
-
-        }
-        return null;
     }
 }
