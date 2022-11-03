@@ -74,6 +74,9 @@ public class GameManager : MonoBehaviour
     //Abilities
     //Penguin
     public List<Penguin> penguins = new List<Penguin>();
+    bool penguinT5p1 = false;
+    bool penguinT5p2 = false;
+    bool penguinT5p3 = false;
     [HideInInspector]
     public List<Penguin> haveChild1 = new List<Penguin>();
     public GameObject haveChild1Button;
