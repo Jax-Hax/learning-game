@@ -50,6 +50,7 @@ public class BabyPenguin : MonoBehaviour
 		canPopOrange = false;
 		canPopPurple = false;
 		rangeImg.enabled = false;
+
 		gameManager = GameManager.SharedInstance;
 		StartCoroutine(UpdatePlantTarget());
 	}
@@ -135,12 +136,12 @@ public class BabyPenguin : MonoBehaviour
 			bloonCode = enemyScript;
 			if (bloonCode.gameObject.activeSelf == false)
 			{
-				target = null;
+				target = null;	
 				return;
 			}
 			bloonCode.RemoveHealth(damage, canSeeCamo, canPopBlack, canPopLead, canPopOrange, canPopPurple, canPopWhite);
 			popCount += damage;
-			//anim.Play("Shoot");
+			anim.Play("babypenguin");
 		}
 	}
 	public void SetStats(Penguin statBruh)
