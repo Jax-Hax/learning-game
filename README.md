@@ -1,3 +1,2 @@
 # learning-game
-Stuff To Work On:
-Currently adding the check right answer thing finish that
+An educational tower defense game where you make your own flash cards! Still a work in progress.
